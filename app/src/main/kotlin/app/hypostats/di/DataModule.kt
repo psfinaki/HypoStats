@@ -1,0 +1,50 @@
+package app.hypostats.di
+
+import android.content.Context
+import androidx.room.Room
+import app.hypostats.data.Repository
+import app.hypostats.data.RoomRepository
+import app.hypostats.data.local.AppDataStore
+import app.hypostats.data.local.PreferencesAppDataStore
+import app.hypostats.data.local.HypoStatsDatabase
+import app.hypostats.data.local.TreatmentDao
+import dagger.Binds
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class DataModule {
+
+    @Binds
+    abstract fun bindRepository(
+        roomRepository: RoomRepository
+    ): Repository
+    
+    companion object {
+        @Provides
+        @Singleton
+        fun provideDatabase(@ApplicationContext context: Context): HypoStatsDatabase {
+            return Room.databaseBuilder(
+                context,
+                HypoStatsDatabase::class.java,
+                "hypostats_database"
+            ).build()
+        }
+        
+        @Provides
+        fun provideTreatmentDao(database: HypoStatsDatabase): TreatmentDao {
+            return database.treatmentDao()
+        }
+        
+        @Provides
+        @Singleton
+        fun provideAppDataStore(@ApplicationContext context: Context): AppDataStore {
+            return PreferencesAppDataStore(context)
+        }
+    }
+}

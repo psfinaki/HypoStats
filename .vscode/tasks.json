@@ -1,0 +1,52 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": [ "assembleDebug", "compileDebugUnitTestKotlin" ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Clean",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": [ "clean" ],
+      "group": "build"
+    },
+    {
+      "label": "Install",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": [ "installDebug" ],
+      "group": "build",
+      "dependsOn": "Build Debug APK"
+    },
+    {
+      "label": "Uninstall",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": [ "uninstallDebug" ],
+      "group": "build"
+    },
+    {
+      "label": "Reinstall",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": [ "uninstallDebug", "installDebug" ],
+      "group": "build",
+      "dependsOn": "Build Debug APK"
+    },
+    {
+      "label": "Run Tests",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": [ "test" ],
+      "group": "test"
+    }
+  ]
+}
