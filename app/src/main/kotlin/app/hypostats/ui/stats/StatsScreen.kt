@@ -20,23 +20,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.hypostats.R
+import app.hypostats.domain.model.Stats
 
 @Composable
 fun StatsScreen(viewModel: StatsViewModel = hiltViewModel()) {
-
     val stats by viewModel.stats.collectAsStateWithLifecycle()
 
-    val statsText = if (stats.treatments.isEmpty()) {
-        stringResource(R.string.no_treatments_recorded_yet)
-    } else {
-        """
-     ${stringResource(R.string.total_episodes, stats.totalEpisodes)}
-     ${stringResource(R.string.period_days, stats.daySpan)}
-     """.trimIndent()
-    }
-
     StatsLayout {
-        BasicStatisticsCard(statsText)
+        BasicStatisticsCard(stats)
     }
 }
 
@@ -53,28 +44,42 @@ private fun StatsLayout(content: @Composable ColumnScope.() -> Unit) {
 }
 
 @Composable
-private fun BasicStatisticsCard(stats: String) {
+private fun BasicStatisticsCard(stats: Stats) {
     Card(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(text = stats)
+        if (stats.treatments.isEmpty()) {
+            Text(
+                text = stringResource(R.string.no_treatments_recorded_yet),
+                modifier = Modifier.padding(16.dp)
+            )
+        } else {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(text = stringResource(R.string.total_episodes, stats.totalEpisodes))
+                Text(text = stringResource(R.string.period_days, stats.daySpan))
+            }
         }
     }
 }
 
-// Preview functions
 @Preview(showBackground = true)
 @Composable
 private fun BasicStatisticsCardPreview() {
     MaterialTheme {
         BasicStatisticsCard(
-            stats = """
-                Total Episodes: 5
-                Period: 42 days
-            """.trimIndent()
+            stats = Stats(
+                totalEpisodes = 5,
+                daySpan = 42,
+                treatments = listOf(
+                    app.hypostats.domain.model.Treatment(
+                        timestamp = java.time.Instant.now(),
+                        sugarAmount = 15
+                    )
+                )
+            )
         )
     }
 }
@@ -83,6 +88,6 @@ private fun BasicStatisticsCardPreview() {
 @Composable
 private fun BasicStatisticsCardEmptyPreview() {
     MaterialTheme {
-        BasicStatisticsCard(stats = "No treatments recorded yet.")
+        BasicStatisticsCard(stats = Stats())
     }
 }
