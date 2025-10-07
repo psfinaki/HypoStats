@@ -2,11 +2,12 @@ package app.hypostats.ui.log
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -21,6 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.hypostats.R
 import app.hypostats.domain.model.Treatment
+import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
@@ -30,16 +32,21 @@ fun LogScreen(
 ) {
     val treatments by viewModel.treatments.collectAsStateWithLifecycle()
     
-    LazyColumn(
+    LogLayout {
+        TreatmentLogCard(treatments)
+    }
+}
+
+@Composable
+private fun LogLayout(content: @Composable ColumnScope.() -> Unit) {
+    Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        item {
-            TreatmentLogCard(treatments)
-        }
-    }
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        content = content
+    )
 }
 
 @Composable
@@ -84,15 +91,15 @@ private fun TreatmentLogCardPreview() {
         TreatmentLogCard(
             treatments = listOf(
                 Treatment(
-                    timestamp = java.time.Instant.ofEpochMilli(1727280615000), // 25/09/25 14:30:15
+                    timestamp = Instant.ofEpochMilli(1727280615000), // 25/09/25 14:30:15
                     sugarAmount = 15
                 ),
                 Treatment(
-                    timestamp = java.time.Instant.ofEpochMilli(1727194522000), // 24/09/25 09:45:22
+                    timestamp = Instant.ofEpochMilli(1727194522000), // 24/09/25 09:45:22
                     sugarAmount = 10
                 ),
                 Treatment(
-                    timestamp = java.time.Instant.ofEpochMilli(1727110810000), // 23/09/25 16:20:10
+                    timestamp = Instant.ofEpochMilli(1727110810000), // 23/09/25 16:20:10
                     sugarAmount = 20
                 )
             )
@@ -105,5 +112,18 @@ private fun TreatmentLogCardPreview() {
 private fun TreatmentLogCardEmptyPreview() {
     MaterialTheme {
         TreatmentLogCard(treatments = emptyList())
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TreatmentItemPreview() {
+    MaterialTheme {
+        TreatmentItem(
+            treatment = Treatment(
+                timestamp = Instant.ofEpochMilli(1727280615000), // 25/09/25 14:30:15
+                sugarAmount = 15
+            )
+        )
     }
 }

@@ -1,7 +1,9 @@
 package app.hypostats.ui.settings
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,9 +28,22 @@ import app.hypostats.ui.model.AppLanguage
 fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     
-    SettingsScreenContent(
-        selectedLanguage = state.selectedLanguage,
-        onLanguageSelected = viewModel::selectLanguage
+    SettingsLayout {
+        SettingsScreenContent(
+            selectedLanguage = state.selectedLanguage,
+            onLanguageSelected = viewModel::selectLanguage
+        )
+    }
+}
+
+@Composable
+private fun SettingsLayout(content: @Composable ColumnScope.() -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        content = content
     )
 }
 
@@ -37,11 +52,7 @@ private fun SettingsScreenContent(
     selectedLanguage: AppLanguage,
     onLanguageSelected: (AppLanguage) -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
+    Column {
         Text(
             text = stringResource(R.string.language),
             style = MaterialTheme.typography.titleLarge,
@@ -100,11 +111,35 @@ private fun LanguageOption(
 
 @Preview(showBackground = true)
 @Composable
-private fun SettingsScreenPreview() {
+private fun SettingsScreenContentPreview() {
     MaterialTheme {
         SettingsScreenContent(
             selectedLanguage = AppLanguage.ENGLISH,
             onLanguageSelected = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun LanguageOptionSelectedPreview() {
+    MaterialTheme {
+        LanguageOption(
+            label = "English",
+            selected = true,
+            onClick = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun LanguageOptionUnselectedPreview() {
+    MaterialTheme {
+        LanguageOption(
+            label = "Čeština",
+            selected = false,
+            onClick = { }
         )
     }
 }
