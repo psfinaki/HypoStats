@@ -33,4 +33,5 @@
     <string name="language_system">System Default</string>
     <string name="language_english">English</string>
     <string name="language_czech">Čeština (Czech)</string>
+    <string name="current_streak">Current streak (no hypo): %1$d days</string>
 </resources>
