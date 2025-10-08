@@ -60,6 +60,7 @@ private fun BasicStatisticsCard(stats: Stats) {
             ) {
                 Text(text = stringResource(R.string.total_episodes, stats.totalEpisodes))
                 Text(text = stringResource(R.string.period_days, stats.daySpan))
+                Text(text = stringResource(R.string.current_streak, stats.currentStreak))
             }
         }
     }
@@ -73,6 +74,7 @@ private fun BasicStatisticsCardPreview() {
             stats = Stats(
                 totalEpisodes = 5,
                 daySpan = 42,
+                currentStreak = 2,
                 treatments = listOf(
                     app.hypostats.domain.model.Treatment(
                         timestamp = java.time.Instant.now(),

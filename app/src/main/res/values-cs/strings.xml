@@ -33,4 +33,5 @@
     <string name="language_system">Systémový</string>
     <string name="language_english">English (Angličtina)</string>
     <string name="language_czech">Čeština</string>
+    <string name="current_streak">Současná řáda (bez hypo): %1$d dní</string>
 </resources>
