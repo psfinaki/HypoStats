@@ -90,6 +90,6 @@ private fun BasicStatisticsCardPreview() {
 @Composable
 private fun BasicStatisticsCardEmptyPreview() {
     MaterialTheme {
-        BasicStatisticsCard(stats = Stats())
+        BasicStatisticsCard(stats = Stats.Empty)
     }
 }

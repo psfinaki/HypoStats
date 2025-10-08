@@ -1,8 +1,17 @@
 package app.hypostats.domain.model
 
 data class Stats(
-    val totalEpisodes: Int = 0,
-    val daySpan: Int = 0,
-    val currentStreak: Int = 0,
-    val treatments: List<Treatment> = emptyList()
-)
+    val totalEpisodes: Int,
+    val daySpan: Int,
+    val currentStreak: Int,
+    val treatments: List<Treatment>
+) {
+    companion object {
+        val Empty = Stats(
+            totalEpisodes = 0,
+            daySpan = 0,
+            currentStreak = 0,
+            treatments = emptyList()
+        )
+    }
+}

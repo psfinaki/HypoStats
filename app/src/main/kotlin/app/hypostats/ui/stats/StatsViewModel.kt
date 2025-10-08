@@ -37,7 +37,7 @@ class StatsViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,
-            initialValue = Stats()
+            initialValue = Stats.Empty
         )
 
     private fun calculateCurrentStreak(treatments: List<Treatment>, appStartDate: Instant?): Int {
