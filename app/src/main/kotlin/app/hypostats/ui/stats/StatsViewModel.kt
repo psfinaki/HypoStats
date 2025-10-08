@@ -48,7 +48,7 @@ class StatsViewModel @Inject constructor(
         val end = Instant.now(clock)
         val start = if (treatments.isEmpty()) appStartDate else treatments.first().timestamp
 
-        var daysDifference = ChronoUnit.DAYS.between(start, end)
+        val daysDifference = ChronoUnit.DAYS.between(start, end)
         return (daysDifference + 1).toInt()
     }
 
