@@ -48,20 +48,13 @@ private fun BasicStatisticsCard(stats: Stats) {
     Card(
         modifier = Modifier.fillMaxWidth()
     ) {
-        if (stats.treatments.isEmpty()) {
-            Text(
-                text = stringResource(R.string.no_treatments_recorded_yet),
-                modifier = Modifier.padding(16.dp)
-            )
-        } else {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Text(text = stringResource(R.string.total_episodes, stats.totalEpisodes))
-                Text(text = stringResource(R.string.period_days, stats.daySpan))
-                Text(text = stringResource(R.string.current_streak, stats.currentStreak))
-            }
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(text = stringResource(R.string.total_episodes, stats.totalEpisodes))
+            Text(text = stringResource(R.string.period_days, stats.daySpan))
+            Text(text = stringResource(R.string.current_streak, stats.currentStreak))
         }
     }
 }
