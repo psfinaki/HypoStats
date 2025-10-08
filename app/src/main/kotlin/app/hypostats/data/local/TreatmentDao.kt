@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TreatmentDao {
     
-    @Query("SELECT * FROM treatments ORDER BY timestamp DESC")
+    @Query("SELECT * FROM treatments ORDER BY timestamp")
     fun getAll(): Flow<List<TreatmentEntity>>
     
     @Insert
