@@ -15,10 +15,10 @@
     <string name="eat_5g_sugar">Eat 5g sugar</string>
     <string name="no_treatments_recorded_yet">No treatments recorded yet.</string>
     <string name="reset">Reset</string>
-    <string name="submit_treatment">Submit Treatment</string>
+    <string name="submit_treatment">Submit treatment</string>
     <string name="treatment_saved">Treatment saved</string>
     <string name="g_sugar">%1$dg sugar</string>
-    <string name="total_episodes">Total Episodes: %1$d</string>
+    <string name="total_episodes">Total episodes: %1$d</string>
     <string name="period_days">Period: %1$d days</string>
     <string name="treatment_entry">%1$s - %2$dg sugar</string>
     <string name="submit_hypo">Submit a hypo episode</string>
@@ -30,7 +30,7 @@
     
     <!-- Settings -->
     <string name="language">Language</string>
-    <string name="language_system">System Default</string>
+    <string name="language_system">System default</string>
     <string name="language_english">English</string>
     <string name="language_czech">Čeština (Czech)</string>
     <string name="current_streak">Current streak (no hypo): %1$d days</string>
