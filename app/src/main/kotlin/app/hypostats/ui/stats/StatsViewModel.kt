@@ -31,7 +31,6 @@ class StatsViewModel @Inject constructor(
             totalEpisodes = treatments.size,
             daySpan = calculateDaySpan(appStartDate),
             currentStreak = calculateCurrentStreak(treatments, appStartDate),
-            treatments = treatments
         )
     }
         .stateIn(

@@ -68,12 +68,6 @@ private fun BasicStatisticsCardPreview() {
                 totalEpisodes = 5,
                 daySpan = 42,
                 currentStreak = 2,
-                treatments = listOf(
-                    app.hypostats.domain.model.Treatment(
-                        timestamp = java.time.Instant.now(),
-                        sugarAmount = 15
-                    )
-                )
             )
         )
     }
