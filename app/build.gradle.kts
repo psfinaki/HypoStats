@@ -13,8 +13,19 @@ android {
         applicationId = "app.hypostats"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
+        versionCode = 4
         versionName = "0.4.2-dev"
+    }
+    
+    buildTypes {
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
     }
     
     buildFeatures {
