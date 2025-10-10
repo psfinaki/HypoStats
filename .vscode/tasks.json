@@ -12,6 +12,13 @@
       }
     },
     {
+      "label": "Build Release",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": [ "assembleRelease" ],
+      "group": "build"
+    },
+    {
       "label": "Clean",
       "type": "shell",
       "command": "./gradlew",
