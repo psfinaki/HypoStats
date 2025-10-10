@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "app.hypostats"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "app.hypostats"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "0.4.2-dev"
     }
