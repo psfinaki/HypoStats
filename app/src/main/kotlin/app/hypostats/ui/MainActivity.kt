@@ -1,5 +1,6 @@
 package app.hypostats.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.DrawerValue
@@ -42,6 +44,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -55,6 +58,7 @@ import app.hypostats.ui.settings.SettingsScreen
 import app.hypostats.ui.stats.StatsScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import androidx.core.net.toUri
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -155,6 +159,8 @@ private fun DrawerContent(
     onDestinationSelected: (DrawerDestination) -> Unit,
     onCloseDrawer: () -> Unit
 ) {
+    val context = LocalContext.current
+    
     ModalDrawerSheet {
         Column {
             DrawerNavigationItem(
@@ -180,6 +186,22 @@ private fun DrawerContent(
                 selectedDestination = selectedDestination,
                 onDestinationSelected = onDestinationSelected,
                 onCloseDrawer = onCloseDrawer
+            )
+            NavigationDrawerItem(
+                icon = { 
+                    Icon(
+                        imageVector = Icons.Default.Lock,
+                        contentDescription = context.getString(R.string.nav_privacy)
+                    ) 
+                },
+                label = { Text(context.getString(R.string.nav_privacy)) },
+                selected = false,
+                onClick = {
+                    val intent = Intent(Intent.ACTION_VIEW,
+                        "https://github.com/psfinaki/HypoStats/blob/main/PRIVACY.md".toUri())
+                    context.startActivity(intent)
+                    onCloseDrawer()
+                }
             )
         }
     }

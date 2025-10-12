@@ -9,6 +9,7 @@
     <string name="nav_home">Home</string>
     <string name="nav_log">Treatment Log</string>
     <string name="nav_settings">Settings</string>
+    <string name="nav_privacy">Privacy Policy</string>
     <string name="open_menu">Open menu</string>
     
     <!-- Content -->
