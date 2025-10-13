@@ -23,7 +23,7 @@ android {
         applicationId = "app.hypostats"
         minSdk = 26
         targetSdk = 35
-        versionCode = 4
+        versionCode = 5
         versionName = "0.4.2-dev"
     }
     
