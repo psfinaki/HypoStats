@@ -12,13 +12,6 @@
       }
     },
     {
-      "label": "Build Release",
-      "type": "shell",
-      "command": "./gradlew",
-      "args": [ "assembleRelease" ],
-      "group": "build"
-    },
-    {
       "label": "Install Debug",
       "type": "shell",
       "command": "./gradlew",
@@ -33,11 +26,11 @@
       "group": "build"
     },
     {
-      "label": "Run Tests",
+      "label": "Build Release",
       "type": "shell",
       "command": "./gradlew",
-      "args": [ "test" ],
-      "group": "test"
+      "args": [ "assembleRelease" ],
+      "group": "build"
     },
     {
       "label": "Install Release",
@@ -45,6 +38,20 @@
       "command": "./gradlew",
       "args": [ "installRelease" ],
       "group": "build"
+    },
+    {
+      "label": "Bundle Release",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": [ "bundleRelease" ],
+      "group": "build"
+    },
+    {
+      "label": "Run Tests",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": [ "test" ],
+      "group": "test"
     }
   ]
 }
