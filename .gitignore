@@ -13,4 +13,6 @@ local.properties
 .vscode/
 
 # Project-specific
-.github/
+.github/chatmodes
+.github/instructions
+.github/prompts
