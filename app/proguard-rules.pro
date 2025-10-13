@@ -1,13 +1,15 @@
-# Keep Room entities and DAOs
+# Keep app-specific classes
 -keep class app.hypostats.data.local.** { *; }
-
-# Keep domain models
 -keep class app.hypostats.domain.model.** { *; }
 
-# Keep Hilt generated classes
+# Keep DI framework classes
 -keep class dagger.hilt.** { *; }
 -keep class javax.inject.** { *; }
--keep class * extends dagger.hilt.internal.GeneratedComponent { *; }
+
+# Keep Jetpack Compose and dependencies
+-keep class androidx.compose.** { *; }
+-keep class androidx.lifecycle.** { *; }
+-keep class androidx.navigation.** { *; }
 
 # Keep line numbers for crash reports
 -keepattributes SourceFile,LineNumberTable
