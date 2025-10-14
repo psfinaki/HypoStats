@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase
 @Database(
     entities = [TreatmentEntity::class],
     version = 1,
-    exportSchema = false
+    exportSchema = true
 )
 abstract class HypoStatsDatabase : RoomDatabase() {
     abstract fun treatmentDao(): TreatmentDao

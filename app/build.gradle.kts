@@ -6,6 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
+    id("androidx.room")
 }
 
 val keystorePropertiesFile = rootProject.file("local.properties")
@@ -25,6 +26,10 @@ android {
         targetSdk = 35
         versionCode = 5
         versionName = "0.4.2-dev"
+    }
+    
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
     
     signingConfigs {
