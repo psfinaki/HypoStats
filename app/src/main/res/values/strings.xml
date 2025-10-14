@@ -19,7 +19,7 @@
     <string name="submit_treatment">Submit treatment</string>
     <string name="treatment_saved">Treatment saved</string>
     <string name="g_sugar">%1$dg sugar</string>
-    <string name="total_episodes">Total episodes: %1$d</string>
+    <string name="total_episodes">Total hypos: %1$d</string>
     <string name="period_days">Period: %1$d days</string>
     <string name="treatment_entry">%1$s - %2$dg sugar</string>
     <string name="submit_hypo">Submit a hypo episode</string>

@@ -19,7 +19,7 @@
     <string name="submit_treatment">Zapsat hypo</string>
     <string name="treatment_saved">Hypo uloženo</string>
     <string name="g_sugar">%1$dg cukru</string>
-    <string name="total_episodes">Celkový počet epizod: %1$d</string>
+    <string name="total_episodes">Celkový počet hypo: %1$d</string>
     <string name="period_days">Období: %1$d dní</string>
     <string name="treatment_entry">%1$s - %2$dg cukru</string>
     <string name="submit_hypo">Zaznamenat hypo</string>
