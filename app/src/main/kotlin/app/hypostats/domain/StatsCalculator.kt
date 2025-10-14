@@ -15,4 +15,16 @@ object StatsCalculator {
         val streakStart = if (treatments.isEmpty()) appStart else treatments.last().timestamp
         return calculateDaySpan(streakStart, now)
     }
+
+    fun calculateLongestStreak(treatments: List<Treatment>, appStart: Instant, now: Instant): Int {
+        val dates = buildList {
+            add(appStart)
+            addAll(treatments.map { it.timestamp })
+            add(now)
+        }
+
+        return dates
+            .zipWithNext { start, end -> calculateDaySpan(start, end) }
+            .max()
+    }
 }
