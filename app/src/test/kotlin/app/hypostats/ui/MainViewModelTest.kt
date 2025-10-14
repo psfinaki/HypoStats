@@ -18,6 +18,7 @@ class MainViewModelTest {
     
     @Test
     fun `initial state should have HYPO tab selected`() = runTest {
+        assertEquals(0, 1) // test
         val state = viewModel.state.value
         assertEquals(AppTab.HYPO, state.selectedTab)
     }
