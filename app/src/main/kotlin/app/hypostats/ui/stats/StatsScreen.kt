@@ -55,6 +55,7 @@ private fun BasicStatisticsCard(stats: Stats) {
             Text(text = stringResource(R.string.total_episodes, stats.totalEpisodes))
             Text(text = stringResource(R.string.period_days, stats.daySpan))
             Text(text = stringResource(R.string.current_streak, stats.currentStreak))
+            Text(text = stringResource(R.string.longest_streak, stats.longestStreak))
         }
     }
 }
@@ -68,6 +69,7 @@ private fun BasicStatisticsCardPreview() {
                 totalEpisodes = 5,
                 daySpan = 42,
                 currentStreak = 2,
+                longestStreak = 5,
             )
         )
     }
