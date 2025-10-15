@@ -15,7 +15,7 @@ class StatsCalculatorTest {
     private val jan9evening = Instant.parse("2024-01-09T16:00:00Z")
 
     @Test
-    fun `daySpan calculates days between start and now`() {
+    fun `daySpan calculates days between start and end`() {
         val result = StatsCalculator.calculateDaySpan(jan1, jan8)
         assertEquals(8, result)
     }
