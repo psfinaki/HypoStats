@@ -63,7 +63,7 @@ class StatsCalculatorTest {
     }
     
     @Test
-    fun `longestStreak is works for only one treatment`() {
+    fun `longestStreak works for only one treatment`() {
         val treatments = listOf(
             Treatment(jan5, 10)
         )
