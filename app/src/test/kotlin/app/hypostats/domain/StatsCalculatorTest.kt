@@ -91,7 +91,7 @@ class StatsCalculatorTest {
         // Streaks: jan1->jan7 (7 days), jan7->jan8 (2 days)
         val result = StatsCalculator.calculateLongestStreak(treatments, jan1, jan8)
         assertEquals(7, result)
-    };
+    }
     
     @Test
     fun `longestStreak includes current streak at end`() {
