@@ -1,19 +1,9 @@
-import java.io.FileInputStream
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
-}
-
-val keystorePropertiesFile = rootProject.file("local.properties")
-val keystoreProperties = Properties().apply {
-    if (keystorePropertiesFile.exists()) {
-        load(FileInputStream(keystorePropertiesFile))
-    }
 }
 
 android {
@@ -33,19 +23,19 @@ android {
     }
     
     signingConfigs {
-        if (keystorePropertiesFile.exists()) {
+        if (project.hasProperty("KEYSTORE_FILE")) {
             create("release") {
-                storeFile = file(keystoreProperties["storeFile"] as String)
-                storePassword = keystoreProperties["storePassword"] as String
-                keyAlias = keystoreProperties["keyAlias"] as String
-                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = file(project.property("KEYSTORE_FILE") as String)
+                storePassword = project.property("KEYSTORE_PASSWORD") as String
+                keyAlias = project.property("KEY_ALIAS") as String
+                keyPassword = project.property("KEY_PASSWORD") as String
             }
         }
     }
     
     buildTypes {
         release {
-            if (keystorePropertiesFile.exists()) {
+            if (project.hasProperty("KEYSTORE_FILE")) {
                 signingConfig = signingConfigs.getByName("release")
             }
             isMinifyEnabled = true

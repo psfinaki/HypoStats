@@ -1,0 +1,10 @@
+# To build signed release APKs/AABs, copy this file to ~/.gradle/gradle.properties
+# Fill in your values.
+#
+# These properties are read by the build script during release builds.
+# They should NEVER be committed to version control.
+
+KEYSTORE_FILE=/path/to/your/keystore.jks
+KEYSTORE_PASSWORD=your_keystore_password
+KEY_ALIAS=your_key_alias
+KEY_PASSWORD=your_key_password
