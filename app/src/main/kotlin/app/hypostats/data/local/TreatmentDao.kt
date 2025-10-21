@@ -13,4 +13,10 @@ interface TreatmentDao {
     
     @Insert
     suspend fun insert(treatment: TreatmentEntity)
+    
+    @Insert
+    suspend fun insertAll(treatments: List<TreatmentEntity>)
+    
+    @Query("DELETE FROM treatments")
+    suspend fun deleteAll()
 }
