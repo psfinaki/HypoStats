@@ -17,6 +17,14 @@ class FakeRepository : Repository {
         _treatmentsFlow.value = _treatmentsFlow.value + treatment
     }
     
+    override suspend fun addTreatments(treatments: List<Treatment>) {
+        _treatmentsFlow.value = _treatmentsFlow.value + treatments
+    }
+    
+    override suspend fun deleteAllTreatments() {
+        _treatmentsFlow.value = emptyList()
+    }
+    
     override fun getTrackingStartDate(): Flow<Instant> = _trackingStartDateFlow.asStateFlow()
     
     override suspend fun setTrackingStartDate(startDate: Instant) {

@@ -27,6 +27,15 @@ class RoomRepository @Inject constructor(
         treatmentDao.insert(entity)
     }
     
+    override suspend fun addTreatments(treatments: List<Treatment>) {
+        val entities = treatments.map { TreatmentEntity.fromTreatment(it) }
+        treatmentDao.insertAll(entities)
+    }
+    
+    override suspend fun deleteAllTreatments() {
+        treatmentDao.deleteAll()
+    }
+    
     override fun getTrackingStartDate(): Flow<Instant> {
         return appDataStore.trackingStartDate.map { instant ->
             instant ?: error("Tracking start date not initialized")
