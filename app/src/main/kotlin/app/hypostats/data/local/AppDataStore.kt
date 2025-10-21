@@ -4,6 +4,6 @@ import kotlinx.coroutines.flow.Flow
 import java.time.Instant
 
 interface AppDataStore {
-    val appStartDate: Flow<Instant?>
-    suspend fun setAppStartDate(startDate: Instant)
+    val trackingStartDate: Flow<Instant?>
+    suspend fun setTrackingStartDate(startDate: Instant)
 }

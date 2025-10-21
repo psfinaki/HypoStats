@@ -12,16 +12,16 @@ private val Context.dataStore by preferencesDataStore(name = "app")
 
 class PreferencesAppDataStore(private val context: Context) : AppDataStore {
     
-    private val appStartDateKey = longPreferencesKey("app_start_date")
+    private val trackingStartDateKey = longPreferencesKey("tracking_start_date")
     
-    override val appStartDate: Flow<Instant?> = context.dataStore.data
+    override val trackingStartDate: Flow<Instant?> = context.dataStore.data
         .map { preferences ->
-            preferences[appStartDateKey]?.let { Instant.ofEpochMilli(it) }
+            preferences[trackingStartDateKey]?.let { Instant.ofEpochMilli(it) }
         }
     
-    override suspend fun setAppStartDate(startDate: Instant) {
+    override suspend fun setTrackingStartDate(startDate: Instant) {
         context.dataStore.edit { preferences ->
-            preferences[appStartDateKey] = startDate.toEpochMilli()
+            preferences[trackingStartDateKey] = startDate.toEpochMilli()
         }
     }
 }

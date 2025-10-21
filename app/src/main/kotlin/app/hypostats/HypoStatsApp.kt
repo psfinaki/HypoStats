@@ -24,9 +24,9 @@ class HypoStatsApp : Application() {
         super.onCreate()
         
         ProcessLifecycleOwner.get().lifecycleScope.launch {
-            val startDate = appDataStore.appStartDate.first()
+            val startDate = appDataStore.trackingStartDate.first()
             if (startDate == null) {
-                appDataStore.setAppStartDate(Instant.now(clock))
+                appDataStore.setTrackingStartDate(Instant.now(clock))
             }
         }
     }

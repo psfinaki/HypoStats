@@ -11,14 +11,14 @@ object StatsCalculator {
         return (daysDifference + 1).toInt()
     }
 
-    fun calculateCurrentStreak(treatments: List<Treatment>, appStart: Instant, now: Instant): Int {
-        val streakStart = if (treatments.isEmpty()) appStart else treatments.last().timestamp
+    fun calculateCurrentStreak(treatments: List<Treatment>, trackingStart: Instant, now: Instant): Int {
+        val streakStart = if (treatments.isEmpty()) trackingStart else treatments.last().timestamp
         return calculateDaySpan(streakStart, now)
     }
 
-    fun calculateLongestStreak(treatments: List<Treatment>, appStart: Instant, now: Instant): Int {
+    fun calculateLongestStreak(treatments: List<Treatment>, trackingStart: Instant, now: Instant): Int {
         val dates = buildList {
-            add(appStart)
+            add(trackingStart)
             addAll(treatments.map { it.timestamp })
             add(now)
         }

@@ -7,5 +7,5 @@ import java.time.Instant
 interface Repository {
     fun getAllTreatments(): Flow<List<Treatment>>
     suspend fun addTreatment(treatment: Treatment)
-    fun getAppStartDate(): Flow<Instant>
+    fun getTrackingStartDate(): Flow<Instant>
 }
