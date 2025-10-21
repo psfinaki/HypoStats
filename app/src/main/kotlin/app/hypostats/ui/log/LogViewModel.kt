@@ -7,6 +7,7 @@ import app.hypostats.domain.model.Treatment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -17,6 +18,7 @@ class LogViewModel @Inject constructor(
     
     val treatments: StateFlow<List<Treatment>> = repository
         .getAllTreatments()
+        .map { treatments -> treatments.sortedBy { it.timestamp } }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,

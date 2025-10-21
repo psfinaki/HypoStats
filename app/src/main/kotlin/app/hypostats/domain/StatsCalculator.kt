@@ -12,14 +12,16 @@ object StatsCalculator {
     }
 
     fun calculateCurrentStreak(treatments: List<Treatment>, trackingStart: Instant, now: Instant): Int {
-        val streakStart = if (treatments.isEmpty()) trackingStart else treatments.last().timestamp
+        val sortedTreatments = treatments.sortedBy { it.timestamp }
+        val streakStart = if (sortedTreatments.isEmpty()) trackingStart else sortedTreatments.last().timestamp
         return calculateDaySpan(streakStart, now)
     }
 
     fun calculateLongestStreak(treatments: List<Treatment>, trackingStart: Instant, now: Instant): Int {
+        val sortedTreatments = treatments.sortedBy { it.timestamp }
         val dates = buildList {
             add(trackingStart)
-            addAll(treatments.map { it.timestamp })
+            addAll(sortedTreatments.map { it.timestamp })
             add(now)
         }
 
