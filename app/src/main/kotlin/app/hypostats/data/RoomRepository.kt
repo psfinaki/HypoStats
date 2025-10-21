@@ -27,9 +27,9 @@ class RoomRepository @Inject constructor(
         treatmentDao.insert(entity)
     }
     
-    override fun getAppStartDate(): Flow<Instant> {
-        return appDataStore.appStartDate.map { instant ->
-            instant ?: error("App start date not initialized")
+    override fun getTrackingStartDate(): Flow<Instant> {
+        return appDataStore.trackingStartDate.map { instant ->
+            instant ?: error("Tracking start date not initialized")
         }
     }
 }

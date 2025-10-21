@@ -9,7 +9,7 @@ import java.time.Instant
 
 class FakeRepository : Repository {
     private val _treatmentsFlow = MutableStateFlow<List<Treatment>>(emptyList())
-    private val _appStartDateFlow = MutableStateFlow(Instant.EPOCH)
+    private val _trackingStartDateFlow = MutableStateFlow(Instant.EPOCH)
     
     override fun getAllTreatments(): Flow<List<Treatment>> = _treatmentsFlow.asStateFlow()
     
@@ -17,5 +17,5 @@ class FakeRepository : Repository {
         _treatmentsFlow.value = _treatmentsFlow.value + treatment
     }
     
-    override fun getAppStartDate(): Flow<Instant> = _appStartDateFlow.asStateFlow()
+    override fun getTrackingStartDate(): Flow<Instant> = _trackingStartDateFlow.asStateFlow()
 }

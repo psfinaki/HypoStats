@@ -22,14 +22,14 @@ class StatsViewModel @Inject constructor(
     
     val stats: StateFlow<Stats> = combine(
         repository.getAllTreatments(),
-        repository.getAppStartDate()
-    ) { treatments, appStartDate ->
+        repository.getTrackingStartDate()
+    ) { treatments, trackingStartDate ->
         val now = Instant.now(clock)
         Stats(
             totalEpisodes = treatments.size,
-            daySpan = StatsCalculator.calculateDaySpan(appStartDate, now),
-            currentStreak = StatsCalculator.calculateCurrentStreak(treatments, appStartDate, now),
-            longestStreak = StatsCalculator.calculateLongestStreak(treatments, appStartDate, now),
+            daySpan = StatsCalculator.calculateDaySpan(trackingStartDate, now),
+            currentStreak = StatsCalculator.calculateCurrentStreak(treatments, trackingStartDate, now),
+            longestStreak = StatsCalculator.calculateLongestStreak(treatments, trackingStartDate, now),
         )
     }
         .stateIn(
