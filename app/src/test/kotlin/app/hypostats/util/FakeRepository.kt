@@ -18,4 +18,8 @@ class FakeRepository : Repository {
     }
     
     override fun getTrackingStartDate(): Flow<Instant> = _trackingStartDateFlow.asStateFlow()
+    
+    override suspend fun setTrackingStartDate(startDate: Instant) {
+        _trackingStartDateFlow.value = startDate
+    }
 }

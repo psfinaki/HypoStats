@@ -32,4 +32,8 @@ class RoomRepository @Inject constructor(
             instant ?: error("Tracking start date not initialized")
         }
     }
+    
+    override suspend fun setTrackingStartDate(startDate: Instant) {
+        appDataStore.setTrackingStartDate(startDate)
+    }
 }

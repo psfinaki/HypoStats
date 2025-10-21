@@ -8,4 +8,5 @@ interface Repository {
     fun getAllTreatments(): Flow<List<Treatment>>
     suspend fun addTreatment(treatment: Treatment)
     fun getTrackingStartDate(): Flow<Instant>
+    suspend fun setTrackingStartDate(startDate: Instant)
 }
