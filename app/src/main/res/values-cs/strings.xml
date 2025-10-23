@@ -36,4 +36,9 @@
     <string name="language_czech">Čeština</string>
     <string name="current_streak">Současná řáda (bez hypo): %1$d dní</string>
     <string name="longest_streak">Nejdelší řáda (bez hypo): %1$d dní</string>
+    
+    <!-- Backup -->
+    <string name="backup">Záloha</string>
+    <string name="export_backup">Exportovat zálohu</string>
+    <string name="import_backup">Importovat zálohu</string>
 </resources>

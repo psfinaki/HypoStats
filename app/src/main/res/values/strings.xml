@@ -36,4 +36,9 @@
     <string name="language_czech">Čeština (Czech)</string>
     <string name="current_streak">Current streak (no hypo): %1$d days</string>
     <string name="longest_streak">Longest streak (no hypo): %1$d days</string>
+    
+    <!-- Backup -->
+    <string name="backup">Backup</string>
+    <string name="export_backup">Export Backup</string>
+    <string name="import_backup">Import Backup</string>
 </resources>
