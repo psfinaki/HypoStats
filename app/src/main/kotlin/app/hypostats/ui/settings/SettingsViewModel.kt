@@ -3,16 +3,22 @@ package app.hypostats.ui.settings
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import app.hypostats.domain.BackupService
 import app.hypostats.ui.model.AppLanguage
 import app.hypostats.ui.model.SettingsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsViewModel @Inject constructor() : ViewModel() {
+class SettingsViewModel @Inject constructor(
+    private val backupService: BackupService
+) : ViewModel() {
     
     private val _state = MutableStateFlow(SettingsUiState())
     val state: StateFlow<SettingsUiState> = _state.asStateFlow()
@@ -38,5 +44,19 @@ class SettingsViewModel @Inject constructor() : ViewModel() {
         }
 
         AppCompatDelegate.setApplicationLocales(localeList)
+    }
+    
+    fun exportBackup(directory: File) {
+        viewModelScope.launch {
+            val backupFile = File(directory, "backup.json")
+            backupService.exportToFile(backupFile)
+        }
+    }
+    
+    fun importBackup(directory: File) {
+        viewModelScope.launch {
+            val backupFile = File(directory, "backup.json")
+            backupService.importFromFile(backupFile)
+        }
     }
 }

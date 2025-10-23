@@ -8,12 +8,15 @@ import app.hypostats.data.local.AppDataStore
 import app.hypostats.data.local.PreferencesAppDataStore
 import app.hypostats.data.local.HypoStatsDatabase
 import app.hypostats.data.local.TreatmentDao
+import app.hypostats.domain.BackupService
+import app.hypostats.domain.JsonBackupService
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
 import javax.inject.Singleton
 
 @Module
@@ -24,6 +27,11 @@ abstract class DataModule {
     abstract fun bindRepository(
         roomRepository: RoomRepository
     ): Repository
+    
+    @Binds
+    abstract fun bindBackupService(
+        jsonBackupService: JsonBackupService
+    ): BackupService
     
     companion object {
         @Provides
@@ -45,6 +53,15 @@ abstract class DataModule {
         @Singleton
         fun provideAppDataStore(@ApplicationContext context: Context): AppDataStore {
             return PreferencesAppDataStore(context)
+        }
+        
+        @Provides
+        @Singleton
+        fun provideJson(): Json {
+            return Json {
+                prettyPrint = true
+                ignoreUnknownKeys = true
+            }
         }
     }
 }
