@@ -10,15 +10,17 @@ import java.time.Instant
 
 private val Context.dataStore by preferencesDataStore(name = "app")
 
-class PreferencesAppDataStore(private val context: Context) : AppDataStore {
-    
+class PreferencesAppDataStore(
+    private val context: Context,
+) : AppDataStore {
     private val trackingStartDateKey = longPreferencesKey("tracking_start_date")
-    
-    override val trackingStartDate: Flow<Instant?> = context.dataStore.data
-        .map { preferences ->
-            preferences[trackingStartDateKey]?.let { Instant.ofEpochMilli(it) }
-        }
-    
+
+    override val trackingStartDate: Flow<Instant?> =
+        context.dataStore.data
+            .map { preferences ->
+                preferences[trackingStartDateKey]?.let { Instant.ofEpochMilli(it) }
+            }
+
     override suspend fun setTrackingStartDate(startDate: Instant) {
         context.dataStore.edit { preferences ->
             preferences[trackingStartDateKey] = startDate.toEpochMilli()

@@ -10,17 +10,19 @@ data class TreatmentEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val timestamp: Long,
-    val sugarAmount: Int
+    val sugarAmount: Int,
 ) {
-    fun toTreatment(): Treatment = Treatment(
-        timestamp = Instant.ofEpochMilli(timestamp),
-        sugarAmount = sugarAmount
-    )
-    
-    companion object {
-        fun fromTreatment(treatment: Treatment): TreatmentEntity = TreatmentEntity(
-            timestamp = treatment.timestamp.toEpochMilli(),
-            sugarAmount = treatment.sugarAmount
+    fun toTreatment(): Treatment =
+        Treatment(
+            timestamp = Instant.ofEpochMilli(timestamp),
+            sugarAmount = sugarAmount,
         )
+
+    companion object {
+        fun fromTreatment(treatment: Treatment): TreatmentEntity =
+            TreatmentEntity(
+                timestamp = treatment.timestamp.toEpochMilli(),
+                sugarAmount = treatment.sugarAmount,
+            )
     }
 }

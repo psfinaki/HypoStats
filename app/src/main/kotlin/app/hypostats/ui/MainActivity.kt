@@ -40,31 +40,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.hypostats.R
 import app.hypostats.ui.hypo.HypoScreen
 import app.hypostats.ui.log.LogScreen
-import app.hypostats.ui.model.MainUiState
 import app.hypostats.ui.model.AppTab
 import app.hypostats.ui.model.DrawerDestination
+import app.hypostats.ui.model.MainUiState
 import app.hypostats.ui.settings.SettingsScreen
 import app.hypostats.ui.stats.StatsScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import androidx.core.net.toUri
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         setContent {
             MaterialTheme {
                 MainApp()
@@ -74,9 +74,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 @Composable
-fun MainApp(
-    viewModel: MainViewModel = hiltViewModel()
-) {
+fun MainApp(viewModel: MainViewModel = hiltViewModel()) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -88,31 +86,31 @@ fun MainApp(
             DrawerContent(
                 selectedDestination = uiState.selectedDrawerDestination,
                 onDestinationSelected = viewModel::selectDrawerDestination,
-                onCloseDrawer = { scope.launch { drawerState.close() } }
+                onCloseDrawer = { scope.launch { drawerState.close() } },
             )
-        }
+        },
     ) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             snackbarHost = { SnackbarHost(snackbarHostState) },
             topBar = {
                 AppTopBar(
-                    onMenuClick = { scope.launch { drawerState.open() } }
+                    onMenuClick = { scope.launch { drawerState.open() } },
                 )
             },
             bottomBar = {
                 if (uiState.selectedDrawerDestination == DrawerDestination.HOME) {
                     BottomNavigationBar(
                         selectedTab = uiState.selectedTab,
-                        onTabSelected = viewModel::selectTab
+                        onTabSelected = viewModel::selectTab,
                     )
                 }
-            }
+            },
         ) { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
                 MainContent(
                     uiState = uiState,
-                    snackbarHostState = snackbarHostState
+                    snackbarHostState = snackbarHostState,
                 )
             }
         }
@@ -120,34 +118,33 @@ fun MainApp(
 }
 
 @Composable
-private fun AppTopBar(
-    onMenuClick: () -> Unit
-) {
+private fun AppTopBar(onMenuClick: () -> Unit) {
     val statusBarPadding = WindowInsets.statusBars.asPaddingValues()
-    
+
     Surface(
         modifier = Modifier.fillMaxWidth(),
         color = MaterialTheme.colorScheme.surface,
-        tonalElevation = 4.dp
+        tonalElevation = 4.dp,
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(statusBarPadding)
-                .height(64.dp)
-                .padding(horizontal = 4.dp),
-            verticalAlignment = Alignment.CenterVertically
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(statusBarPadding)
+                    .height(64.dp)
+                    .padding(horizontal = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             IconButton(onClick = onMenuClick) {
                 Icon(
                     imageVector = Icons.Default.Menu,
-                    contentDescription = stringResource(R.string.open_menu)
+                    contentDescription = stringResource(R.string.open_menu),
                 )
             }
             Text(
                 text = stringResource(R.string.app_name),
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(start = 8.dp)
+                modifier = Modifier.padding(start = 8.dp),
             )
         }
     }
@@ -157,10 +154,10 @@ private fun AppTopBar(
 private fun DrawerContent(
     selectedDestination: DrawerDestination,
     onDestinationSelected: (DrawerDestination) -> Unit,
-    onCloseDrawer: () -> Unit
+    onCloseDrawer: () -> Unit,
 ) {
     val context = LocalContext.current
-    
+
     ModalDrawerSheet {
         Column {
             DrawerNavigationItem(
@@ -169,7 +166,7 @@ private fun DrawerContent(
                 destination = DrawerDestination.HOME,
                 selectedDestination = selectedDestination,
                 onDestinationSelected = onDestinationSelected,
-                onCloseDrawer = onCloseDrawer
+                onCloseDrawer = onCloseDrawer,
             )
             DrawerNavigationItem(
                 icon = Icons.AutoMirrored.Filled.List,
@@ -177,7 +174,7 @@ private fun DrawerContent(
                 destination = DrawerDestination.LOG,
                 selectedDestination = selectedDestination,
                 onDestinationSelected = onDestinationSelected,
-                onCloseDrawer = onCloseDrawer
+                onCloseDrawer = onCloseDrawer,
             )
             DrawerNavigationItem(
                 icon = Icons.Default.Settings,
@@ -185,23 +182,26 @@ private fun DrawerContent(
                 destination = DrawerDestination.SETTINGS,
                 selectedDestination = selectedDestination,
                 onDestinationSelected = onDestinationSelected,
-                onCloseDrawer = onCloseDrawer
+                onCloseDrawer = onCloseDrawer,
             )
             NavigationDrawerItem(
-                icon = { 
+                icon = {
                     Icon(
                         imageVector = Icons.Default.Lock,
-                        contentDescription = context.getString(R.string.nav_privacy)
-                    ) 
+                        contentDescription = context.getString(R.string.nav_privacy),
+                    )
                 },
                 label = { Text(context.getString(R.string.nav_privacy)) },
                 selected = false,
                 onClick = {
-                    val intent = Intent(Intent.ACTION_VIEW,
-                        "https://github.com/psfinaki/HypoStats/blob/main/PRIVACY.md".toUri())
+                    val intent =
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            "https://github.com/psfinaki/HypoStats/blob/main/PRIVACY.md".toUri(),
+                        )
                     context.startActivity(intent)
                     onCloseDrawer()
-                }
+                },
             )
         }
     }
@@ -214,48 +214,52 @@ private fun DrawerNavigationItem(
     destination: DrawerDestination,
     selectedDestination: DrawerDestination,
     onDestinationSelected: (DrawerDestination) -> Unit,
-    onCloseDrawer: () -> Unit
+    onCloseDrawer: () -> Unit,
 ) {
     NavigationDrawerItem(
-        icon = { 
+        icon = {
             Icon(
                 imageVector = icon,
-                contentDescription = stringResource(labelRes)
-            ) 
+                contentDescription = stringResource(labelRes),
+            )
         },
         label = { Text(stringResource(labelRes)) },
         selected = selectedDestination == destination,
         onClick = {
             onDestinationSelected(destination)
             onCloseDrawer()
-        }
+        },
     )
 }
 
 @Composable
 private fun BottomNavigationBar(
     selectedTab: AppTab,
-    onTabSelected: (AppTab) -> Unit
+    onTabSelected: (AppTab) -> Unit,
 ) {
     NavigationBar {
         NavigationBarItem(
-            icon = { Icon(
-                imageVector = Icons.Default.Info,
-                contentDescription = stringResource(R.string.submit_hypo)
-            ) },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Info,
+                    contentDescription = stringResource(R.string.submit_hypo),
+                )
+            },
             label = { Text(stringResource(R.string.nav_hypo)) },
             selected = selectedTab == AppTab.HYPO,
-            onClick = { onTabSelected(AppTab.HYPO) }
+            onClick = { onTabSelected(AppTab.HYPO) },
         )
 
         NavigationBarItem(
-            icon = { Icon(
-                imageVector = Icons.AutoMirrored.Filled.List,
-                contentDescription = stringResource(R.string.see_stats)
-            ) },
+            icon = {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.List,
+                    contentDescription = stringResource(R.string.see_stats),
+                )
+            },
             label = { Text(stringResource(R.string.nav_stats)) },
             selected = selectedTab == AppTab.STATS,
-            onClick = { onTabSelected(AppTab.STATS) }
+            onClick = { onTabSelected(AppTab.STATS) },
         )
     }
 }
@@ -263,7 +267,7 @@ private fun BottomNavigationBar(
 @Composable
 private fun MainContent(
     uiState: MainUiState,
-    snackbarHostState: SnackbarHostState
+    snackbarHostState: SnackbarHostState,
 ) {
     when (uiState.selectedDrawerDestination) {
         DrawerDestination.LOG -> {

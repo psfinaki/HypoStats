@@ -7,16 +7,15 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TreatmentDao {
-    
     @Query("SELECT * FROM treatments")
     fun getAll(): Flow<List<TreatmentEntity>>
-    
+
     @Insert
     suspend fun insert(treatment: TreatmentEntity)
-    
+
     @Insert
     suspend fun insertAll(treatments: List<TreatmentEntity>)
-    
+
     @Query("DELETE FROM treatments")
     suspend fun deleteAll()
 }

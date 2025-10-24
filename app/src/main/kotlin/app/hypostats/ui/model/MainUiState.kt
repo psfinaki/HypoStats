@@ -2,16 +2,16 @@ package app.hypostats.ui.model
 
 enum class AppTab {
     HYPO,
-    STATS
+    STATS,
 }
 
 enum class DrawerDestination {
     HOME,
     LOG,
-    SETTINGS
+    SETTINGS,
 }
 
 data class MainUiState(
     val selectedTab: AppTab = AppTab.HYPO,
-    val selectedDrawerDestination: DrawerDestination = DrawerDestination.HOME
+    val selectedDrawerDestination: DrawerDestination = DrawerDestination.HOME,
 )

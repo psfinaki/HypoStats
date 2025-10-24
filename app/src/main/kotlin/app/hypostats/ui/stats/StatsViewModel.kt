@@ -15,26 +15,27 @@ import java.time.Instant
 import javax.inject.Inject
 
 @HiltViewModel
-class StatsViewModel @Inject constructor(
-    private val repository: Repository,
-    private val clock: Clock
-) : ViewModel() {
-    
-    val stats: StateFlow<Stats> = combine(
-        repository.getAllTreatments(),
-        repository.getTrackingStartDate()
-    ) { treatments, trackingStartDate ->
-        val now = Instant.now(clock)
-        Stats(
-            totalEpisodes = treatments.size,
-            daySpan = StatsCalculator.calculateDaySpan(trackingStartDate, now),
-            currentStreak = StatsCalculator.calculateCurrentStreak(treatments, trackingStartDate, now),
-            longestStreak = StatsCalculator.calculateLongestStreak(treatments, trackingStartDate, now),
-        )
+class StatsViewModel
+    @Inject
+    constructor(
+        private val repository: Repository,
+        private val clock: Clock,
+    ) : ViewModel() {
+        val stats: StateFlow<Stats> =
+            combine(
+                repository.getAllTreatments(),
+                repository.getTrackingStartDate(),
+            ) { treatments, trackingStartDate ->
+                val now = Instant.now(clock)
+                Stats(
+                    totalEpisodes = treatments.size,
+                    daySpan = StatsCalculator.calculateDaySpan(trackingStartDate, now),
+                    currentStreak = StatsCalculator.calculateCurrentStreak(treatments, trackingStartDate, now),
+                    longestStreak = StatsCalculator.calculateLongestStreak(treatments, trackingStartDate, now),
+                )
+            }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.Lazily,
+                initialValue = Stats.Empty,
+            )
     }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Lazily,
-            initialValue = Stats.Empty
-        )
-}
