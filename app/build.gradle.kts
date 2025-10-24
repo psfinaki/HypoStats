@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
+    alias(libs.plugins.ktlint)
 }
 
 android {
@@ -19,11 +20,11 @@ android {
         versionCode = 7
         versionName = "0.4.3-dev"
     }
-    
+
     room {
         schemaDirectory("$projectDir/schemas")
     }
-    
+
     signingConfigs {
         if (project.hasProperty("KEYSTORE_FILE")) {
             create("release") {
@@ -34,7 +35,7 @@ android {
             }
         }
     }
-    
+
     buildTypes {
         release {
             if (project.hasProperty("KEYSTORE_FILE")) {
@@ -78,22 +79,22 @@ dependencies {
 
     // Keep Material for theme compatibility
     implementation(libs.material)
-    
+
     // Hilt - minimal DI setup
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-    
+
     // Room - database
     implementation(libs.bundles.room)
     ksp(libs.room.compiler)
-    
+
     // DataStore - for preferences/settings
     implementation(libs.androidx.datastore.preferences)
-    
+
     // Serialization
     implementation(libs.kotlinx.serialization.json)
-    
+
     // Testing
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
