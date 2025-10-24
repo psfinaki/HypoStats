@@ -30,13 +30,13 @@ import app.hypostats.ui.model.AppLanguage
 fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    
+
     SettingsLayout {
         SettingsScreenContent(
             selectedLanguage = state.selectedLanguage,
             onLanguageSelected = viewModel::selectLanguage,
             onExportClick = { viewModel.exportBackup(context.filesDir) },
-            onImportClick = { viewModel.importBackup(context.filesDir) }
+            onImportClick = { viewModel.importBackup(context.filesDir) },
         )
     }
 }
@@ -44,11 +44,12 @@ fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
 @Composable
 private fun SettingsLayout(content: @Composable ColumnScope.() -> Unit) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        content = content
+        content = content,
     )
 }
 
@@ -57,62 +58,62 @@ private fun SettingsScreenContent(
     selectedLanguage: AppLanguage,
     onLanguageSelected: (AppLanguage) -> Unit,
     onExportClick: () -> Unit,
-    onImportClick: () -> Unit
+    onImportClick: () -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
         Column {
             Text(
                 text = stringResource(R.string.language),
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier.padding(bottom = 16.dp),
             )
-            
+
             Card(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Column {
                     LanguageOption(
                         label = stringResource(R.string.language_system),
                         selected = selectedLanguage == AppLanguage.SYSTEM,
-                        onClick = { onLanguageSelected(AppLanguage.SYSTEM) }
+                        onClick = { onLanguageSelected(AppLanguage.SYSTEM) },
                     )
-                    
+
                     LanguageOption(
                         label = stringResource(R.string.language_english),
                         selected = selectedLanguage == AppLanguage.ENGLISH,
-                        onClick = { onLanguageSelected(AppLanguage.ENGLISH) }
+                        onClick = { onLanguageSelected(AppLanguage.ENGLISH) },
                     )
-                    
+
                     LanguageOption(
                         label = stringResource(R.string.language_czech),
                         selected = selectedLanguage == AppLanguage.CZECH,
-                        onClick = { onLanguageSelected(AppLanguage.CZECH) }
+                        onClick = { onLanguageSelected(AppLanguage.CZECH) },
                     )
                 }
             }
         }
-        
+
         Column {
             Text(
                 text = stringResource(R.string.backup),
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier.padding(bottom = 16.dp),
             )
-            
+
             Card(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Button(
                         onClick = onExportClick,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(stringResource(R.string.export_backup))
                     }
-                    
+
                     Button(
                         onClick = onImportClick,
-                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
                     ) {
                         Text(stringResource(R.string.import_backup))
                     }
@@ -126,22 +127,23 @@ private fun SettingsScreenContent(
 private fun LanguageOption(
     label: String,
     selected: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick)
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clickable(onClick = onClick)
+                .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         RadioButton(
             selected = selected,
-            onClick = onClick
+            onClick = onClick,
         )
         Text(
             text = label,
-            modifier = Modifier.padding(start = 8.dp)
+            modifier = Modifier.padding(start = 8.dp),
         )
     }
 }
@@ -154,7 +156,7 @@ private fun SettingsScreenContentPreview() {
             selectedLanguage = AppLanguage.ENGLISH,
             onLanguageSelected = { },
             onExportClick = { },
-            onImportClick = { }
+            onImportClick = { },
         )
     }
 }
@@ -166,7 +168,7 @@ private fun LanguageOptionSelectedPreview() {
         LanguageOption(
             label = "English",
             selected = true,
-            onClick = { }
+            onClick = { },
         )
     }
 }
@@ -178,7 +180,7 @@ private fun LanguageOptionUnselectedPreview() {
         LanguageOption(
             label = "Čeština",
             selected = false,
-            onClick = { }
+            onClick = { },
         )
     }
 }

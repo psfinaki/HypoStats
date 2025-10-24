@@ -34,23 +34,24 @@ fun StatsScreen(viewModel: StatsViewModel = hiltViewModel()) {
 @Composable
 private fun StatsLayout(content: @Composable ColumnScope.() -> Unit) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        content = content
+        content = content,
     )
 }
 
 @Composable
 private fun BasicStatisticsCard(stats: Stats) {
     Card(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Text(text = stringResource(R.string.total_episodes, stats.totalEpisodes))
             Text(text = stringResource(R.string.period_days, stats.daySpan))
@@ -65,12 +66,13 @@ private fun BasicStatisticsCard(stats: Stats) {
 private fun BasicStatisticsCardPreview() {
     MaterialTheme {
         BasicStatisticsCard(
-            stats = Stats(
-                totalEpisodes = 5,
-                daySpan = 42,
-                currentStreak = 2,
-                longestStreak = 5,
-            )
+            stats =
+                Stats(
+                    totalEpisodes = 5,
+                    daySpan = 42,
+                    currentStreak = 2,
+                    longestStreak = 5,
+                ),
         )
     }
 }

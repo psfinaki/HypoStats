@@ -13,16 +13,15 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class HypoStatsApp : Application() {
-    
     @Inject
     lateinit var appDataStore: AppDataStore
-    
+
     @Inject
     lateinit var clock: Clock
-    
+
     override fun onCreate() {
         super.onCreate()
-        
+
         ProcessLifecycleOwner.get().lifecycleScope.launch {
             val startDate = appDataStore.trackingStartDate.first()
             if (startDate == null) {

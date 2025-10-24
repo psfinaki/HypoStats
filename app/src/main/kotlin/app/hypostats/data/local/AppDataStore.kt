@@ -5,5 +5,6 @@ import java.time.Instant
 
 interface AppDataStore {
     val trackingStartDate: Flow<Instant?>
+
     suspend fun setTrackingStartDate(startDate: Instant)
 }

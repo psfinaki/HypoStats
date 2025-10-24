@@ -3,3 +3,7 @@ root = true
 [*]
 indent_style = space
 end_of_line = lf
+
+[*.kt]
+# Let PascalCase names for Composables pass
+ktlint_function_naming_ignore_when_annotated_with=Composable

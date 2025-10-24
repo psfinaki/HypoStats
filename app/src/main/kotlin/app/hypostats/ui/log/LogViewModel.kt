@@ -12,16 +12,18 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class LogViewModel @Inject constructor(
-    repository: Repository
-) : ViewModel() {
-    
-    val treatments: StateFlow<List<Treatment>> = repository
-        .getAllTreatments()
-        .map { treatments -> treatments.sortedBy { it.timestamp } }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Lazily,
-            initialValue = emptyList()
-        )
-}
+class LogViewModel
+    @Inject
+    constructor(
+        repository: Repository,
+    ) : ViewModel() {
+        val treatments: StateFlow<List<Treatment>> =
+            repository
+                .getAllTreatments()
+                .map { treatments -> treatments.sortedBy { it.timestamp } }
+                .stateIn(
+                    scope = viewModelScope,
+                    started = SharingStarted.Lazily,
+                    initialValue = emptyList(),
+                )
+    }

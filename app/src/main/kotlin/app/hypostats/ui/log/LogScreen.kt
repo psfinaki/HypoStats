@@ -27,11 +27,9 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun LogScreen(
-    viewModel: LogViewModel = hiltViewModel()
-) {
+fun LogScreen(viewModel: LogViewModel = hiltViewModel()) {
     val treatments by viewModel.treatments.collectAsStateWithLifecycle()
-    
+
     LogLayout {
         TreatmentLogCard(treatments)
     }
@@ -40,29 +38,30 @@ fun LogScreen(
 @Composable
 private fun LogLayout(content: @Composable ColumnScope.() -> Unit) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        content = content
+        content = content,
     )
 }
 
 @Composable
 private fun TreatmentLogCard(treatments: List<Treatment>) {
     Card(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         if (treatments.isEmpty()) {
             Text(
                 text = stringResource(R.string.no_treatments_recorded_yet),
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(16.dp),
             )
         } else {
             Column(
                 modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 treatments.forEach { treatment ->
                     TreatmentItem(treatment)
@@ -75,12 +74,13 @@ private fun TreatmentLogCard(treatments: List<Treatment>) {
 @Composable
 private fun TreatmentItem(treatment: Treatment) {
     val formatter = remember { DateTimeFormatter.ofPattern("dd/MM/yy HH:mm:ss") }
-    val dateTime = remember(treatment.timestamp) {
-        treatment.timestamp.atZone(ZoneId.systemDefault()).format(formatter)
-    }
-    
+    val dateTime =
+        remember(treatment.timestamp) {
+            treatment.timestamp.atZone(ZoneId.systemDefault()).format(formatter)
+        }
+
     Text(
-        text = stringResource(R.string.treatment_entry, dateTime, treatment.sugarAmount)
+        text = stringResource(R.string.treatment_entry, dateTime, treatment.sugarAmount),
     )
 }
 
@@ -89,20 +89,21 @@ private fun TreatmentItem(treatment: Treatment) {
 private fun TreatmentLogCardPreview() {
     MaterialTheme {
         TreatmentLogCard(
-            treatments = listOf(
-                Treatment(
-                    timestamp = Instant.ofEpochMilli(1727280615000), // 25/09/25 14:30:15
-                    sugarAmount = 15
+            treatments =
+                listOf(
+                    Treatment(
+                        timestamp = Instant.ofEpochMilli(1727280615000), // 25/09/25 14:30:15
+                        sugarAmount = 15,
+                    ),
+                    Treatment(
+                        timestamp = Instant.ofEpochMilli(1727194522000), // 24/09/25 09:45:22
+                        sugarAmount = 10,
+                    ),
+                    Treatment(
+                        timestamp = Instant.ofEpochMilli(1727110810000), // 23/09/25 16:20:10
+                        sugarAmount = 20,
+                    ),
                 ),
-                Treatment(
-                    timestamp = Instant.ofEpochMilli(1727194522000), // 24/09/25 09:45:22
-                    sugarAmount = 10
-                ),
-                Treatment(
-                    timestamp = Instant.ofEpochMilli(1727110810000), // 23/09/25 16:20:10
-                    sugarAmount = 20
-                )
-            )
         )
     }
 }
@@ -120,10 +121,11 @@ private fun TreatmentLogCardEmptyPreview() {
 private fun TreatmentItemPreview() {
     MaterialTheme {
         TreatmentItem(
-            treatment = Treatment(
-                timestamp = Instant.ofEpochMilli(1727280615000), // 25/09/25 14:30:15
-                sugarAmount = 15
-            )
+            treatment =
+                Treatment(
+                    timestamp = Instant.ofEpochMilli(1727280615000), // 25/09/25 14:30:15
+                    sugarAmount = 15,
+                ),
         )
     }
 }

@@ -8,26 +8,26 @@ import kotlinx.coroutines.flow.asStateFlow
 import java.time.Instant
 
 class FakeRepository : Repository {
-    private val _treatmentsFlow = MutableStateFlow<List<Treatment>>(emptyList())
-    private val _trackingStartDateFlow = MutableStateFlow(Instant.EPOCH)
-    
-    override fun getAllTreatments(): Flow<List<Treatment>> = _treatmentsFlow.asStateFlow()
-    
+    private val treatmentsFlow = MutableStateFlow<List<Treatment>>(emptyList())
+    private val trackingStartDateFlow = MutableStateFlow(Instant.EPOCH)
+
+    override fun getAllTreatments(): Flow<List<Treatment>> = treatmentsFlow.asStateFlow()
+
     override suspend fun addTreatment(treatment: Treatment) {
-        _treatmentsFlow.value = _treatmentsFlow.value + treatment
+        treatmentsFlow.value = treatmentsFlow.value + treatment
     }
-    
+
     override suspend fun addTreatments(treatments: List<Treatment>) {
-        _treatmentsFlow.value = _treatmentsFlow.value + treatments
+        treatmentsFlow.value = treatmentsFlow.value + treatments
     }
-    
+
     override suspend fun deleteAllTreatments() {
-        _treatmentsFlow.value = emptyList()
+        treatmentsFlow.value = emptyList()
     }
-    
-    override fun getTrackingStartDate(): Flow<Instant> = _trackingStartDateFlow.asStateFlow()
-    
+
+    override fun getTrackingStartDate(): Flow<Instant> = trackingStartDateFlow.asStateFlow()
+
     override suspend fun setTrackingStartDate(startDate: Instant) {
-        _trackingStartDateFlow.value = startDate
+        trackingStartDateFlow.value = startDate
     }
 }
