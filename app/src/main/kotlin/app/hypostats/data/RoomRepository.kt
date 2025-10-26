@@ -11,38 +11,37 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RoomRepository @Inject constructor(
-    private val treatmentDao: TreatmentDao,
-    private val appDataStore: AppDataStore
-) : Repository {
-    
-    override fun getAllTreatments(): Flow<List<Treatment>> {
-        return treatmentDao
-            .getAll()
-            .map { entities -> entities.map { it.toTreatment() } }
-    }
-    
-    override suspend fun addTreatment(treatment: Treatment) {
-        val entity = TreatmentEntity.fromTreatment(treatment)
-        treatmentDao.insert(entity)
-    }
-    
-    override suspend fun addTreatments(treatments: List<Treatment>) {
-        val entities = treatments.map { TreatmentEntity.fromTreatment(it) }
-        treatmentDao.insertAll(entities)
-    }
-    
-    override suspend fun deleteAllTreatments() {
-        treatmentDao.deleteAll()
-    }
-    
-    override fun getTrackingStartDate(): Flow<Instant> {
-        return appDataStore.trackingStartDate.map { instant ->
-            instant ?: error("Tracking start date not initialized")
+class RoomRepository
+    @Inject
+    constructor(
+        private val treatmentDao: TreatmentDao,
+        private val appDataStore: AppDataStore,
+    ) : Repository {
+        override fun getAllTreatments(): Flow<List<Treatment>> =
+            treatmentDao
+                .getAll()
+                .map { entities -> entities.map { it.toTreatment() } }
+
+        override suspend fun addTreatment(treatment: Treatment) {
+            val entity = TreatmentEntity.fromTreatment(treatment)
+            treatmentDao.insert(entity)
+        }
+
+        override suspend fun addTreatments(treatments: List<Treatment>) {
+            val entities = treatments.map { TreatmentEntity.fromTreatment(it) }
+            treatmentDao.insertAll(entities)
+        }
+
+        override suspend fun deleteAllTreatments() {
+            treatmentDao.deleteAll()
+        }
+
+        override fun getTrackingStartDate(): Flow<Instant> =
+            appDataStore.trackingStartDate.map { instant ->
+                instant ?: error("Tracking start date not initialized")
+            }
+
+        override suspend fun setTrackingStartDate(startDate: Instant) {
+            appDataStore.setTrackingStartDate(startDate)
         }
     }
-    
-    override suspend fun setTrackingStartDate(startDate: Instant) {
-        appDataStore.setTrackingStartDate(startDate)
-    }
-}

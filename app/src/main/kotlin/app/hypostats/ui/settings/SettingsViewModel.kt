@@ -16,47 +16,50 @@ import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsViewModel @Inject constructor(
-    private val backupService: BackupService
-) : ViewModel() {
-    
-    private val _state = MutableStateFlow(SettingsUiState())
-    val state: StateFlow<SettingsUiState> = _state.asStateFlow()
-    
-    init {
-        val currentLocales = AppCompatDelegate.getApplicationLocales()
-        val currentLanguage = when {
-            currentLocales.isEmpty -> AppLanguage.SYSTEM
-            currentLocales[0]?.language == "cs" -> AppLanguage.CZECH
-            currentLocales[0]?.language == "en" -> AppLanguage.ENGLISH
-            else -> AppLanguage.SYSTEM
-        }
-        _state.value = SettingsUiState(selectedLanguage = currentLanguage)
-    }
-    
-    fun selectLanguage(language: AppLanguage) {
-        _state.value = _state.value.copy(selectedLanguage = language)
+class SettingsViewModel
+    @Inject
+    constructor(
+        private val backupService: BackupService,
+    ) : ViewModel() {
+        private val _state = MutableStateFlow(SettingsUiState())
+        val state: StateFlow<SettingsUiState> = _state.asStateFlow()
 
-        val localeList = when (language) {
-            AppLanguage.SYSTEM -> LocaleListCompat.getEmptyLocaleList()
-            AppLanguage.ENGLISH -> LocaleListCompat.forLanguageTags("en")
-            AppLanguage.CZECH -> LocaleListCompat.forLanguageTags("cs")
+        init {
+            val currentLocales = AppCompatDelegate.getApplicationLocales()
+            val currentLanguage =
+                when {
+                    currentLocales.isEmpty -> AppLanguage.SYSTEM
+                    currentLocales[0]?.language == "cs" -> AppLanguage.CZECH
+                    currentLocales[0]?.language == "en" -> AppLanguage.ENGLISH
+                    else -> AppLanguage.SYSTEM
+                }
+            _state.value = SettingsUiState(selectedLanguage = currentLanguage)
         }
 
-        AppCompatDelegate.setApplicationLocales(localeList)
-    }
-    
-    fun exportBackup(directory: File) {
-        viewModelScope.launch {
-            val backupFile = File(directory, "backup.json")
-            backupService.exportToFile(backupFile)
+        fun selectLanguage(language: AppLanguage) {
+            _state.value = _state.value.copy(selectedLanguage = language)
+
+            val localeList =
+                when (language) {
+                    AppLanguage.SYSTEM -> LocaleListCompat.getEmptyLocaleList()
+                    AppLanguage.ENGLISH -> LocaleListCompat.forLanguageTags("en")
+                    AppLanguage.CZECH -> LocaleListCompat.forLanguageTags("cs")
+                }
+
+            AppCompatDelegate.setApplicationLocales(localeList)
+        }
+
+        fun exportBackup(directory: File) {
+            viewModelScope.launch {
+                val backupFile = File(directory, "backup.json")
+                backupService.exportToFile(backupFile)
+            }
+        }
+
+        fun importBackup(directory: File) {
+            viewModelScope.launch {
+                val backupFile = File(directory, "backup.json")
+                backupService.importFromFile(backupFile)
+            }
         }
     }
-    
-    fun importBackup(directory: File) {
-        viewModelScope.launch {
-            val backupFile = File(directory, "backup.json")
-            backupService.importFromFile(backupFile)
-        }
-    }
-}

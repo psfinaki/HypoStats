@@ -11,16 +11,17 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor() : ViewModel() {
+class MainViewModel
+    @Inject
+    constructor() : ViewModel() {
+        private val _state = MutableStateFlow(MainUiState())
+        val state: StateFlow<MainUiState> = _state.asStateFlow()
 
-    private val _state = MutableStateFlow(MainUiState())
-    val state: StateFlow<MainUiState> = _state.asStateFlow()
+        fun selectTab(tab: AppTab) {
+            _state.value = _state.value.copy(selectedTab = tab)
+        }
 
-    fun selectTab(tab: AppTab) {
-        _state.value = _state.value.copy(selectedTab = tab)
+        fun selectDrawerDestination(destination: DrawerDestination) {
+            _state.value = _state.value.copy(selectedDrawerDestination = destination)
+        }
     }
-
-    fun selectDrawerDestination(destination: DrawerDestination) {
-        _state.value = _state.value.copy(selectedDrawerDestination = destination)
-    }
-}

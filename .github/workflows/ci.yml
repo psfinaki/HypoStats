@@ -18,5 +18,8 @@ jobs:
         distribution: 'temurin'
         cache: gradle
     
+    - name: Check formatting
+      run: ./gradlew ktlintCheck
+
     - name: Run tests
       run: ./gradlew test
