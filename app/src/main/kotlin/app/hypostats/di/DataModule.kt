@@ -9,7 +9,9 @@ import app.hypostats.data.local.HypoStatsDatabase
 import app.hypostats.data.local.PreferencesAppDataStore
 import app.hypostats.data.local.TreatmentDao
 import app.hypostats.domain.BackupService
+import app.hypostats.domain.FileSystem
 import app.hypostats.domain.JsonBackupService
+import app.hypostats.domain.LocalFileSystem
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -27,6 +29,9 @@ abstract class DataModule {
 
     @Binds
     abstract fun bindBackupService(jsonBackupService: JsonBackupService): BackupService
+
+    @Binds
+    abstract fun bindFileSystem(localFileSystem: LocalFileSystem): FileSystem
 
     companion object {
         @Provides
