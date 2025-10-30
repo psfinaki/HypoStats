@@ -5,7 +5,6 @@ import app.hypostats.domain.model.Backup
 import app.hypostats.domain.model.BackupTreatment
 import app.hypostats.domain.model.Treatment
 import kotlinx.coroutines.flow.first
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.time.Instant
@@ -16,6 +15,7 @@ class JsonBackupService
     constructor(
         private val repository: Repository,
         private val json: Json,
+        private val fileSystem: FileSystem,
     ) : BackupService {
         override suspend fun exportToFile(file: File) {
             val treatments = repository.getAllTreatments().first()
@@ -34,7 +34,7 @@ class JsonBackupService
                 )
 
             val jsonString = json.encodeToString(backup)
-            file.writeText(jsonString)
+            fileSystem.writeText(file.absolutePath, jsonString)
         }
 
         override suspend fun importFromFile(file: File) {
@@ -42,7 +42,7 @@ class JsonBackupService
                 throw IllegalStateException("No backup file found")
             }
 
-            val jsonString = file.readText()
+            val jsonString = fileSystem.readText(file.absolutePath)
             val backup = json.decodeFromString<Backup>(jsonString)
 
             val treatments =
