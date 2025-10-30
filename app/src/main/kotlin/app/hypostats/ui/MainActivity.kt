@@ -274,7 +274,7 @@ private fun MainContent(
             LogScreen()
         }
         DrawerDestination.SETTINGS -> {
-            SettingsScreen()
+            SettingsScreen(snackbarHostState = snackbarHostState)
         }
         DrawerDestination.HOME -> {
             when (uiState.selectedTab) {
