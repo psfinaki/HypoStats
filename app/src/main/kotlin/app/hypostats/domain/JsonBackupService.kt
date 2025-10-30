@@ -7,6 +7,8 @@ import app.hypostats.domain.model.Treatment
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 import java.io.File
+import java.io.FileNotFoundException
+import java.io.IOException
 import java.time.Instant
 import javax.inject.Inject
 
@@ -17,7 +19,7 @@ class JsonBackupService
         private val json: Json,
         private val fileSystem: FileSystem,
     ) : BackupService {
-        override suspend fun exportToFile(file: File) {
+        override suspend fun exportToFile(file: File): Result<File> {
             val treatments = repository.getAllTreatments().first()
             val trackingStartDate = repository.getTrackingStartDate().first()
 
@@ -34,15 +36,25 @@ class JsonBackupService
                 )
 
             val jsonString = json.encodeToString(backup)
-            fileSystem.writeText(file.absolutePath, jsonString)
+            return try {
+                fileSystem.writeText(file.absolutePath, jsonString)
+                Result.success(file)
+            } catch (e: IOException) {
+                Result.failure(e)
+            }
         }
 
-        override suspend fun importFromFile(file: File) {
+        override suspend fun importFromFile(file: File): Result<Unit> {
             if (!file.exists()) {
-                throw IllegalStateException("No backup file found")
+                return Result.failure(FileNotFoundException())
             }
 
-            val jsonString = fileSystem.readText(file.absolutePath)
+            val jsonString =
+                try {
+                    fileSystem.readText(file.absolutePath)
+                } catch (e: IOException) {
+                    return Result.failure(e)
+                }
             val backup = json.decodeFromString<Backup>(jsonString)
 
             val treatments =
@@ -58,5 +70,6 @@ class JsonBackupService
             repository.deleteAllTreatments()
             repository.addTreatments(treatments)
             repository.setTrackingStartDate(trackingStartDate)
+            return Result.success(Unit)
         }
     }
