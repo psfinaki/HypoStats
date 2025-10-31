@@ -1,3 +1,6 @@
+
+![CI](https://github.com/psfinaki/HypoStats/actions/workflows/ci.yml/badge.svg?branch=main)
+
 # HypoStats
 
 A simple Android app for tracking hypoglycemic episodes.
