@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.hypostats.R
+import app.hypostats.ui.model.HypoUiState
 import kotlinx.coroutines.launch
 
 @Composable
@@ -44,8 +45,7 @@ fun HypoScreen(
     val scope = rememberCoroutineScope()
 
     HypoScreenContent(
-        sugarAmount = state.sugarAmount,
-        offsetMinutes = state.offsetMinutes,
+        uiState = state,
         onAddSugar = viewModel::addSugar,
         onAddOffset = viewModel::addOffset,
         onReset = viewModel::resetTreatment,
@@ -141,8 +141,7 @@ private fun ActionButtons(
 
 @Composable
 private fun HypoScreenContent(
-    sugarAmount: Int,
-    offsetMinutes: Int,
+    uiState: HypoUiState,
     onAddSugar: () -> Unit,
     onAddOffset: () -> Unit,
     onReset: () -> Unit,
@@ -155,29 +154,27 @@ private fun HypoScreenContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        SugarAmountDisplay(sugarAmount)
+        SugarAmountDisplay(uiState.sugarAmount)
         AddSugarButton(onAddSugar = onAddSugar)
         OffsetControls(
-            currentOffset = offsetMinutes,
+            currentOffset = uiState.offsetMinutes,
             onAddOffset = onAddOffset,
         )
         ActionButtons(
-            currentAmount = sugarAmount,
+            currentAmount = uiState.sugarAmount,
             onReset = onReset,
             onSubmit = onSubmit,
         )
     }
 }
 
-// Preview functions
 @Preview(showBackground = true, name = "Portrait")
 @Preview(showBackground = true, name = "Landscape", device = Devices.AUTOMOTIVE_1024p, widthDp = 800, heightDp = 300)
 @Composable
 private fun HypoScreenPreview() {
     MaterialTheme {
         HypoScreenContent(
-            sugarAmount = 15,
-            offsetMinutes = 30,
+            HypoUiState.Empty,
             onAddSugar = { },
             onAddOffset = { },
             onReset = { },
