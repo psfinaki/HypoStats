@@ -123,25 +123,7 @@ private fun SettingsScreenContent(
             Card(
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Column {
-                    LanguageOption(
-                        label = stringResource(R.string.language_system),
-                        selected = selectedLanguage == AppLanguage.SYSTEM,
-                        onClick = { onLanguageSelected(AppLanguage.SYSTEM) },
-                    )
-
-                    LanguageOption(
-                        label = stringResource(R.string.language_english),
-                        selected = selectedLanguage == AppLanguage.ENGLISH,
-                        onClick = { onLanguageSelected(AppLanguage.ENGLISH) },
-                    )
-
-                    LanguageOption(
-                        label = stringResource(R.string.language_czech),
-                        selected = selectedLanguage == AppLanguage.CZECH,
-                        onClick = { onLanguageSelected(AppLanguage.CZECH) },
-                    )
-                }
+                LanguageOptions(selectedLanguage, onLanguageSelected)
             }
         }
 
@@ -172,6 +154,30 @@ private fun SettingsScreenContent(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun LanguageOptions(
+    selectedLanguage: AppLanguage,
+    onLanguageSelected: (AppLanguage) -> Unit,
+) {
+    Column {
+        LanguageOption(
+            label = stringResource(R.string.language_system),
+            selected = selectedLanguage == AppLanguage.SYSTEM,
+            onClick = { onLanguageSelected(AppLanguage.SYSTEM) },
+        )
+        LanguageOption(
+            label = stringResource(R.string.language_english),
+            selected = selectedLanguage == AppLanguage.ENGLISH,
+            onClick = { onLanguageSelected(AppLanguage.ENGLISH) },
+        )
+        LanguageOption(
+            label = stringResource(R.string.language_czech),
+            selected = selectedLanguage == AppLanguage.CZECH,
+            onClick = { onLanguageSelected(AppLanguage.CZECH) },
+        )
     }
 }
 
