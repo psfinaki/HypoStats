@@ -1,11 +1,11 @@
-name: Test
+name: QA
 
 on:
   pull_request:
     branches: [ main ]
 
 jobs:
-  Test:
+  QA:
     runs-on: ubuntu-latest
     
     steps:
