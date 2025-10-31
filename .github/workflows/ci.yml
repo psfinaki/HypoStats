@@ -23,3 +23,6 @@ jobs:
 
     - name: Run tests
       run: ./gradlew test
+
+    - name: Run Detekt
+      run: ./gradlew detekt

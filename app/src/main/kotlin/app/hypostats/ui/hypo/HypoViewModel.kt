@@ -14,6 +14,8 @@ import java.time.Clock
 import java.time.Instant
 import javax.inject.Inject
 
+private const val SECONDS_IN_MINUTE = 60L
+
 @HiltViewModel
 class HypoViewModel
     @Inject
@@ -37,7 +39,7 @@ class HypoViewModel
         }
 
         fun createTreatment(): Treatment {
-            val effectiveTime = Instant.now(clock).minusSeconds(_state.value.offsetMinutes * 60L)
+            val effectiveTime = Instant.now(clock).minusSeconds(_state.value.offsetMinutes * SECONDS_IN_MINUTE)
             return Treatment(
                 timestamp = effectiveTime,
                 sugarAmount = _state.value.sugarAmount,

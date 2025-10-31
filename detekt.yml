@@ -1,0 +1,15 @@
+naming:
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']
+
+style:
+  UnusedPrivateMember:
+    ignoreAnnotated: ['Preview']
+  MagicNumber:
+    ignoreAnnotated: ['Preview']
+  ReturnCount:
+    excludeGuardClauses: true
+
+complexity:
+  TooManyFunctions:
+    ignoreAnnotatedFunctions: ['Preview']
