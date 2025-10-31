@@ -61,6 +61,17 @@ private fun BasicStatisticsCard(stats: Stats) {
     }
 }
 
+@Preview(showBackground = true, name = "Portrait")
+@Preview(showBackground = true, name = "Landscape", widthDp = 800, heightDp = 300)
+@Composable
+private fun StatsScreenPreview() {
+    MaterialTheme {
+        StatsLayout {
+            BasicStatisticsCard(stats = Stats.Empty)
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun BasicStatisticsCardPreview() {

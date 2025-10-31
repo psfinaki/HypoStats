@@ -200,7 +200,8 @@ private fun LanguageOption(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, name = "Portrait")
+@Preview(showBackground = true, name = "Landscape", widthDp = 800, heightDp = 300)
 @Composable
 private fun SettingsScreenContentPreview() {
     MaterialTheme {

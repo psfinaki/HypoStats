@@ -84,6 +84,17 @@ private fun TreatmentItem(treatment: Treatment) {
     )
 }
 
+@Preview(showBackground = true, name = "Portrait")
+@Preview(showBackground = true, name = "Landscape", widthDp = 800, heightDp = 300)
+@Composable
+private fun LogScreenPreview() {
+    MaterialTheme {
+        LogLayout {
+            TreatmentLogCard(treatments = emptyList())
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun TreatmentLogCardPreview() {
