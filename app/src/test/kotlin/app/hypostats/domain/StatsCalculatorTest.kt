@@ -9,7 +9,8 @@ class StatsCalculatorTest {
     private val jan1 = Instant.parse("2024-01-01T00:00:00Z")
     private val jan2 = Instant.parse("2024-01-02T00:00:00Z")
     private val jan3 = Instant.parse("2024-01-03T00:00:00Z")
-    private val jan4 = Instant.parse("2024-01-04T00:00:00Z")
+
+    // private val jan4 = Instant.parse("2024-01-04T00:00:00Z")
     private val jan5 = Instant.parse("2024-01-05T00:00:00Z")
     private val jan6 = Instant.parse("2024-01-06T00:00:00Z")
     private val jan7 = Instant.parse("2024-01-07T00:00:00Z")
