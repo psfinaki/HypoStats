@@ -160,39 +160,37 @@ private fun DrawerContent(
 
     ModalDrawerSheet {
         Column {
-            DrawerNavigationItem(
+            NavigationDrawerItemWrapper(
                 icon = Icons.Default.Home,
                 labelRes = R.string.nav_home,
-                destination = DrawerDestination.HOME,
-                selectedDestination = selectedDestination,
-                onDestinationSelected = onDestinationSelected,
-                onCloseDrawer = onCloseDrawer,
+                isSelected = selectedDestination == DrawerDestination.HOME,
+                onClick = {
+                    onDestinationSelected(DrawerDestination.HOME)
+                    onCloseDrawer()
+                },
             )
-            DrawerNavigationItem(
+            NavigationDrawerItemWrapper(
                 icon = Icons.AutoMirrored.Filled.List,
                 labelRes = R.string.nav_log,
-                destination = DrawerDestination.LOG,
-                selectedDestination = selectedDestination,
-                onDestinationSelected = onDestinationSelected,
-                onCloseDrawer = onCloseDrawer,
+                isSelected = selectedDestination == DrawerDestination.LOG,
+                onClick = {
+                    onDestinationSelected(DrawerDestination.LOG)
+                    onCloseDrawer()
+                },
             )
-            DrawerNavigationItem(
+            NavigationDrawerItemWrapper(
                 icon = Icons.Default.Settings,
                 labelRes = R.string.nav_settings,
-                destination = DrawerDestination.SETTINGS,
-                selectedDestination = selectedDestination,
-                onDestinationSelected = onDestinationSelected,
-                onCloseDrawer = onCloseDrawer,
-            )
-            NavigationDrawerItem(
-                icon = {
-                    Icon(
-                        imageVector = Icons.Default.Lock,
-                        contentDescription = context.getString(R.string.nav_privacy),
-                    )
+                isSelected = selectedDestination == DrawerDestination.SETTINGS,
+                onClick = {
+                    onDestinationSelected(DrawerDestination.SETTINGS)
+                    onCloseDrawer()
                 },
-                label = { Text(context.getString(R.string.nav_privacy)) },
-                selected = false,
+            )
+            NavigationDrawerItemWrapper(
+                icon = Icons.Default.Lock,
+                labelRes = R.string.nav_privacy,
+                isSelected = false,
                 onClick = {
                     val intent =
                         Intent(
@@ -208,13 +206,11 @@ private fun DrawerContent(
 }
 
 @Composable
-private fun DrawerNavigationItem(
+private fun NavigationDrawerItemWrapper(
     icon: ImageVector,
     labelRes: Int,
-    destination: DrawerDestination,
-    selectedDestination: DrawerDestination,
-    onDestinationSelected: (DrawerDestination) -> Unit,
-    onCloseDrawer: () -> Unit,
+    isSelected: Boolean,
+    onClick: () -> Unit,
 ) {
     NavigationDrawerItem(
         icon = {
@@ -224,11 +220,8 @@ private fun DrawerNavigationItem(
             )
         },
         label = { Text(stringResource(labelRes)) },
-        selected = selectedDestination == destination,
-        onClick = {
-            onDestinationSelected(destination)
-            onCloseDrawer()
-        },
+        selected = isSelected,
+        onClick = onClick,
     )
 }
 
