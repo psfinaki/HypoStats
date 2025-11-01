@@ -21,6 +21,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.hypostats.R
 import app.hypostats.domain.model.GeneralStats
+import app.hypostats.domain.model.HypoHour
 import app.hypostats.domain.model.Stats
 
 @Composable
@@ -32,7 +33,10 @@ fun StatsScreen(viewModel: StatsViewModel = hiltViewModel()) {
 @Composable
 private fun StatsScreenContent(stats: Stats) {
     StatsLayout {
-        GeneralStatsCard(stats = stats.generalStats)
+        GeneralStatsCard(stats.generalStats)
+        if (stats.topHypoHours.isNotEmpty()) {
+            TopHypoHoursCard(stats.topHypoHours)
+        }
     }
 }
 
@@ -70,6 +74,34 @@ private fun GeneralStatsCard(stats: GeneralStats) {
     }
 }
 
+@Composable
+private fun TopHypoHoursCard(topHypoHours: List<HypoHour>) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.top_hypo_hours_title),
+                style = MaterialTheme.typography.titleMedium,
+            )
+            topHypoHours.forEach { hypoHour ->
+                Text(
+                    text =
+                        stringResource(
+                            R.string.hypo_hour,
+                            hypoHour.hour,
+                            hypoHour.hour + 1,
+                            hypoHour.numberOfHypos,
+                        ),
+                )
+            }
+        }
+    }
+}
+
 @Preview(showBackground = true, name = "Portrait")
 @Preview(showBackground = true, name = "Landscape", widthDp = 800, heightDp = 300)
 @Composable
@@ -85,6 +117,7 @@ private fun StatsScreenPreview() {
                             currentStreak = 2,
                             longestStreak = 5,
                         ),
+                    topHypoHours = listOf(HypoHour(2, 10), HypoHour(5, 9)),
                 ),
         )
     }
@@ -111,5 +144,13 @@ private fun GeneralStatsCardPreview() {
 private fun GeneralStatsCardEmptyPreview() {
     MaterialTheme {
         GeneralStatsCard(stats = GeneralStats.Empty)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TopHypoHoursCardPreview() {
+    MaterialTheme {
+        TopHypoHoursCard(topHypoHours = listOf(HypoHour(2, 10), HypoHour(5, 9), HypoHour(7, 8)))
     }
 }

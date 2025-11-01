@@ -33,6 +33,8 @@
     <string name="period_days">Period: %1$d days</string>
     <string name="current_streak">Current streak (no hypo): %1$d days</string>
     <string name="longest_streak">Longest streak (no hypo): %1$d days</string>
+    <string name="top_hypo_hours_title">Top Hypo Hours</string>
+    <string name="hypo_hour">%1$d:00—%2$d:00: %3$d episodes</string>
     
     <!-- Settings -->
     <string name="language">Language</string>

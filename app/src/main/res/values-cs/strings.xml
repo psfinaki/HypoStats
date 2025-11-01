@@ -33,6 +33,8 @@
     <string name="period_days">Období: %1$d dní</string>
     <string name="current_streak">Současná řáda (bez hypo): %1$d dní</string>
     <string name="longest_streak">Nejdelší řáda (bez hypo): %1$d dní</string>
+    <string name="top_hypo_hours_title">Nejčastější hypo hodiny</string>
+    <string name="hypo_hour">%1$d:00—%2$d:00: %3$d hypo</string>
     
     <!-- Settings -->
     <string name="language">Jazyk</string>

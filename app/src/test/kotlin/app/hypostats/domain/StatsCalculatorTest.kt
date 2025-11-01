@@ -1,16 +1,17 @@
 package app.hypostats.domain
 
+import app.hypostats.domain.model.HypoHour
 import app.hypostats.domain.model.Treatment
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.Instant
+import java.time.ZoneOffset
 
 class StatsCalculatorTest {
     private val jan1 = Instant.parse("2024-01-01T00:00:00Z")
     private val jan2 = Instant.parse("2024-01-02T00:00:00Z")
     private val jan3 = Instant.parse("2024-01-03T00:00:00Z")
-
-    // private val jan4 = Instant.parse("2024-01-04T00:00:00Z")
+    private val jan4 = Instant.parse("2024-01-04T00:00:00Z")
     private val jan5 = Instant.parse("2024-01-05T00:00:00Z")
     private val jan6 = Instant.parse("2024-01-06T00:00:00Z")
     private val jan7 = Instant.parse("2024-01-07T00:00:00Z")
@@ -18,6 +19,8 @@ class StatsCalculatorTest {
 
     private val jan9morning = Instant.parse("2024-01-09T09:00:00Z")
     private val jan9evening = Instant.parse("2024-01-09T16:00:00Z")
+
+    private fun Instant.plusHours(hours: Int): Instant = this.plusSeconds(hours * 3600L)
 
     @Test
     fun `daySpan calculates days between start and end`() {
@@ -104,5 +107,72 @@ class StatsCalculatorTest {
         // Streaks: jan1->jan2 (2 days), jan2->jan8 (7 days)
         val result = StatsCalculator.calculateLongestStreak(treatments, jan1, jan8)
         assertEquals(7, result)
+    }
+
+    @Test
+    fun `calculateTopHypoHours returns empty list for empty input`() {
+        val result = StatsCalculator.calculateTopHypoHours(emptyList(), ZoneOffset.UTC)
+        assertEquals(emptyList<HypoHour>(), result)
+    }
+
+    @Test
+    fun `calculateTopHypoHours returns correct hour and count for single treatment`() {
+        val treatment = Treatment(jan1.plusHours(8), 10)
+        val result = StatsCalculator.calculateTopHypoHours(listOf(treatment), ZoneOffset.UTC)
+        assertEquals(listOf(HypoHour(8, 1)), result)
+    }
+
+    @Test
+    fun `calculateTopHypoHours sorts by count not by hour`() {
+        val treatments =
+            listOf(
+                Treatment(jan1.plusHours(22), 10),
+                Treatment(jan2.plusHours(22), 10),
+                Treatment(jan3.plusHours(22), 10),
+                Treatment(jan4.plusHours(7), 10),
+                Treatment(jan5.plusHours(7), 10),
+                Treatment(jan6.plusHours(8), 10),
+            )
+        val result = StatsCalculator.calculateTopHypoHours(treatments, ZoneOffset.UTC)
+        assertEquals(HypoHour(22, 3), result.first())
+    }
+
+    @Test
+    fun `calculateTopHypoHours returns correct counts for multiple treatments`() {
+        val treatments =
+            listOf(
+                Treatment(jan1.plusHours(8), 10),
+                Treatment(jan2.plusHours(8), 10),
+                Treatment(jan3.plusHours(9), 10),
+                Treatment(jan5.plusHours(8), 10),
+            )
+        val result = StatsCalculator.calculateTopHypoHours(treatments, ZoneOffset.UTC)
+        assertEquals(listOf(HypoHour(8, 3), HypoHour(9, 1)), result)
+    }
+
+    @Test
+    fun `calculateTopHypoHours returns correct counts for tie`() {
+        val treatments =
+            listOf(
+                Treatment(jan1.plusHours(8), 10),
+                Treatment(jan2.plusHours(9), 10),
+                Treatment(jan3.plusHours(8), 10),
+                Treatment(jan4.plusHours(9), 10),
+            )
+        val result = StatsCalculator.calculateTopHypoHours(treatments, ZoneOffset.UTC)
+        assertEquals(listOf(HypoHour(8, 2), HypoHour(9, 2)), result)
+    }
+
+    @Test
+    fun `calculateTopHypoHours caps at 3 even if more hours exist`() {
+        val treatments =
+            listOf(
+                Treatment(jan1.plusHours(8), 10),
+                Treatment(jan2.plusHours(9), 10),
+                Treatment(jan3.plusHours(10), 10),
+                Treatment(jan4.plusHours(11), 10),
+            )
+        val result = StatsCalculator.calculateTopHypoHours(treatments, ZoneOffset.UTC)
+        assertEquals(listOf(HypoHour(8, 1), HypoHour(9, 1), HypoHour(10, 1)), result)
     }
 }
