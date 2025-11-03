@@ -28,6 +28,7 @@
     <string name="offset_minutes">%1$d minut</string>
 
     <!-- Statistics -->
+    <string name="general_stats_title">Hlavní statistiky</string>
     <string name="total_episodes">Celkový počet hypo: %1$d</string>
     <string name="period_days">Období: %1$d dní</string>
     <string name="current_streak">Současná řáda (bez hypo): %1$d dní</string>

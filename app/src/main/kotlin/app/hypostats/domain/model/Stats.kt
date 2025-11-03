@@ -1,18 +1,10 @@
 package app.hypostats.domain.model
 
 data class Stats(
-    val totalEpisodes: Int,
-    val daySpan: Int,
-    val currentStreak: Int,
-    val longestStreak: Int,
+    val generalStats: GeneralStats,
 ) {
     companion object {
         val Empty =
-            Stats(
-                totalEpisodes = 0,
-                daySpan = 0,
-                currentStreak = 0,
-                longestStreak = 0,
-            )
+            Stats(generalStats = GeneralStats.Empty)
     }
 }

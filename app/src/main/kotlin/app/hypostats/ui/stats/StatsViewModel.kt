@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.hypostats.data.Repository
 import app.hypostats.domain.StatsCalculator
+import app.hypostats.domain.model.GeneralStats
 import app.hypostats.domain.model.Stats
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -28,10 +29,22 @@ class StatsViewModel
             ) { treatments, trackingStartDate ->
                 val now = Instant.now(clock)
                 Stats(
-                    totalEpisodes = treatments.size,
-                    daySpan = StatsCalculator.calculateDaySpan(trackingStartDate, now),
-                    currentStreak = StatsCalculator.calculateCurrentStreak(treatments, trackingStartDate, now),
-                    longestStreak = StatsCalculator.calculateLongestStreak(treatments, trackingStartDate, now),
+                    GeneralStats(
+                        totalEpisodes = treatments.size,
+                        daySpan = StatsCalculator.calculateDaySpan(trackingStartDate, now),
+                        currentStreak =
+                            StatsCalculator.calculateCurrentStreak(
+                                treatments,
+                                trackingStartDate,
+                                now,
+                            ),
+                        longestStreak =
+                            StatsCalculator.calculateLongestStreak(
+                                treatments,
+                                trackingStartDate,
+                                now,
+                            ),
+                    ),
                 )
             }.stateIn(
                 scope = viewModelScope,

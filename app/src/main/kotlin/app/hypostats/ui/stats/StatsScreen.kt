@@ -20,14 +20,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.hypostats.R
-import app.hypostats.domain.model.Stats
+import app.hypostats.domain.model.GeneralStats
 
 @Composable
 fun StatsScreen(viewModel: StatsViewModel = hiltViewModel()) {
     val stats by viewModel.stats.collectAsStateWithLifecycle()
 
     StatsLayout {
-        BasicStatisticsCard(stats)
+        GeneralStatsCard(stats.generalStats)
     }
 }
 
@@ -45,7 +45,7 @@ private fun StatsLayout(content: @Composable ColumnScope.() -> Unit) {
 }
 
 @Composable
-private fun BasicStatisticsCard(stats: Stats) {
+private fun GeneralStatsCard(stats: GeneralStats) {
     Card(
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -53,6 +53,10 @@ private fun BasicStatisticsCard(stats: Stats) {
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
+            Text(
+                text = stringResource(R.string.general_stats_title),
+                style = MaterialTheme.typography.titleMedium,
+            )
             Text(text = stringResource(R.string.total_episodes, stats.totalEpisodes))
             Text(text = stringResource(R.string.period_days, stats.daySpan))
             Text(text = stringResource(R.string.current_streak, stats.currentStreak))
@@ -67,18 +71,18 @@ private fun BasicStatisticsCard(stats: Stats) {
 private fun StatsScreenPreview() {
     MaterialTheme {
         StatsLayout {
-            BasicStatisticsCard(stats = Stats.Empty)
+            GeneralStatsCard(stats = GeneralStats.Empty)
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun BasicStatisticsCardPreview() {
+private fun GeneralStatsCardPreview() {
     MaterialTheme {
-        BasicStatisticsCard(
+        GeneralStatsCard(
             stats =
-                Stats(
+                GeneralStats(
                     totalEpisodes = 5,
                     daySpan = 42,
                     currentStreak = 2,
@@ -90,8 +94,8 @@ private fun BasicStatisticsCardPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun BasicStatisticsCardEmptyPreview() {
+private fun GeneralStatsCardEmptyPreview() {
     MaterialTheme {
-        BasicStatisticsCard(stats = Stats.Empty)
+        GeneralStatsCard(stats = GeneralStats.Empty)
     }
 }
