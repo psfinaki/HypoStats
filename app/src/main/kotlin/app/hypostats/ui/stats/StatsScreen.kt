@@ -67,7 +67,7 @@ private fun GeneralStatsCard(stats: GeneralStats) {
                 style = MaterialTheme.typography.titleMedium,
             )
             Text(text = stringResource(R.string.total_episodes, stats.totalEpisodes))
-            Text(text = stringResource(R.string.period_days, stats.daySpan))
+            Text(text = stringResource(R.string.period_days, stats.totalDaySpan))
             Text(text = stringResource(R.string.current_streak, stats.currentStreak))
             Text(text = stringResource(R.string.longest_streak, stats.longestStreak))
         }
@@ -113,7 +113,7 @@ private fun StatsScreenPreview() {
                     generalStats =
                         GeneralStats(
                             totalEpisodes = 5,
-                            daySpan = 42,
+                            totalDaySpan = 42,
                             currentStreak = 2,
                             longestStreak = 5,
                         ),
@@ -131,7 +131,7 @@ private fun GeneralStatsCardPreview() {
             stats =
                 GeneralStats(
                     totalEpisodes = 5,
-                    daySpan = 42,
+                    totalDaySpan = 42,
                     currentStreak = 2,
                     longestStreak = 5,
                 ),

@@ -40,7 +40,7 @@ class StatsViewModel
                 Stats(
                     GeneralStats(
                         totalEpisodes = treatments.size,
-                        daySpan = calculator.calculateTotalDaySpan(),
+                        totalDaySpan = calculator.calculateTotalDaySpan(),
                         currentStreak = calculator.calculateCurrentStreak(),
                         longestStreak = calculator.calculateLongestStreak(),
                     ),

@@ -30,7 +30,7 @@
     <!-- Statistics -->
     <string name="general_stats_title">General Statistics</string>
     <string name="total_episodes">Total hypos: %1$d</string>
-    <string name="period_days">Period: %1$d days</string>
+    <string name="period_days">Tracking period: %1$d days</string>
     <string name="current_streak">Current streak (no hypo): %1$d days</string>
     <string name="longest_streak">Longest streak (no hypo): %1$d days</string>
     <string name="top_hypo_hours_title">Top Hypo Hours</string>

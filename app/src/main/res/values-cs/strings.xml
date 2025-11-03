@@ -30,7 +30,7 @@
     <!-- Statistics -->
     <string name="general_stats_title">Hlavní statistiky</string>
     <string name="total_episodes">Celkový počet hypo: %1$d</string>
-    <string name="period_days">Období: %1$d dní</string>
+    <string name="period_days">Sledovácí období: %1$d dní</string>
     <string name="current_streak">Současná řáda (bez hypo): %1$d dní</string>
     <string name="longest_streak">Nejdelší řáda (bez hypo): %1$d dní</string>
     <string name="top_hypo_hours_title">Nejčastější hypo hodiny</string>
