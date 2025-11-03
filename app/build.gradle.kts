@@ -18,8 +18,8 @@ android {
         applicationId = "app.hypostats"
         minSdk = 26
         targetSdk = 36
-        versionCode = 7
-        versionName = "0.4.3-dev"
+        versionCode = 8
+        versionName = "0.4.8-dev"
     }
 
     room {
