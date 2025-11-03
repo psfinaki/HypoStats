@@ -12,30 +12,32 @@
     <string name="nav_privacy">Ochrana osobních údajů</string>
     <string name="open_menu">Otevřít menu</string>
     
-    <!-- Content -->
+    <!-- Main actions -->
+    <string name="submit_hypo">Zaznamenat hypo</string>
+    <string name="see_stats">Zobrazit statistiky</string>
+
+    <!-- Submit hypos -->
     <string name="eat_5g_sugar">Sníst 5g cukru</string>
     <string name="no_treatments_recorded_yet">Zatím nejsou zaznamenána žádná hypa.</string>
     <string name="reset">Obnovit</string>
     <string name="submit_treatment">Zapsat hypo</string>
     <string name="treatment_saved">Hypo uloženo</string>
     <string name="g_sugar">%1$dg cukru</string>
-    <string name="total_episodes">Celkový počet hypo: %1$d</string>
-    <string name="period_days">Období: %1$d dní</string>
     <string name="treatment_entry">%1$s - %2$dg cukru</string>
-    <string name="submit_hypo">Zaznamenat hypo</string>
-    <string name="see_stats">Zobrazit statistiky</string>
-    
-    <!-- Offset functionality -->
     <string name="offset">"Posun: "</string>
     <string name="offset_minutes">%1$d minut</string>
+
+    <!-- Statistics -->
+    <string name="total_episodes">Celkový počet hypo: %1$d</string>
+    <string name="period_days">Období: %1$d dní</string>
+    <string name="current_streak">Současná řáda (bez hypo): %1$d dní</string>
+    <string name="longest_streak">Nejdelší řáda (bez hypo): %1$d dní</string>
     
     <!-- Settings -->
     <string name="language">Jazyk</string>
     <string name="language_system">Systémový</string>
     <string name="language_english">English (Angličtina)</string>
     <string name="language_czech">Čeština</string>
-    <string name="current_streak">Současná řáda (bez hypo): %1$d dní</string>
-    <string name="longest_streak">Nejdelší řáda (bez hypo): %1$d dní</string>
     
     <!-- Backup -->
     <string name="backup">Záloha</string>
