@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import java.time.Clock
 import java.time.Instant
+import java.time.ZoneId
 import javax.inject.Inject
 
 @HiltViewModel
@@ -45,6 +46,7 @@ class StatsViewModel
                                 now,
                             ),
                     ),
+                    StatsCalculator.calculateTopHypoHours(treatments, ZoneId.systemDefault()),
                 )
             }.stateIn(
                 scope = viewModelScope,
