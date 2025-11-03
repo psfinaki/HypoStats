@@ -29,24 +29,22 @@ class StatsViewModel
                 repository.getTrackingStartDate(),
             ) { treatments, trackingStartDate ->
                 val now = Instant.now(clock)
+                val zoneId = ZoneId.systemDefault()
+                val calculator =
+                    StatsCalculator(
+                        treatments = treatments,
+                        trackingStart = trackingStartDate,
+                        now = now,
+                        zoneId = zoneId,
+                    )
                 Stats(
                     GeneralStats(
                         totalEpisodes = treatments.size,
-                        daySpan = StatsCalculator.calculateDaySpan(trackingStartDate, now),
-                        currentStreak =
-                            StatsCalculator.calculateCurrentStreak(
-                                treatments,
-                                trackingStartDate,
-                                now,
-                            ),
-                        longestStreak =
-                            StatsCalculator.calculateLongestStreak(
-                                treatments,
-                                trackingStartDate,
-                                now,
-                            ),
+                        daySpan = calculator.calculateTotalDaySpan(),
+                        currentStreak = calculator.calculateCurrentStreak(),
+                        longestStreak = calculator.calculateLongestStreak(),
                     ),
-                    StatsCalculator.calculateTopHypoHours(treatments, ZoneId.systemDefault()),
+                    calculator.calculateTopHypoHours(),
                 )
             }.stateIn(
                 scope = viewModelScope,

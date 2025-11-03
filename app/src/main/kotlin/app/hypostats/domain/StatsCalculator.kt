@@ -8,8 +8,13 @@ import java.time.temporal.ChronoUnit
 
 private const val TOP_HYPO_HOURS_LIMIT = 3
 
-object StatsCalculator {
-    fun calculateDaySpan(
+class StatsCalculator(
+    private val treatments: List<Treatment>,
+    private val trackingStart: Instant,
+    private val now: Instant,
+    private val zoneId: ZoneId,
+) {
+    private fun calculateDaySpan(
         start: Instant,
         end: Instant,
     ): Int {
@@ -17,21 +22,15 @@ object StatsCalculator {
         return (daysDifference + 1).toInt()
     }
 
-    fun calculateCurrentStreak(
-        treatments: List<Treatment>,
-        trackingStart: Instant,
-        now: Instant,
-    ): Int {
+    fun calculateTotalDaySpan(): Int = calculateDaySpan(trackingStart, now)
+
+    fun calculateCurrentStreak(): Int {
         val sortedTreatments = treatments.sortedBy { it.timestamp }
         val streakStart = if (sortedTreatments.isEmpty()) trackingStart else sortedTreatments.last().timestamp
         return calculateDaySpan(streakStart, now)
     }
 
-    fun calculateLongestStreak(
-        treatments: List<Treatment>,
-        trackingStart: Instant,
-        now: Instant,
-    ): Int {
+    fun calculateLongestStreak(): Int {
         val sortedTreatments = treatments.sortedBy { it.timestamp }
         val dates =
             buildList {
@@ -45,10 +44,7 @@ object StatsCalculator {
             .max()
     }
 
-    fun calculateTopHypoHours(
-        treatments: List<Treatment>,
-        zoneId: ZoneId,
-    ): List<HypoHour> =
+    fun calculateTopHypoHours(): List<HypoHour> =
         treatments
             .map { it.timestamp.atZone(zoneId).hour }
             .groupingBy { it }

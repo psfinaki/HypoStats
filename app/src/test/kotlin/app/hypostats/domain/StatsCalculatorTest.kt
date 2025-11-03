@@ -23,20 +23,23 @@ class StatsCalculatorTest {
     private fun Instant.plusHours(hours: Int): Instant = this.plusSeconds(hours * 3600L)
 
     @Test
-    fun `daySpan calculates days between start and end`() {
-        val result = StatsCalculator.calculateDaySpan(jan1, jan8)
+    fun `totalDaySpan calculates days between start and end`() {
+        val calculator = StatsCalculator(emptyList(), jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateTotalDaySpan()
         assertEquals(8, result)
     }
 
     @Test
-    fun `daySpan is 1 when app started same day`() {
-        val result = StatsCalculator.calculateDaySpan(jan9morning, jan9evening)
+    fun `totalDaySpan is 1 when app started same day`() {
+        val calculator = StatsCalculator(emptyList(), jan9morning, jan9evening, ZoneOffset.UTC)
+        val result = calculator.calculateTotalDaySpan()
         assertEquals(1, result)
     }
 
     @Test
     fun `currentStreak calculates from app start when no treatments`() {
-        val result = StatsCalculator.calculateCurrentStreak(emptyList(), jan1, jan8)
+        val calculator = StatsCalculator(emptyList(), jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateCurrentStreak()
         assertEquals(8, result)
     }
 
@@ -47,7 +50,8 @@ class StatsCalculatorTest {
                 Treatment(jan1, 10),
                 Treatment(jan5, 15),
             )
-        val result = StatsCalculator.calculateCurrentStreak(treatments, jan1, jan8)
+        val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateCurrentStreak()
         assertEquals(4, result)
     }
 
@@ -57,13 +61,15 @@ class StatsCalculatorTest {
             listOf(
                 Treatment(jan9morning, 10),
             )
-        val result = StatsCalculator.calculateCurrentStreak(treatments, jan1, jan9evening)
+        val calculator = StatsCalculator(treatments, jan1, jan9evening, ZoneOffset.UTC)
+        val result = calculator.calculateCurrentStreak()
         assertEquals(1, result)
     }
 
     @Test
     fun `longestStreak is from app start when no treatments`() {
-        val result = StatsCalculator.calculateLongestStreak(emptyList(), jan1, jan8)
+        val calculator = StatsCalculator(emptyList(), jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateLongestStreak()
         assertEquals(8, result)
     }
 
@@ -73,7 +79,8 @@ class StatsCalculatorTest {
             listOf(
                 Treatment(jan5, 10),
             )
-        val result = StatsCalculator.calculateLongestStreak(treatments, jan1, jan8)
+        val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateLongestStreak()
         assertEquals(5, result)
     }
 
@@ -87,7 +94,8 @@ class StatsCalculatorTest {
             )
 
         // Streaks: jan1->jan2 (2 days), jan2->jan3 (2 days), jan3->jan6 (4 days), jan6->jan8 (3 days)
-        val result = StatsCalculator.calculateLongestStreak(treatments, jan1, jan8)
+        val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateLongestStreak()
         assertEquals(4, result)
     }
 
@@ -96,7 +104,8 @@ class StatsCalculatorTest {
         val treatments = listOf(Treatment(jan7, 10))
 
         // Streaks: jan1->jan7 (7 days), jan7->jan8 (2 days)
-        val result = StatsCalculator.calculateLongestStreak(treatments, jan1, jan8)
+        val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateLongestStreak()
         assertEquals(7, result)
     }
 
@@ -105,20 +114,23 @@ class StatsCalculatorTest {
         val treatments = listOf(Treatment(jan2, 10))
 
         // Streaks: jan1->jan2 (2 days), jan2->jan8 (7 days)
-        val result = StatsCalculator.calculateLongestStreak(treatments, jan1, jan8)
+        val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateLongestStreak()
         assertEquals(7, result)
     }
 
     @Test
     fun `calculateTopHypoHours returns empty list for empty input`() {
-        val result = StatsCalculator.calculateTopHypoHours(emptyList(), ZoneOffset.UTC)
+        val calculator = StatsCalculator(emptyList(), jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateTopHypoHours()
         assertEquals(emptyList<HypoHour>(), result)
     }
 
     @Test
     fun `calculateTopHypoHours returns correct hour and count for single treatment`() {
         val treatment = Treatment(jan1.plusHours(8), 10)
-        val result = StatsCalculator.calculateTopHypoHours(listOf(treatment), ZoneOffset.UTC)
+        val calculator = StatsCalculator(listOf(treatment), jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateTopHypoHours()
         assertEquals(listOf(HypoHour(8, 1)), result)
     }
 
@@ -133,7 +145,8 @@ class StatsCalculatorTest {
                 Treatment(jan5.plusHours(7), 10),
                 Treatment(jan6.plusHours(8), 10),
             )
-        val result = StatsCalculator.calculateTopHypoHours(treatments, ZoneOffset.UTC)
+        val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateTopHypoHours()
         assertEquals(HypoHour(22, 3), result.first())
     }
 
@@ -146,12 +159,13 @@ class StatsCalculatorTest {
                 Treatment(jan3.plusHours(9), 10),
                 Treatment(jan5.plusHours(8), 10),
             )
-        val result = StatsCalculator.calculateTopHypoHours(treatments, ZoneOffset.UTC)
+        val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateTopHypoHours()
         assertEquals(listOf(HypoHour(8, 3), HypoHour(9, 1)), result)
     }
 
     @Test
-    fun `calculateTopHypoHours returns correct counts for tie`() {
+    fun `calculateTopHypoHours returns first for ties`() {
         val treatments =
             listOf(
                 Treatment(jan1.plusHours(8), 10),
@@ -159,7 +173,8 @@ class StatsCalculatorTest {
                 Treatment(jan3.plusHours(8), 10),
                 Treatment(jan4.plusHours(9), 10),
             )
-        val result = StatsCalculator.calculateTopHypoHours(treatments, ZoneOffset.UTC)
+        val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateTopHypoHours()
         assertEquals(listOf(HypoHour(8, 2), HypoHour(9, 2)), result)
     }
 
@@ -172,7 +187,8 @@ class StatsCalculatorTest {
                 Treatment(jan3.plusHours(10), 10),
                 Treatment(jan4.plusHours(11), 10),
             )
-        val result = StatsCalculator.calculateTopHypoHours(treatments, ZoneOffset.UTC)
+        val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateTopHypoHours()
         assertEquals(listOf(HypoHour(8, 1), HypoHour(9, 1), HypoHour(10, 1)), result)
     }
 }
