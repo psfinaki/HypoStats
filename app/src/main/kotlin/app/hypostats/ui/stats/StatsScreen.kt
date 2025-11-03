@@ -21,13 +21,18 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.hypostats.R
 import app.hypostats.domain.model.GeneralStats
+import app.hypostats.domain.model.Stats
 
 @Composable
 fun StatsScreen(viewModel: StatsViewModel = hiltViewModel()) {
     val stats by viewModel.stats.collectAsStateWithLifecycle()
+    StatsScreenContent(stats)
+}
 
+@Composable
+private fun StatsScreenContent(stats: Stats) {
     StatsLayout {
-        GeneralStatsCard(stats.generalStats)
+        GeneralStatsCard(stats = stats.generalStats)
     }
 }
 
@@ -70,9 +75,18 @@ private fun GeneralStatsCard(stats: GeneralStats) {
 @Composable
 private fun StatsScreenPreview() {
     MaterialTheme {
-        StatsLayout {
-            GeneralStatsCard(stats = GeneralStats.Empty)
-        }
+        StatsScreenContent(
+            stats =
+                Stats(
+                    generalStats =
+                        GeneralStats(
+                            totalEpisodes = 5,
+                            daySpan = 42,
+                            currentStreak = 2,
+                            longestStreak = 5,
+                        ),
+                ),
+        )
     }
 }
 
