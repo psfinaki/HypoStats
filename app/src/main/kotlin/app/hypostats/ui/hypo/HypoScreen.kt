@@ -173,7 +173,7 @@ private fun HypoScreenContent(
 private fun HypoScreenPreview() {
     MaterialTheme {
         HypoScreenContent(
-            HypoUiState.Empty,
+            HypoUiState(),
             onAddSugar = { },
             onAddOffset = { },
             onReset = { },
