@@ -30,6 +30,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.hypostats.R
 import app.hypostats.ui.model.AppLanguage
 import app.hypostats.ui.model.AppTheme
+import app.hypostats.ui.model.SettingsUiState
 import kotlinx.coroutines.launch
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -45,9 +46,8 @@ fun SettingsScreen(
 
     SettingsLayout {
         SettingsScreenContent(
-            selectedLanguage = state.selectedLanguage,
+            state = state,
             onLanguageSelected = viewModel::selectLanguage,
-            selectedTheme = state.selectedTheme,
             onThemeSelected = viewModel::selectTheme,
             onExportClick = {
                 scope.launch {
@@ -111,11 +111,9 @@ private fun SettingsLayout(content: @Composable ColumnScope.() -> Unit) {
 }
 
 @Composable
-@Suppress("LongParameterList")
 private fun SettingsScreenContent(
-    selectedLanguage: AppLanguage,
+    state: SettingsUiState,
     onLanguageSelected: (AppLanguage) -> Unit,
-    selectedTheme: AppTheme,
     onThemeSelected: (AppTheme) -> Unit,
     onExportClick: () -> Unit,
     onImportClick: () -> Unit,
@@ -134,7 +132,7 @@ private fun SettingsScreenContent(
             Card(
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                LanguageOptions(selectedLanguage, onLanguageSelected)
+                LanguageOptions(state.selectedLanguage, onLanguageSelected)
             }
         }
 
@@ -148,7 +146,7 @@ private fun SettingsScreenContent(
             Card(
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                ThemeOptions(selectedTheme, onThemeSelected)
+                ThemeOptions(state.selectedTheme, onThemeSelected)
             }
         }
 
@@ -286,9 +284,8 @@ private fun ThemeOption(
 private fun SettingsScreenContentPreview() {
     MaterialTheme {
         SettingsScreenContent(
-            selectedLanguage = AppLanguage.ENGLISH,
+            state = SettingsUiState(),
             onLanguageSelected = { },
-            selectedTheme = AppTheme.SYSTEM,
             onThemeSelected = { },
             onExportClick = { },
             onImportClick = { },
