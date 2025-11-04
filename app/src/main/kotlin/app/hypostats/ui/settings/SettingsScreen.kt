@@ -319,3 +319,27 @@ private fun LanguageOptionUnselectedPreview() {
         )
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+private fun ThemeOptionSelectedPreview() {
+    MaterialTheme {
+        ThemeOption(
+            label = "Dark",
+            selected = true,
+            onClick = { },
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ThemeOptionUnselectedPreview() {
+    MaterialTheme {
+        ThemeOption(
+            label = "Light",
+            selected = false,
+            onClick = { },
+        )
+    }
+}
