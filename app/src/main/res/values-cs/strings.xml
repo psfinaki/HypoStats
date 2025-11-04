@@ -41,6 +41,10 @@
     <string name="language_system">Systémový</string>
     <string name="language_english">English (Angličtina)</string>
     <string name="language_czech">Čeština</string>
+    <string name="theme">Téma</string>
+    <string name="theme_system">Systémové</string>
+    <string name="theme_light">Světlé</string>
+    <string name="theme_dark">Tmavé</string>
     
     <!-- Backup -->
     <string name="backup">Záloha</string>

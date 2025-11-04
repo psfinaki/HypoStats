@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,6 +36,8 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -53,6 +56,7 @@ import app.hypostats.R
 import app.hypostats.ui.hypo.HypoScreen
 import app.hypostats.ui.log.LogScreen
 import app.hypostats.ui.model.AppTab
+import app.hypostats.ui.model.AppTheme
 import app.hypostats.ui.model.DrawerDestination
 import app.hypostats.ui.model.MainUiState
 import app.hypostats.ui.settings.SettingsScreen
@@ -66,16 +70,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            MaterialTheme {
-                MainApp()
+            val viewModel: MainViewModel = hiltViewModel()
+            val uiState by viewModel.state.collectAsStateWithLifecycle()
+            val isDarkTheme =
+                when (uiState.appTheme) {
+                    AppTheme.LIGHT -> false
+                    AppTheme.DARK -> true
+                    AppTheme.SYSTEM -> isSystemInDarkTheme()
+                }
+            val colorScheme = if (isDarkTheme) darkColorScheme() else lightColorScheme()
+
+            MaterialTheme(colorScheme = colorScheme) {
+                MainApp(viewModel = viewModel, uiState = uiState)
             }
         }
     }
 }
 
 @Composable
-fun MainApp(viewModel: MainViewModel = hiltViewModel()) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
+fun MainApp(
+    viewModel: MainViewModel,
+    uiState: MainUiState,
+) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
