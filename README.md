@@ -8,8 +8,10 @@ A simple Android app for tracking hypoglycemic episodes.
 ## Features
 
 - Record hypoglycemic treatments with sugar amounts
-- Backdate entries with time offset
 - View statistics and treatment history
+- Backup and restore data
+- Dark mode support
+- Multi-language support
 
 ## Requirements
 
