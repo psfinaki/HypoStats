@@ -8,4 +8,5 @@ enum class AppLanguage {
 
 data class SettingsUiState(
     val selectedLanguage: AppLanguage = AppLanguage.SYSTEM,
+    val selectedTheme: AppTheme = AppTheme.SYSTEM,
 )

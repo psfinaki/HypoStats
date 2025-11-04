@@ -1,5 +1,6 @@
 package app.hypostats.ui
 
+import app.hypostats.data.local.FakeAppDataStore
 import app.hypostats.ui.model.AppTab
 import app.hypostats.ui.model.DrawerDestination
 import kotlinx.coroutines.test.runTest
@@ -12,7 +13,7 @@ class MainViewModelTest {
 
     @Before
     fun setup() {
-        viewModel = MainViewModel()
+        viewModel = MainViewModel(FakeAppDataStore())
     }
 
     @Test

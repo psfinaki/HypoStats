@@ -41,6 +41,10 @@
     <string name="language_system">System default</string>
     <string name="language_english">English</string>
     <string name="language_czech">Čeština (Czech)</string>
+    <string name="theme">Theme</string>
+    <string name="theme_system">System default</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
     
     <!-- Backup -->
     <string name="backup">Backup</string>

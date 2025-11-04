@@ -29,6 +29,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.hypostats.R
 import app.hypostats.ui.model.AppLanguage
+import app.hypostats.ui.model.AppTheme
 import kotlinx.coroutines.launch
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -46,6 +47,8 @@ fun SettingsScreen(
         SettingsScreenContent(
             selectedLanguage = state.selectedLanguage,
             onLanguageSelected = viewModel::selectLanguage,
+            selectedTheme = state.selectedTheme,
+            onThemeSelected = viewModel::selectTheme,
             onExportClick = {
                 scope.launch {
                     val result = viewModel.exportBackup(context.filesDir)
@@ -108,9 +111,12 @@ private fun SettingsLayout(content: @Composable ColumnScope.() -> Unit) {
 }
 
 @Composable
+@Suppress("LongParameterList")
 private fun SettingsScreenContent(
     selectedLanguage: AppLanguage,
     onLanguageSelected: (AppLanguage) -> Unit,
+    selectedTheme: AppTheme,
+    onThemeSelected: (AppTheme) -> Unit,
     onExportClick: () -> Unit,
     onImportClick: () -> Unit,
 ) {
@@ -129,6 +135,20 @@ private fun SettingsScreenContent(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 LanguageOptions(selectedLanguage, onLanguageSelected)
+            }
+        }
+
+        Column {
+            Text(
+                text = stringResource(R.string.theme),
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(bottom = 16.dp),
+            )
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                ThemeOptions(selectedTheme, onThemeSelected)
             }
         }
 
@@ -187,7 +207,56 @@ private fun LanguageOptions(
 }
 
 @Composable
+private fun ThemeOptions(
+    selectedTheme: AppTheme,
+    onThemeSelected: (AppTheme) -> Unit,
+) {
+    Column {
+        ThemeOption(
+            label = stringResource(R.string.theme_system),
+            selected = selectedTheme == AppTheme.SYSTEM,
+            onClick = { onThemeSelected(AppTheme.SYSTEM) },
+        )
+        ThemeOption(
+            label = stringResource(R.string.theme_light),
+            selected = selectedTheme == AppTheme.LIGHT,
+            onClick = { onThemeSelected(AppTheme.LIGHT) },
+        )
+        ThemeOption(
+            label = stringResource(R.string.theme_dark),
+            selected = selectedTheme == AppTheme.DARK,
+            onClick = { onThemeSelected(AppTheme.DARK) },
+        )
+    }
+}
+
+@Composable
 private fun LanguageOption(
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+) {
+    Row(
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clickable(onClick = onClick)
+                .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        RadioButton(
+            selected = selected,
+            onClick = onClick,
+        )
+        Text(
+            text = label,
+            modifier = Modifier.padding(start = 8.dp),
+        )
+    }
+}
+
+@Composable
+private fun ThemeOption(
     label: String,
     selected: Boolean,
     onClick: () -> Unit,
@@ -219,6 +288,8 @@ private fun SettingsScreenContentPreview() {
         SettingsScreenContent(
             selectedLanguage = AppLanguage.ENGLISH,
             onLanguageSelected = { },
+            selectedTheme = AppTheme.SYSTEM,
+            onThemeSelected = { },
             onExportClick = { },
             onImportClick = { },
         )
@@ -243,6 +314,30 @@ private fun LanguageOptionUnselectedPreview() {
     MaterialTheme {
         LanguageOption(
             label = "Čeština",
+            selected = false,
+            onClick = { },
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ThemeOptionSelectedPreview() {
+    MaterialTheme {
+        ThemeOption(
+            label = "Dark",
+            selected = true,
+            onClick = { },
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ThemeOptionUnselectedPreview() {
+    MaterialTheme {
+        ThemeOption(
+            label = "Light",
             selected = false,
             onClick = { },
         )
