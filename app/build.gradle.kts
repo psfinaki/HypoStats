@@ -20,6 +20,7 @@ android {
         targetSdk = 36
         versionCode = 8
         versionName = "0.4.8-dev"
+        testInstrumentationRunner = "app.hypostats.HiltTestRunner"
     }
 
     room {
@@ -104,4 +105,12 @@ dependencies {
     // Testing
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
+
+    // Android Testing
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.compiler)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
