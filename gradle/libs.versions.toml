@@ -31,6 +31,8 @@ kotlinx-serialization = "1.9.0"
 # Testing
 junit = "4.13.2"
 coroutines-test = "1.10.2"
+androidx-test-runner = "1.7.0"
+hilt-testing = "2.57.2"
 
 # Formatting
 ktlint = "13.1.0"
@@ -78,6 +80,10 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 # Testing
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines-test" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt-testing" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
