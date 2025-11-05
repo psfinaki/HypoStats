@@ -18,8 +18,8 @@ android {
         applicationId = "app.hypostats"
         minSdk = 26
         targetSdk = 36
-        versionCode = 8
-        versionName = "0.4.8-dev"
+        versionCode = 9
+        versionName = "0.4.9-dev"
         testInstrumentationRunner = "app.hypostats.HiltTestRunner"
     }
 
