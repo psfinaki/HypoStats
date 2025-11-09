@@ -1,0 +1,3 @@
+HypoStats is a straightforward app for people who need to track their hypoglycemic episodes. The app provides some basic statistics around them.
+
+No ads, no tracking, no data collected.
