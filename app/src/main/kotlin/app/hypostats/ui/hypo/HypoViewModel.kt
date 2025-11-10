@@ -9,12 +9,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.Clock
 import java.time.Instant
 import javax.inject.Inject
 
 private const val SECONDS_IN_MINUTE = 60L
+private const val SUGAR_INCREMENT_GRAMS = 5
+private const val OFFSET_INCREMENT_MINUTES = 15
 
 @HiltViewModel
 class HypoViewModel
@@ -27,11 +30,11 @@ class HypoViewModel
         val state: StateFlow<HypoUiState> = _state.asStateFlow()
 
         fun addSugar() {
-            _state.value = _state.value.copy(sugarAmount = _state.value.sugarAmount + 5)
+            _state.update { it.copy(sugarAmount = it.sugarAmount + SUGAR_INCREMENT_GRAMS) }
         }
 
         fun addOffset() {
-            _state.value = _state.value.copy(offsetMinutes = _state.value.offsetMinutes + 15)
+            _state.update { it.copy(offsetMinutes = it.offsetMinutes + OFFSET_INCREMENT_MINUTES) }
         }
 
         fun resetTreatment() {
@@ -39,19 +42,22 @@ class HypoViewModel
         }
 
         fun createTreatment(): Treatment {
-            val effectiveTime = Instant.now(clock).minusSeconds(_state.value.offsetMinutes * SECONDS_IN_MINUTE)
+            val effectiveTime =
+                Instant
+                    .now(clock)
+                    .minusSeconds(_state.value.offsetMinutes * SECONDS_IN_MINUTE)
+
             return Treatment(
                 timestamp = effectiveTime,
                 sugarAmount = _state.value.sugarAmount,
             )
         }
 
-        fun saveTreatment(onComplete: () -> Unit) {
+        fun saveTreatment() {
             val treatment = createTreatment()
             viewModelScope.launch {
                 repository.addTreatment(treatment)
                 resetTreatment()
-                onComplete()
             }
         }
     }

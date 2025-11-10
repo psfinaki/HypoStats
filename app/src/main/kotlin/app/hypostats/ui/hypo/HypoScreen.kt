@@ -49,13 +49,12 @@ fun HypoScreen(
         onAddOffset = viewModel::addOffset,
         onReset = viewModel::resetTreatment,
         onSubmit = {
-            viewModel.saveTreatment {
-                scope.launch {
-                    snackbarHostState.showSnackbar(
-                        message = context.getString(R.string.treatment_saved),
-                        duration = SnackbarDuration.Short,
-                    )
-                }
+            viewModel.saveTreatment()
+            scope.launch {
+                snackbarHostState.showSnackbar(
+                    message = context.getString(R.string.treatment_saved),
+                    duration = SnackbarDuration.Short,
+                )
             }
         },
     )
