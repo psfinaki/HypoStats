@@ -1,11 +1,10 @@
 package app.hypostats.ui.settings
 
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.hypostats.data.local.AppDataStore
 import app.hypostats.domain.BackupService
+import app.hypostats.domain.LanguageManager
 import app.hypostats.ui.model.AppLanguage
 import app.hypostats.ui.model.AppTheme
 import app.hypostats.ui.model.SettingsUiState
@@ -25,8 +24,9 @@ class SettingsViewModel
     constructor(
         private val backupService: BackupService,
         private val appDataStore: AppDataStore,
+        private val languageManager: LanguageManager,
     ) : ViewModel() {
-        private val selectedLanguage = MutableStateFlow(getCurrentLanguage())
+        private val selectedLanguage = MutableStateFlow(languageManager.getCurrentLanguage())
 
         val state: StateFlow<SettingsUiState> =
             combine(
@@ -43,27 +43,9 @@ class SettingsViewModel
                 initialValue = SettingsUiState(),
             )
 
-        private fun getCurrentLanguage(): AppLanguage {
-            val currentLocales = AppCompatDelegate.getApplicationLocales()
-            return when {
-                currentLocales.isEmpty -> AppLanguage.SYSTEM
-                currentLocales[0]?.language == "cs" -> AppLanguage.CZECH
-                currentLocales[0]?.language == "en" -> AppLanguage.ENGLISH
-                else -> AppLanguage.SYSTEM
-            }
-        }
-
         fun selectLanguage(language: AppLanguage) {
             selectedLanguage.value = language
-
-            val localeList =
-                when (language) {
-                    AppLanguage.SYSTEM -> LocaleListCompat.getEmptyLocaleList()
-                    AppLanguage.ENGLISH -> LocaleListCompat.forLanguageTags("en")
-                    AppLanguage.CZECH -> LocaleListCompat.forLanguageTags("cs")
-                }
-
-            AppCompatDelegate.setApplicationLocales(localeList)
+            languageManager.setLanguage(language)
         }
 
         fun selectTheme(theme: AppTheme) {
