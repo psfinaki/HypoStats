@@ -84,9 +84,6 @@ dependencies {
     // AppCompat for language switching
     implementation(libs.androidx.appcompat)
 
-    // Keep Material for theme compatibility
-    implementation(libs.material)
-
     // Hilt - minimal DI setup
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
