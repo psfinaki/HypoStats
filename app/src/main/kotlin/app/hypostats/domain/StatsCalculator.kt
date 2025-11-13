@@ -1,11 +1,13 @@
 package app.hypostats.domain
 
+import app.hypostats.domain.model.HypoDay
 import app.hypostats.domain.model.HypoHour
 import app.hypostats.domain.model.Treatment
 import java.time.Instant
 import java.time.ZoneId
 import java.time.temporal.ChronoUnit
 
+private const val TOP_HYPO_DAYS_LIMIT = 3
 private const val TOP_HYPO_HOURS_LIMIT = 3
 
 class StatsCalculator(
@@ -43,6 +45,16 @@ class StatsCalculator(
             .zipWithNext { start, end -> calculateDaySpan(start, end) }
             .max()
     }
+
+    fun calculateTopHypoDays(): List<HypoDay> =
+        treatments
+            .map { it.timestamp.atZone(zoneId).dayOfWeek }
+            .groupingBy { it }
+            .eachCount()
+            .entries
+            .sortedByDescending { it.value }
+            .map { (day, count) -> HypoDay(day, count) }
+            .take(TOP_HYPO_DAYS_LIMIT)
 
     fun calculateTopHypoHours(): List<HypoHour> =
         treatments

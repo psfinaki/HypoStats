@@ -44,6 +44,7 @@ class StatsViewModel
                         currentStreak = calculator.calculateCurrentStreak(),
                         longestStreak = calculator.calculateLongestStreak(),
                     ),
+                    calculator.calculateTopHypoDays(),
                     calculator.calculateTopHypoHours(),
                 )
             }.stateIn(
