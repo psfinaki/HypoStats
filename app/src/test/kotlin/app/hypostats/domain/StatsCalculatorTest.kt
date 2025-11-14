@@ -1,9 +1,11 @@
 package app.hypostats.domain
 
+import app.hypostats.domain.model.HypoDay
 import app.hypostats.domain.model.HypoHour
 import app.hypostats.domain.model.Treatment
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.time.DayOfWeek
 import java.time.Instant
 import java.time.ZoneOffset
 
@@ -117,6 +119,75 @@ class StatsCalculatorTest {
         val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
         val result = calculator.calculateLongestStreak()
         assertEquals(7, result)
+    }
+
+    @Test
+    fun `calculateTopHypoDays returns empty list for empty input`() {
+        val calculator = StatsCalculator(emptyList(), jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateTopHypoDays()
+        assertEquals(emptyList<HypoDay>(), result)
+    }
+
+    @Test
+    fun `calculateTopHypoDays returns correct day and count for single treatment`() {
+        val treatment = Treatment(jan1, 10) // Jan 1, 2024 is Monday
+        val calculator = StatsCalculator(listOf(treatment), jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateTopHypoDays()
+        assertEquals(listOf(HypoDay(DayOfWeek.MONDAY, 1)), result)
+    }
+
+    @Test
+    fun `calculateTopHypoDays sorts by count not by day`() {
+        val treatments =
+            listOf(
+                Treatment(jan1, 10), // Monday
+                Treatment(jan2, 10), // Tuesday
+                Treatment(jan3, 10), // Wednesday
+                Treatment(jan4, 10), // Thursday
+                Treatment(jan5, 10), // Friday
+                Treatment(jan6, 10), // Saturday
+                Treatment(jan7, 10), // Sunday
+                Treatment(jan8, 10), // Monday again
+            )
+        val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateTopHypoDays()
+        assertEquals(HypoDay(DayOfWeek.MONDAY, 2), result.first())
+    }
+
+    @Test
+    fun `calculateTopHypoDays returns correct counts for multiple treatments`() {
+        val treatments =
+            listOf(
+                Treatment(jan1, 10), // Monday
+                Treatment(jan2, 10), // Tuesday
+                Treatment(jan3, 10), // Wednesday
+                Treatment(jan8, 10), // Monday
+            )
+        val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateTopHypoDays()
+        assertEquals(
+            listOf(
+                HypoDay(DayOfWeek.MONDAY, 2),
+                HypoDay(DayOfWeek.TUESDAY, 1),
+                HypoDay(DayOfWeek.WEDNESDAY, 1),
+            ),
+            result,
+        )
+    }
+
+    @Test
+    fun `calculateTopHypoDays caps at 3 even if more days exist`() {
+        val treatments =
+            listOf(
+                Treatment(jan1, 10), // Monday
+                Treatment(jan2, 10), // Tuesday
+                Treatment(jan3, 10), // Wednesday
+                Treatment(jan4, 10), // Thursday
+                Treatment(jan5, 10), // Friday
+            )
+        val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateTopHypoDays()
+        assertEquals(3, result.size)
     }
 
     @Test

@@ -14,15 +14,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.os.ConfigurationCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.hypostats.R
 import app.hypostats.domain.model.GeneralStats
+import app.hypostats.domain.model.HypoDay
 import app.hypostats.domain.model.HypoHour
 import app.hypostats.domain.model.Stats
+import java.time.DayOfWeek
+import java.time.format.TextStyle
 
 @Composable
 fun StatsScreen(viewModel: StatsViewModel = hiltViewModel()) {
@@ -34,6 +39,9 @@ fun StatsScreen(viewModel: StatsViewModel = hiltViewModel()) {
 private fun StatsScreenContent(stats: Stats) {
     StatsLayout {
         GeneralStatsCard(stats.generalStats)
+        if (stats.topHypoDays.isNotEmpty()) {
+            TopHypoDaysCard(stats.topHypoDays)
+        }
         if (stats.topHypoHours.isNotEmpty()) {
             TopHypoHoursCard(stats.topHypoHours)
         }
@@ -70,6 +78,35 @@ private fun GeneralStatsCard(stats: GeneralStats) {
             Text(text = stringResource(R.string.period_days, stats.totalDaySpan))
             Text(text = stringResource(R.string.current_streak, stats.currentStreak))
             Text(text = stringResource(R.string.longest_streak, stats.longestStreak))
+        }
+    }
+}
+
+@Composable
+private fun TopHypoDaysCard(topHypoDays: List<HypoDay>) {
+    val locale = ConfigurationCompat.getLocales(LocalConfiguration.current)[0]
+
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.top_hypo_days_title),
+                style = MaterialTheme.typography.titleMedium,
+            )
+            topHypoDays.forEach { hypoDay ->
+                Text(
+                    text =
+                        stringResource(
+                            R.string.hypo_day,
+                            hypoDay.day.getDisplayName(TextStyle.FULL, locale),
+                            hypoDay.numberOfHypos,
+                        ),
+                )
+            }
         }
     }
 }
@@ -117,6 +154,7 @@ private fun StatsScreenPreview() {
                             currentStreak = 2,
                             longestStreak = 5,
                         ),
+                    topHypoDays = listOf(HypoDay(DayOfWeek.MONDAY, 4), HypoDay(DayOfWeek.THURSDAY, 5)),
                     topHypoHours = listOf(HypoHour(2, 10), HypoHour(5, 9)),
                 ),
         )
@@ -144,6 +182,21 @@ private fun GeneralStatsCardPreview() {
 private fun GeneralStatsCardEmptyPreview() {
     MaterialTheme {
         GeneralStatsCard(stats = GeneralStats.Empty)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TopHypoDaysCardPreview() {
+    MaterialTheme {
+        TopHypoDaysCard(
+            topHypoDays =
+                listOf(
+                    HypoDay(DayOfWeek.MONDAY, 4),
+                    HypoDay(DayOfWeek.THURSDAY, 5),
+                    HypoDay(DayOfWeek.SUNDAY, 3),
+                ),
+        )
     }
 }
 

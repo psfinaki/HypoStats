@@ -2,12 +2,14 @@ package app.hypostats.domain.model
 
 data class Stats(
     val generalStats: GeneralStats,
+    val topHypoDays: List<HypoDay>,
     val topHypoHours: List<HypoHour>,
 ) {
     companion object {
         val Empty =
             Stats(
                 generalStats = GeneralStats.Empty,
+                topHypoDays = emptyList(),
                 topHypoHours = emptyList(),
             )
     }
