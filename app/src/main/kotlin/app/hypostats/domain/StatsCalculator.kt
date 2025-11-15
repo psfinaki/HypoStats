@@ -26,26 +26,6 @@ class StatsCalculator(
 
     fun calculateTotalDaySpan(): Int = calculateDaySpan(trackingStart, now)
 
-    fun calculateCurrentStreak(): Int {
-        val sortedTreatments = treatments.sortedBy { it.timestamp }
-        val streakStart = if (sortedTreatments.isEmpty()) trackingStart else sortedTreatments.last().timestamp
-        return calculateDaySpan(streakStart, now)
-    }
-
-    fun calculateLongestStreak(): Int {
-        val sortedTreatments = treatments.sortedBy { it.timestamp }
-        val dates =
-            buildList {
-                add(trackingStart)
-                addAll(sortedTreatments.map { it.timestamp })
-                add(now)
-            }
-
-        return dates
-            .zipWithNext { start, end -> calculateDaySpan(start, end) }
-            .max()
-    }
-
     fun calculateTopHypoDays(): List<HypoDay> =
         treatments
             .map { it.timestamp.atZone(zoneId).dayOfWeek }

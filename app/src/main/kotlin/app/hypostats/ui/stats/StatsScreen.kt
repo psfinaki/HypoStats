@@ -76,8 +76,6 @@ private fun GeneralStatsCard(stats: GeneralStats) {
             )
             Text(text = stringResource(R.string.total_episodes, stats.totalEpisodes))
             Text(text = stringResource(R.string.period_days, stats.totalDaySpan))
-            Text(text = stringResource(R.string.current_streak, stats.currentStreak))
-            Text(text = stringResource(R.string.longest_streak, stats.longestStreak))
         }
     }
 }
@@ -151,8 +149,6 @@ private fun StatsScreenPreview() {
                         GeneralStats(
                             totalEpisodes = 5,
                             totalDaySpan = 42,
-                            currentStreak = 2,
-                            longestStreak = 5,
                         ),
                     topHypoDays = listOf(HypoDay(DayOfWeek.MONDAY, 4), HypoDay(DayOfWeek.THURSDAY, 5)),
                     topHypoHours = listOf(HypoHour(2, 10), HypoHour(5, 9)),
@@ -170,8 +166,6 @@ private fun GeneralStatsCardPreview() {
                 GeneralStats(
                     totalEpisodes = 5,
                     totalDaySpan = 42,
-                    currentStreak = 2,
-                    longestStreak = 5,
                 ),
         )
     }
