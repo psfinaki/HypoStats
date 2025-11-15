@@ -41,8 +41,6 @@ class StatsViewModel
                     GeneralStats(
                         totalEpisodes = treatments.size,
                         totalDaySpan = calculator.calculateTotalDaySpan(),
-                        currentStreak = calculator.calculateCurrentStreak(),
-                        longestStreak = calculator.calculateLongestStreak(),
                     ),
                     calculator.calculateTopHypoDays(),
                     calculator.calculateTopHypoHours(),
