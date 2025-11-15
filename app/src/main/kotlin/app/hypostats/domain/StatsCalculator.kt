@@ -9,6 +9,7 @@ import java.time.temporal.ChronoUnit
 
 private const val TOP_HYPO_DAYS_LIMIT = 3
 private const val TOP_HYPO_HOURS_LIMIT = 3
+private const val DAYS_PER_WEEK = 7
 
 class StatsCalculator(
     private val treatments: List<Treatment>,
@@ -25,6 +26,15 @@ class StatsCalculator(
     }
 
     fun calculateTotalDaySpan(): Int = calculateDaySpan(trackingStart, now)
+
+    // This is not the most precise calculation, but the least demotivating.
+    // E.g. for 5 hypos and 1 day of app usage,
+    // the app will show 5 hypos weekly, not 35.
+    fun calculateAverageHyposPerWeek(): Int {
+        val totalDays = calculateTotalDaySpan()
+        val totalWeeks = Math.ceilDiv(totalDays, DAYS_PER_WEEK)
+        return Math.floorDiv(treatments.size, totalWeeks)
+    }
 
     fun calculateTopHypoDays(): List<HypoDay> =
         treatments
