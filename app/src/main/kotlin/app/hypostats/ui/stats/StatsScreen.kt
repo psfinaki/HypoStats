@@ -76,6 +76,7 @@ private fun GeneralStatsCard(stats: GeneralStats) {
             )
             Text(text = stringResource(R.string.total_episodes, stats.totalEpisodes))
             Text(text = stringResource(R.string.period_days, stats.totalDaySpan))
+            Text(text = stringResource(R.string.average_hypos_per_week, stats.averageHyposPerWeek))
         }
     }
 }
@@ -149,6 +150,7 @@ private fun StatsScreenPreview() {
                         GeneralStats(
                             totalEpisodes = 5,
                             totalDaySpan = 42,
+                            averageHyposPerWeek = 5,
                         ),
                     topHypoDays = listOf(HypoDay(DayOfWeek.MONDAY, 4), HypoDay(DayOfWeek.THURSDAY, 5)),
                     topHypoHours = listOf(HypoHour(2, 10), HypoHour(5, 9)),
@@ -166,6 +168,7 @@ private fun GeneralStatsCardPreview() {
                 GeneralStats(
                     totalEpisodes = 5,
                     totalDaySpan = 42,
+                    averageHyposPerWeek = 10,
                 ),
         )
     }

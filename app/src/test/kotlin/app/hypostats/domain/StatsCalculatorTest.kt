@@ -39,6 +39,49 @@ class StatsCalculatorTest {
     }
 
     @Test
+    fun `calculateAverageHyposPerWeek returns 0 for empty treatments`() {
+        val calculator = StatsCalculator(emptyList(), jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateAverageHyposPerWeek()
+        assertEquals(0, result)
+    }
+
+    @Test
+    fun `calculateAverageHyposPerWeek floors division result`() {
+        // 8 days = 2 weeks (ceilDiv), 3 treatments / 2 weeks = 1.5 -> floor = 1
+        val treatments = listOf(Treatment(jan1, 10), Treatment(jan3, 10), Treatment(jan5, 10))
+        val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateAverageHyposPerWeek()
+        assertEquals(1, result)
+    }
+
+    @Test
+    fun `calculateAverageHyposPerWeek handles exact division`() {
+        // 14 days = 2 weeks (ceilDiv), 10 treatments / 2 weeks = 5
+        val treatments = List(10) { Treatment(jan1, 10) }
+        val calculator = StatsCalculator(treatments, jan1, jan1.plusSeconds(13 * 24 * 3600), ZoneOffset.UTC)
+        val result = calculator.calculateAverageHyposPerWeek()
+        assertEquals(5, result)
+    }
+
+    @Test
+    fun `calculateAverageHyposPerWeek rounds weeks up with ceilDiv`() {
+        // 8 days = 2 weeks (ceilDiv), 7 treatments / 2 weeks = 3.5 -> floor = 3
+        val treatments = List(7) { Treatment(jan1, 10) }
+        val calculator = StatsCalculator(treatments, jan1, jan8, ZoneOffset.UTC)
+        val result = calculator.calculateAverageHyposPerWeek()
+        assertEquals(3, result)
+    }
+
+    @Test
+    fun `calculateAverageHyposPerWeek treats single day as one week`() {
+        // 1 day = 1 week (ceilDiv), 5 treatments / 1 week = 5
+        val treatments = List(5) { Treatment(jan1, 10) }
+        val calculator = StatsCalculator(treatments, jan1, jan1, ZoneOffset.UTC)
+        val result = calculator.calculateAverageHyposPerWeek()
+        assertEquals(5, result)
+    }
+
+    @Test
     fun `calculateTopHypoDays returns empty list for empty input`() {
         val calculator = StatsCalculator(emptyList(), jan1, jan8, ZoneOffset.UTC)
         val result = calculator.calculateTopHypoDays()

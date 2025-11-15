@@ -31,6 +31,7 @@
     <string name="general_stats_title">Hlavní statistiky</string>
     <string name="total_episodes">Celkový počet hypo: %1$d</string>
     <string name="period_days">Sledovácí období: %1$d dní</string>
+    <string name="average_hypos_per_week">Průmerný počet hypo týdně: %1$d</string>
     <string name="top_hypo_hours_days">Nejčastější hypo dny</string>
     <string name="top_hypo_hours_title">Nejčastější hypo hodiny</string>
     <string name="hypo_day">%1$s: %2$d hypo</string>
