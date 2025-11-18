@@ -39,7 +39,7 @@ class StatsViewModel
                     )
                 Stats(
                     GeneralStats(
-                        totalEpisodes = treatments.size,
+                        totalHypos = treatments.size,
                         totalDaySpan = calculator.calculateTotalDaySpan(),
                         averageHyposPerWeek = calculator.calculateAverageHyposPerWeek(),
                     ),

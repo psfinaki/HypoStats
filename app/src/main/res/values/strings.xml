@@ -29,13 +29,13 @@
 
     <!-- Statistics -->
     <string name="general_stats_title">General Statistics</string>
-    <string name="total_episodes">Total hypos: %1$d</string>
+    <string name="total_hypos">Total hypos: %1$d</string>
     <string name="period_days">Tracking period: %1$d days</string>
     <string name="average_hypos_per_week">Average hypos per week: %1$d</string>
     <string name="top_hypo_days_title">Top Hypo Days</string>
     <string name="top_hypo_hours_title">Top Hypo Hours</string>
-    <string name="hypo_day">%1$s: %2$d episodes</string>
-    <string name="hypo_hour">%1$d:00—%2$d:00: %3$d episodes</string>
+    <string name="hypo_day">%1$s: %2$d hypos</string>
+    <string name="hypo_hour">%1$d:00—%2$d:00: %3$d hypos</string>
     
     <!-- Settings -->
     <string name="language">Language</string>

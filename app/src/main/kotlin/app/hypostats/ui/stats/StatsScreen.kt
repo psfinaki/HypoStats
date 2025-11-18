@@ -74,7 +74,7 @@ private fun GeneralStatsCard(stats: GeneralStats) {
                 text = stringResource(R.string.general_stats_title),
                 style = MaterialTheme.typography.titleMedium,
             )
-            Text(text = stringResource(R.string.total_episodes, stats.totalEpisodes))
+            Text(text = stringResource(R.string.total_hypos, stats.totalHypos))
             Text(text = stringResource(R.string.period_days, stats.totalDaySpan))
             Text(text = stringResource(R.string.average_hypos_per_week, stats.averageHyposPerWeek))
         }
@@ -148,7 +148,7 @@ private fun StatsScreenPreview() {
                 Stats(
                     generalStats =
                         GeneralStats(
-                            totalEpisodes = 5,
+                            totalHypos = 5,
                             totalDaySpan = 42,
                             averageHyposPerWeek = 5,
                         ),
@@ -166,7 +166,7 @@ private fun GeneralStatsCardPreview() {
         GeneralStatsCard(
             stats =
                 GeneralStats(
-                    totalEpisodes = 5,
+                    totalHypos = 5,
                     totalDaySpan = 42,
                     averageHyposPerWeek = 10,
                 ),
