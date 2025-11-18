@@ -1,0 +1,3 @@
+- New stats: Top Hypo Days and Average hypos per weeks
+- Streak stats are removed to avoid wrong usage incentives
+- Settings menu is now more compact
