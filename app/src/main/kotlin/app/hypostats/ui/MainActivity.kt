@@ -3,6 +3,7 @@ package app.hypostats.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -15,13 +16,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -45,8 +39,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -153,7 +147,7 @@ private fun AppTopBar(onMenuClick: () -> Unit) {
         ) {
             IconButton(onClick = onMenuClick) {
                 Icon(
-                    imageVector = Icons.Default.Menu,
+                    painter = painterResource(R.drawable.menu_24),
                     contentDescription = stringResource(R.string.open_menu),
                 )
             }
@@ -177,7 +171,7 @@ private fun DrawerContent(
     ModalDrawerSheet {
         Column {
             NavigationDrawerItemWrapper(
-                icon = Icons.Default.Home,
+                iconRes = R.drawable.home_24,
                 labelRes = R.string.nav_home,
                 isSelected = selectedDestination == DrawerDestination.HOME,
                 onClick = {
@@ -186,7 +180,7 @@ private fun DrawerContent(
                 },
             )
             NavigationDrawerItemWrapper(
-                icon = Icons.AutoMirrored.Filled.List,
+                iconRes = R.drawable.list_24,
                 labelRes = R.string.nav_log,
                 isSelected = selectedDestination == DrawerDestination.LOG,
                 onClick = {
@@ -195,7 +189,7 @@ private fun DrawerContent(
                 },
             )
             NavigationDrawerItemWrapper(
-                icon = Icons.Default.Settings,
+                iconRes = R.drawable.settings_24,
                 labelRes = R.string.nav_settings,
                 isSelected = selectedDestination == DrawerDestination.SETTINGS,
                 onClick = {
@@ -204,7 +198,7 @@ private fun DrawerContent(
                 },
             )
             NavigationDrawerItemWrapper(
-                icon = Icons.Default.Lock,
+                iconRes = R.drawable.lock_24,
                 labelRes = R.string.nav_privacy,
                 isSelected = false,
                 onClick = {
@@ -223,7 +217,7 @@ private fun DrawerContent(
 
 @Composable
 private fun NavigationDrawerItemWrapper(
-    icon: ImageVector,
+    @DrawableRes iconRes: Int,
     labelRes: Int,
     isSelected: Boolean,
     onClick: () -> Unit,
@@ -231,7 +225,7 @@ private fun NavigationDrawerItemWrapper(
     NavigationDrawerItem(
         icon = {
             Icon(
-                imageVector = icon,
+                painter = painterResource(iconRes),
                 contentDescription = stringResource(labelRes),
             )
         },
@@ -250,7 +244,7 @@ private fun BottomNavigationBar(
         NavigationBarItem(
             icon = {
                 Icon(
-                    imageVector = Icons.Default.Info,
+                    painter = painterResource(R.drawable.info_24),
                     contentDescription = stringResource(R.string.submit_hypo),
                 )
             },
@@ -262,7 +256,7 @@ private fun BottomNavigationBar(
         NavigationBarItem(
             icon = {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.List,
+                    painter = painterResource(R.drawable.list_24),
                     contentDescription = stringResource(R.string.see_stats),
                 )
             },
