@@ -21,6 +21,7 @@ android {
         versionCode = 52
         versionName = "0.5.2"
         testInstrumentationRunner = "app.hypostats.HiltTestRunner"
+        base.archivesName = "app.hypostats"
     }
 
     room {
