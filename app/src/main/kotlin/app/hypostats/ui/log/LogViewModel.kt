@@ -20,7 +20,7 @@ class LogViewModel
         val treatments: StateFlow<List<Treatment>> =
             repository
                 .getAllTreatments()
-                .map { treatments -> treatments.sortedBy { it.timestamp } }
+                .map { treatments -> treatments.sortedByDescending { it.timestamp } }
                 .stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.Lazily,
