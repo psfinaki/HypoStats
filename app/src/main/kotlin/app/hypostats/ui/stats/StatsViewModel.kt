@@ -2,7 +2,7 @@ package app.hypostats.ui.stats
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.hypostats.data.Repository
+import app.hypostats.domain.Repository
 import app.hypostats.domain.StatsCalculator
 import app.hypostats.domain.model.GeneralStats
 import app.hypostats.domain.model.Stats

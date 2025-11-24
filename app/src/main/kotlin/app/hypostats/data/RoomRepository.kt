@@ -3,6 +3,7 @@ package app.hypostats.data
 import app.hypostats.data.local.AppDataStore
 import app.hypostats.data.local.TreatmentDao
 import app.hypostats.data.local.TreatmentEntity
+import app.hypostats.domain.Repository
 import app.hypostats.domain.model.Treatment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

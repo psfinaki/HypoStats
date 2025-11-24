@@ -2,7 +2,7 @@ package app.hypostats.di
 
 import android.content.Context
 import androidx.room.Room
-import app.hypostats.data.Repository
+import app.hypostats.domain.Repository
 import app.hypostats.data.RoomRepository
 import app.hypostats.data.local.AppDataStore
 import app.hypostats.data.local.HypoStatsDatabase

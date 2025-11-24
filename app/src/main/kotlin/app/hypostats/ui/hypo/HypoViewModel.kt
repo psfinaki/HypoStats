@@ -2,7 +2,7 @@ package app.hypostats.ui.hypo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.hypostats.data.Repository
+import app.hypostats.domain.Repository
 import app.hypostats.domain.model.Treatment
 import app.hypostats.ui.model.HypoUiState
 import dagger.hilt.android.lifecycle.HiltViewModel

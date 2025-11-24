@@ -1,6 +1,6 @@
 package app.hypostats.util
 
-import app.hypostats.data.Repository
+import app.hypostats.domain.Repository
 import app.hypostats.domain.model.Treatment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

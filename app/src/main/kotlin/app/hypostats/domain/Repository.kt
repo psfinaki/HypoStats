@@ -1,4 +1,4 @@
-package app.hypostats.data
+package app.hypostats.domain
 
 import app.hypostats.domain.model.Treatment
 import kotlinx.coroutines.flow.Flow

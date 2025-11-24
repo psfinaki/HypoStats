@@ -1,6 +1,6 @@
 package app.hypostats.domain
 
-import app.hypostats.data.Repository
+import app.hypostats.domain.Repository
 import app.hypostats.domain.model.Backup
 import app.hypostats.domain.model.BackupTreatment
 import app.hypostats.domain.model.Treatment
