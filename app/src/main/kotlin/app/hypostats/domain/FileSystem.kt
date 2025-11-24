@@ -1,9 +1,9 @@
 package app.hypostats.domain
 
 interface FileSystem {
-    fun readText(path: String): String
+    suspend fun readText(path: String): String
 
-    fun writeText(
+    suspend fun writeText(
         path: String,
         content: String,
     )
