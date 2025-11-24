@@ -6,7 +6,6 @@ import app.hypostats.domain.model.Treatment
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.IOException
 import java.time.Instant
 import javax.inject.Inject
@@ -44,10 +43,6 @@ class JsonBackupService
         }
 
         override suspend fun importFromFile(file: File): Result<Unit> {
-            if (!file.exists()) {
-                return Result.failure(FileNotFoundException())
-            }
-
             val jsonString =
                 try {
                     fileSystem.readText(file.absolutePath)
