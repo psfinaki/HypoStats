@@ -2,7 +2,6 @@ package app.hypostats.di
 
 import android.content.Context
 import androidx.room.Room
-import app.hypostats.domain.Repository
 import app.hypostats.data.RoomRepository
 import app.hypostats.data.local.AppDataStore
 import app.hypostats.data.local.HypoStatsDatabase
@@ -14,6 +13,7 @@ import app.hypostats.domain.FileSystem
 import app.hypostats.domain.JsonBackupService
 import app.hypostats.domain.LanguageManager
 import app.hypostats.domain.LocalFileSystem
+import app.hypostats.domain.Repository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
