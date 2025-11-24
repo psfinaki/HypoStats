@@ -73,7 +73,7 @@ private fun TreatmentLogCard(treatments: List<Treatment>) {
 
 @Composable
 private fun TreatmentItem(treatment: Treatment) {
-    val formatter = remember { DateTimeFormatter.ofPattern("dd/MM/yy HH:mm:ss") }
+    val formatter = remember { DateTimeFormatter.ofPattern("dd/MM/yy HH:mm") }
     val dateTime =
         remember(treatment.timestamp) {
             treatment.timestamp.atZone(ZoneId.systemDefault()).format(formatter)
