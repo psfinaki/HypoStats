@@ -235,7 +235,7 @@ private fun BottomNavigationBar(
         NavigationBarItem(
             icon = {
                 Icon(
-                    painter = painterResource(R.drawable.info_24),
+                    painter = painterResource(R.drawable.cookie_24),
                     contentDescription = stringResource(R.string.submit_hypo),
                 )
             },
@@ -247,7 +247,7 @@ private fun BottomNavigationBar(
         NavigationBarItem(
             icon = {
                 Icon(
-                    painter = painterResource(R.drawable.list_24),
+                    painter = painterResource(R.drawable.analytics_24),
                     contentDescription = stringResource(R.string.see_stats),
                 )
             },
