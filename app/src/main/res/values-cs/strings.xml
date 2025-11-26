@@ -58,5 +58,10 @@
     <string name="export_error">Export selhal: %1$s</string>
 
     <!-- About -->
-    <string name="privacy_policy">Ochrana osobních údajů</string>
+    <string name="about_privacy_policy">Ochrana osobních údajů</string>
+    <string name="about_desc">Jednoduché sledování a statistiky pro hypo</string>
+    <string name="about_dev">Vyvinul psfinaki</string>
+    <string name="about_source_code">Zdrojový kód</string>
+    <string name="about_report_issue">Nahlásit chybu</string>
+    <string name="about_open_link">Otevřít odkaz</string>
 </resources>
