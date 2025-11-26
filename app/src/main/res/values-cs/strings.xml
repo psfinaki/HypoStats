@@ -9,7 +9,7 @@
     <string name="nav_home">Domů</string>
     <string name="nav_log">Záznam hypo</string>
     <string name="nav_settings">Nastavení</string>
-    <string name="nav_privacy">Ochrana osobních údajů</string>
+    <string name="nav_about">O aplikaci</string>
     <string name="open_menu">Otevřít menu</string>
     
     <!-- Main actions -->
@@ -56,4 +56,7 @@
     <string name="import_io_error">Import selhal kvůli IO chybě: %1$s</string>
     <string name="export_success">Export byl úspěšný: %1$s</string>
     <string name="export_error">Export selhal: %1$s</string>
+
+    <!-- About -->
+    <string name="privacy_policy">Ochrana osobních údajů</string>
 </resources>
