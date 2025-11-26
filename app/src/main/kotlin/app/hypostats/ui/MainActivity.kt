@@ -264,6 +264,12 @@ private fun MainContent(
     snackbarHostState: SnackbarHostState,
 ) {
     when (uiState.selectedDrawerDestination) {
+        DrawerDestination.HOME -> {
+            when (uiState.selectedTab) {
+                AppTab.HYPO -> HypoScreen(snackbarHostState = snackbarHostState)
+                AppTab.STATS -> StatsScreen()
+            }
+        }
         DrawerDestination.LOG -> {
             LogScreen()
         }
@@ -272,12 +278,6 @@ private fun MainContent(
         }
         DrawerDestination.ABOUT -> {
             AboutScreen()
-        }
-        DrawerDestination.HOME -> {
-            when (uiState.selectedTab) {
-                AppTab.HYPO -> HypoScreen(snackbarHostState = snackbarHostState)
-                AppTab.STATS -> StatsScreen()
-            }
         }
     }
 }
