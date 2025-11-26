@@ -4,4 +4,5 @@ enum class DrawerDestination {
     HOME,
     LOG,
     SETTINGS,
+    ABOUT,
 }
