@@ -94,8 +94,8 @@ private fun AboutFooter() {
     )
 }
 
-@Preview(showBackground = true, name = "Portrait")
-@Preview(showBackground = true, name = "Landscape", widthDp = 800, heightDp = 300)
+@Preview(name = "Portrait")
+@Preview(name = "Landscape", widthDp = 800, heightDp = 300)
 @Composable
 private fun AboutScreenPreview() {
     MaterialTheme {
@@ -103,7 +103,7 @@ private fun AboutScreenPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun AboutHeaderPreview() {
     MaterialTheme {
@@ -113,7 +113,7 @@ private fun AboutHeaderPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun AboutFooterPreview() {
     MaterialTheme {

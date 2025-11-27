@@ -129,8 +129,8 @@ private fun SettingsScreenContent(
     )
 }
 
-@Preview(showBackground = true, name = "Portrait")
-@Preview(showBackground = true, name = "Landscape", widthDp = 800, heightDp = 300)
+@Preview(name = "Portrait")
+@Preview(name = "Landscape", widthDp = 800, heightDp = 300)
 @Composable
 private fun SettingsScreenContentPreview() {
     MaterialTheme {

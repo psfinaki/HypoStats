@@ -38,7 +38,7 @@ fun SettingOption(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun SettingOptionSelectedPreview() {
     MaterialTheme {
@@ -50,7 +50,7 @@ private fun SettingOptionSelectedPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun SettingOptionUnselectedPreview() {
     MaterialTheme {

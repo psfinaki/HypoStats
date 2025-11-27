@@ -44,7 +44,7 @@ fun BackupSection(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun BackupSectionPreview() {
     MaterialTheme {

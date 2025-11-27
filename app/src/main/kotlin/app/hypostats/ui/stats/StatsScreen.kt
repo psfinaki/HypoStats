@@ -138,8 +138,8 @@ private fun TopHypoHoursCard(topHypoHours: List<HypoHour>) {
     }
 }
 
-@Preview(showBackground = true, name = "Portrait")
-@Preview(showBackground = true, name = "Landscape", widthDp = 800, heightDp = 300)
+@Preview(name = "Portrait")
+@Preview(name = "Landscape", widthDp = 800, heightDp = 300)
 @Composable
 private fun StatsScreenPreview() {
     MaterialTheme {
@@ -159,7 +159,7 @@ private fun StatsScreenPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun GeneralStatsCardPreview() {
     MaterialTheme {
@@ -174,7 +174,7 @@ private fun GeneralStatsCardPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun GeneralStatsCardEmptyPreview() {
     MaterialTheme {
@@ -182,7 +182,7 @@ private fun GeneralStatsCardEmptyPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun TopHypoDaysCardPreview() {
     MaterialTheme {
@@ -197,7 +197,7 @@ private fun TopHypoDaysCardPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun TopHypoHoursCardPreview() {
     MaterialTheme {

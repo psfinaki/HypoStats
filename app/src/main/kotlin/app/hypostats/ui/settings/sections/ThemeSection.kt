@@ -54,7 +54,7 @@ private fun getThemeLabel(theme: AppTheme): String =
         AppTheme.DARK -> stringResource(R.string.theme_dark)
     }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun ThemeSectionPreview() {
     ThemeSection(

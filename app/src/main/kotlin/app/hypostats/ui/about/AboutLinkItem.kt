@@ -42,7 +42,7 @@ fun AboutLinkItem(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun AboutLinkItemPreview() {
     MaterialTheme {

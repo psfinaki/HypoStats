@@ -71,7 +71,7 @@ fun ExpandableSettingSection(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun ExpandableSettingSectionCollapsedPreview() {
     MaterialTheme {
@@ -86,7 +86,7 @@ private fun ExpandableSettingSectionCollapsedPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun ExpandableSettingSectionExpandedPreview() {
     MaterialTheme {

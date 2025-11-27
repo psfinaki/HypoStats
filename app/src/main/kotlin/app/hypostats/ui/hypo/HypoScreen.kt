@@ -166,8 +166,8 @@ private fun HypoScreenContent(
     }
 }
 
-@Preview(showBackground = true, name = "Portrait")
-@Preview(showBackground = true, name = "Landscape", widthDp = 800, heightDp = 300)
+@Preview(name = "Portrait")
+@Preview(name = "Landscape", widthDp = 800, heightDp = 300)
 @Composable
 private fun HypoScreenPreview() {
     MaterialTheme {
@@ -181,7 +181,7 @@ private fun HypoScreenPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun SugarAmountDisplayPreview() {
     MaterialTheme {
@@ -189,7 +189,7 @@ private fun SugarAmountDisplayPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun OffsetControlsPreview() {
     MaterialTheme {
@@ -200,7 +200,7 @@ private fun OffsetControlsPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun ActionButtonsEnabledPreview() {
     MaterialTheme {
@@ -212,7 +212,7 @@ private fun ActionButtonsEnabledPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun ActionButtonsDisabledPreview() {
     MaterialTheme {

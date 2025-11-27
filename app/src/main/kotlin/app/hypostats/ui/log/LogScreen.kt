@@ -84,8 +84,8 @@ private fun TreatmentItem(treatment: Treatment) {
     )
 }
 
-@Preview(showBackground = true, name = "Portrait")
-@Preview(showBackground = true, name = "Landscape", widthDp = 800, heightDp = 300)
+@Preview(name = "Portrait")
+@Preview(name = "Landscape", widthDp = 800, heightDp = 300)
 @Composable
 private fun LogScreenPreview() {
     MaterialTheme {
@@ -95,7 +95,7 @@ private fun LogScreenPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun TreatmentLogCardPreview() {
     MaterialTheme {
@@ -119,7 +119,7 @@ private fun TreatmentLogCardPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun TreatmentLogCardEmptyPreview() {
     MaterialTheme {
@@ -127,7 +127,7 @@ private fun TreatmentLogCardEmptyPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun TreatmentItemPreview() {
     MaterialTheme {

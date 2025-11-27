@@ -54,7 +54,7 @@ private fun getLanguageLabel(language: AppLanguage): String =
         AppLanguage.CZECH -> stringResource(R.string.language_czech)
     }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun LanguageSectionPreview() {
     LanguageSection(
