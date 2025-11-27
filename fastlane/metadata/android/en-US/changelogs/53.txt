@@ -1,0 +1,3 @@
+- New About screen
+- Treatment log now starts from the latest and doesn't show seconds
+- Updated icons
