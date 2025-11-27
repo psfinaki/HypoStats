@@ -24,6 +24,10 @@ android {
         base.archivesName = "app.hypostats"
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     room {
         schemaDirectory("$projectDir/schemas")
     }
