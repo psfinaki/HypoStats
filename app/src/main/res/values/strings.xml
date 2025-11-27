@@ -64,4 +64,5 @@
     <string name="about_source_code">Source Code</string>
     <string name="about_report_issue">Report an Issue</string>
     <string name="about_open_link">Open link</string>
+    <string name="about_version">v%1$s</string>
 </resources>

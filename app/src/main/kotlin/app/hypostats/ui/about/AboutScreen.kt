@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.hypostats.BuildConfig
 import app.hypostats.R
 
 @Composable
@@ -72,6 +73,12 @@ private fun AboutHeader() {
     Text(
         text = stringResource(R.string.app_name),
         style = MaterialTheme.typography.headlineMedium,
+    )
+
+    Text(
+        text = stringResource(R.string.about_version, BuildConfig.VERSION_NAME),
+        style = MaterialTheme.typography.labelMedium,
+        modifier = Modifier.padding(bottom = 16.dp),
     )
 
     Text(
