@@ -1,6 +1,5 @@
 package app.hypostats.ui.about
 
-import android.content.Intent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,16 +13,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
 import app.hypostats.R
 
 @Composable
 fun AboutScreen() {
-    val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
     Column(
         modifier =
             Modifier
@@ -39,12 +37,7 @@ fun AboutScreen() {
         AboutLinkItem(
             text = stringResource(R.string.about_source_code),
             onClick = {
-                val intent =
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        "https://github.com/psfinaki/HypoStats".toUri(),
-                    )
-                context.startActivity(intent)
+                uriHandler.openUri("https://github.com/psfinaki/HypoStats")
             },
         )
 
@@ -53,12 +46,7 @@ fun AboutScreen() {
         AboutLinkItem(
             text = stringResource(R.string.about_report_issue),
             onClick = {
-                val intent =
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        "https://github.com/psfinaki/HypoStats/issues".toUri(),
-                    )
-                context.startActivity(intent)
+                uriHandler.openUri("https://github.com/psfinaki/HypoStats/issues")
             },
         )
 
@@ -67,12 +55,7 @@ fun AboutScreen() {
         AboutLinkItem(
             text = stringResource(R.string.about_privacy_policy),
             onClick = {
-                val intent =
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        "https://github.com/psfinaki/HypoStats/blob/main/PRIVACY.md".toUri(),
-                    )
-                context.startActivity(intent)
+                uriHandler.openUri("https://github.com/psfinaki/HypoStats/blob/main/PRIVACY.md")
             },
         )
 
