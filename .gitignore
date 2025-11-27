@@ -16,3 +16,8 @@ local.properties
 .github/chatmodes
 .github/instructions
 .github/prompts
+
+# Fastlane
+fastlane/report.xml
+fastlane/README.md
+fastlane-api.json

@@ -1,0 +1,18 @@
+default_platform(:android)
+
+platform :android do
+  desc "Build and upload a new release to the Play Store"
+  lane :deploy do
+    gradle(
+      task: "bundle",
+      build_type: "Release"
+    )
+
+    upload_to_play_store(
+      track: "production",
+      release_status: "draft",
+      aab: "app/build/outputs/bundle/release/app.hypostats-release.aab",
+      skip_upload_apk: true
+    )
+  end
+end
