@@ -1,5 +1,6 @@
 package app.hypostats.ui.settings
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.hypostats.data.local.AppDataStore
@@ -15,7 +16,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -54,13 +54,7 @@ class SettingsViewModel
             }
         }
 
-        suspend fun exportBackup(directory: File): Result<File> {
-            val backupFile = File(directory, "backup.json")
-            return backupService.exportToFile(backupFile)
-        }
+        suspend fun exportBackup(uri: Uri): Result<Unit> = backupService.exportToFile(uri)
 
-        suspend fun importBackup(directory: File): Result<Unit> {
-            val backupFile = File(directory, "backup.json")
-            return backupService.importFromFile(backupFile)
-        }
+        suspend fun importBackup(uri: Uri): Result<Unit> = backupService.importFromFile(uri)
     }

@@ -54,7 +54,7 @@
     <string name="import_success">Import successful.</string>
     <string name="import_file_not_found">No backup file found.</string>
     <string name="import_io_error">Import failed due to an IO error: %1$s</string>
-    <string name="export_success">Export successful: %1$s</string>
+    <string name="export_success">Export successful.</string>
     <string name="export_error">Export failed: %1$s</string>
 
     <!-- About -->

@@ -1,5 +1,7 @@
 package app.hypostats.ui.settings
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -29,6 +31,7 @@ import kotlinx.coroutines.launch
 import java.io.FileNotFoundException
 import java.io.IOException
 
+@Suppress("LongMethod")
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel(),
@@ -38,21 +41,19 @@ fun SettingsScreen(
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
-    SettingsLayout {
-        SettingsScreenContent(
-            state = state,
-            onLanguageSelected = viewModel::selectLanguage,
-            onThemeSelected = viewModel::selectTheme,
-            onExportClick = {
+    val exportLauncher =
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.CreateDocument("application/json"),
+        ) { nullableUri ->
+            nullableUri?.let { uri ->
                 scope.launch {
-                    val result = viewModel.exportBackup(context.filesDir)
+                    val result = viewModel.exportBackup(uri)
                     result
-                        .onSuccess { backupFile ->
+                        .onSuccess {
                             snackbarHostState.showSnackbar(
                                 message =
                                     context.getString(
                                         R.string.export_success,
-                                        backupFile.absolutePath,
                                     ),
                             )
                         }.onFailure { error ->
@@ -63,10 +64,16 @@ fun SettingsScreen(
                             }
                         }
                 }
-            },
-            onImportClick = {
+            }
+        }
+
+    val importLauncher =
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.GetContent(),
+        ) { nullableUri ->
+            nullableUri?.let { uri ->
                 scope.launch {
-                    val result = viewModel.importBackup(context.filesDir)
+                    val result = viewModel.importBackup(uri)
                     result
                         .onSuccess {
                             snackbarHostState.showSnackbar(
@@ -87,6 +94,19 @@ fun SettingsScreen(
                             }
                         }
                 }
+            }
+        }
+
+    SettingsLayout {
+        SettingsScreenContent(
+            state = state,
+            onLanguageSelected = viewModel::selectLanguage,
+            onThemeSelected = viewModel::selectTheme,
+            onExportClick = {
+                exportLauncher.launch("backup.json")
+            },
+            onImportClick = {
+                importLauncher.launch("application/json")
             },
         )
     }

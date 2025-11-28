@@ -1,9 +1,9 @@
 package app.hypostats.domain
 
-import java.io.File
+import android.net.Uri
 
 interface BackupService {
-    suspend fun exportToFile(file: File): Result<File>
+    suspend fun exportToFile(uri: Uri): Result<Unit>
 
-    suspend fun importFromFile(file: File): Result<Unit>
+    suspend fun importFromFile(uri: Uri): Result<Unit>
 }
