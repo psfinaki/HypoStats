@@ -30,7 +30,6 @@ import app.hypostats.ui.settings.sections.ThemeSection
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-@Suppress("LongMethod")
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel(),
@@ -41,19 +40,14 @@ fun SettingsScreen(
     val scope = rememberCoroutineScope()
 
     val exportLauncher =
-        rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.CreateDocument("application/json"),
-        ) { nullableUri ->
+        rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { nullableUri ->
             nullableUri?.let { uri ->
                 scope.launch {
-                    val result = viewModel.exportBackup(uri)
-                    result
+                    viewModel
+                        .exportBackup(uri)
                         .onSuccess {
                             snackbarHostState.showSnackbar(
-                                message =
-                                    context.getString(
-                                        R.string.export_success,
-                                    ),
+                                message = context.getString(R.string.export_success),
                             )
                         }.onFailure { error ->
                             if (error is IOException) {
@@ -67,13 +61,11 @@ fun SettingsScreen(
         }
 
     val importLauncher =
-        rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.GetContent(),
-        ) { nullableUri ->
+        rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { nullableUri ->
             nullableUri?.let { uri ->
                 scope.launch {
-                    val result = viewModel.importBackup(uri)
-                    result
+                    viewModel
+                        .importBackup(uri)
                         .onSuccess {
                             snackbarHostState.showSnackbar(
                                 message = context.getString(R.string.import_success),
@@ -96,12 +88,8 @@ fun SettingsScreen(
             state = state,
             onLanguageSelected = viewModel::selectLanguage,
             onThemeSelected = viewModel::selectTheme,
-            onExportClick = {
-                exportLauncher.launch("backup.json")
-            },
-            onImportClick = {
-                importLauncher.launch("application/json")
-            },
+            onExportClick = { exportLauncher.launch("backup.json") },
+            onImportClick = { importLauncher.launch("application/json") },
         )
     }
 }
