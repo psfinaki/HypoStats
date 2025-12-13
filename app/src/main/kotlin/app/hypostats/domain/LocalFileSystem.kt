@@ -1,24 +1,32 @@
 package app.hypostats.domain
 
+import android.content.ContentResolver
+import android.net.Uri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.File
+import java.io.IOException
 import javax.inject.Inject
 
 class LocalFileSystem
     @Inject
-    constructor() : FileSystem {
-        override suspend fun readText(path: String): String =
+    constructor(
+        private val contentResolver: ContentResolver,
+    ) : FileSystem {
+        override suspend fun readText(uri: Uri): String =
             withContext(Dispatchers.IO) {
-                File(path).readText()
+                contentResolver.openInputStream(uri)?.use { inputStream ->
+                    inputStream.bufferedReader().use { it.readText() }
+                } ?: throw IOException("Could not open file for reading")
             }
 
         override suspend fun writeText(
-            path: String,
+            uri: Uri,
             content: String,
         ) {
             withContext(Dispatchers.IO) {
-                File(path).writeText(content)
+                contentResolver.openOutputStream(uri)?.use { outputStream ->
+                    outputStream.bufferedWriter().use { it.write(content) }
+                } ?: throw IOException("Could not open file for writing")
             }
         }
     }

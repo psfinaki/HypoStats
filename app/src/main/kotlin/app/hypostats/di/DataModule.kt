@@ -1,5 +1,6 @@
 package app.hypostats.di
 
+import android.content.ContentResolver
 import android.content.Context
 import androidx.room.Room
 import app.hypostats.data.RoomRepository
@@ -67,5 +68,10 @@ abstract class DataModule {
                 prettyPrint = true
                 ignoreUnknownKeys = true
             }
+
+        @Provides
+        fun provideContentResolver(
+            @ApplicationContext context: Context,
+        ): ContentResolver = context.contentResolver
     }
 }

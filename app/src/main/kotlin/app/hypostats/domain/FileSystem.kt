@@ -1,10 +1,12 @@
 package app.hypostats.domain
 
+import android.net.Uri
+
 interface FileSystem {
-    suspend fun readText(path: String): String
+    suspend fun readText(uri: Uri): String
 
     suspend fun writeText(
-        path: String,
+        uri: Uri,
         content: String,
     )
 }
