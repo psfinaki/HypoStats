@@ -28,7 +28,6 @@ import app.hypostats.ui.settings.sections.BackupSection
 import app.hypostats.ui.settings.sections.LanguageSection
 import app.hypostats.ui.settings.sections.ThemeSection
 import kotlinx.coroutines.launch
-import java.io.FileNotFoundException
 import java.io.IOException
 
 @Suppress("LongMethod")
@@ -81,11 +80,6 @@ fun SettingsScreen(
                             )
                         }.onFailure { error ->
                             when (error) {
-                                is FileNotFoundException -> {
-                                    snackbarHostState.showSnackbar(
-                                        message = context.getString(R.string.import_file_not_found),
-                                    )
-                                }
                                 is IOException -> {
                                     snackbarHostState.showSnackbar(
                                         message = context.getString(R.string.import_io_error, error.message),

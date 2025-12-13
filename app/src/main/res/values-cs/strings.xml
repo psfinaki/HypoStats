@@ -52,7 +52,6 @@
     <string name="export_backup">Exportovat zálohu</string>
     <string name="import_backup">Importovat zálohu</string>
     <string name="import_success">Import byl úspěšný.</string>
-    <string name="import_file_not_found">Záložní soubor nebyl nalezen.</string>
     <string name="import_io_error">Import selhal kvůli IO chybě: %1$s</string>
     <string name="export_success">Export byl úspěšný.</string>
     <string name="export_error">Export selhal: %1$s</string>
