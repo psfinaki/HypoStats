@@ -26,6 +26,9 @@
     <string name="treatment_entry">%1$s - %2$dg sugar</string>
     <string name="offset">"Offset: "</string>
     <string name="offset_minutes">%1$d minutes</string>
+    <string name="help_title">What is a hypo?</string>
+    <string name="help_message">In this app, a hypo is a whatever situation when you have to eat something to treat it. There is no specific value as it depends on the rate of lowering glucose.</string>
+    <string name="help_ok">OK</string>
 
     <!-- Statistics -->
     <string name="general_stats_title">General Statistics</string>

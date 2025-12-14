@@ -1,6 +1,7 @@
 package app.hypostats.ui.hypo
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,17 +10,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -147,23 +154,57 @@ private fun HypoScreenContent(
 ) {
     val scrollState = rememberScrollState()
 
-    Column(
-        modifier = Modifier.fillMaxSize().verticalScroll(scrollState).padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-    ) {
-        SugarAmountDisplay(uiState.sugarAmount)
-        AddSugarButton(onAddSugar = onAddSugar)
-        OffsetControls(
-            currentOffset = uiState.offsetMinutes,
-            onAddOffset = onAddOffset,
-        )
-        ActionButtons(
-            currentAmount = uiState.sugarAmount,
-            onReset = onReset,
-            onSubmit = onSubmit,
-        )
+    var showHelpDialog by rememberSaveable { mutableStateOf(false) }
+    val showHelp = { showHelpDialog = true }
+    val dismissHelp = { showHelpDialog = false }
+
+    if (showHelpDialog) {
+        HelpDialog(onDismiss = dismissHelp)
     }
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier.fillMaxSize().verticalScroll(scrollState).padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+        ) {
+            SugarAmountDisplay(uiState.sugarAmount)
+            AddSugarButton(onAddSugar = onAddSugar)
+            OffsetControls(
+                currentOffset = uiState.offsetMinutes,
+                onAddOffset = onAddOffset,
+            )
+            ActionButtons(
+                currentAmount = uiState.sugarAmount,
+                onReset = onReset,
+                onSubmit = onSubmit,
+            )
+        }
+
+        IconButton(
+            onClick = showHelp,
+            modifier = Modifier.align(Alignment.TopEnd).padding(16.dp),
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.help_24),
+                contentDescription = stringResource(R.string.help_title),
+            )
+        }
+    }
+}
+
+@Composable
+private fun HelpDialog(onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.help_title)) },
+        text = { Text(stringResource(R.string.help_message)) },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(R.string.help_ok))
+            }
+        },
+    )
 }
 
 @Preview(name = "Portrait")
@@ -221,5 +262,13 @@ private fun ActionButtonsDisabledPreview() {
             onReset = { },
             onSubmit = { },
         )
+    }
+}
+
+@Preview
+@Composable
+private fun HelpDialogPreview() {
+    MaterialTheme {
+        HelpDialog(onDismiss = {})
     }
 }
