@@ -26,6 +26,9 @@
     <string name="treatment_entry">%1$s - %2$dg cukru</string>
     <string name="offset">"Posun: "</string>
     <string name="offset_minutes">%1$d minut</string>
+    <string name="help_title">Co je to hypo?</string>
+    <string name="help_message">V této aplikaci, hypo je jakákoliv situace, kdy se musíte něčím dojídat. Neexistuje žádná konkrétní hodnota, protože záleží na rychlosti poklesu glukózy.</string>
+    <string name="help_ok">OK</string>
 
     <!-- Statistics -->
     <string name="general_stats_title">Hlavní statistiky</string>
