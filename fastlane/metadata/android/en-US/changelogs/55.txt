@@ -1,0 +1,2 @@
+- Configurable backup location
+- Help button on the Hypo screen
