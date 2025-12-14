@@ -21,11 +21,18 @@ jobs:
         distribution: 'temurin'
         cache: gradle
     
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+
     - name: Decode keystore
       env:
         ENCODED_KEYSTORE: ${{ secrets.KEYSTORE_BASE64 }}
+        ENCODED_FASTLANE_API: ${{ secrets.FASTLANE_API_BASE64 }}
       run: |
         base64 -d <<< "$ENCODED_KEYSTORE" > ${{ github.workspace }}/keystore.jks
+        base64 -d <<< "$ENCODED_FASTLANE_API" > ${{ github.workspace }}/fastlane-api.json
     
     - name: Build Release APK
       run: ./gradlew assembleRelease
@@ -49,3 +56,11 @@ jobs:
           --generate-notes
       env:
         GH_TOKEN: ${{ github.token }}
+
+    - name: Deploy to Play Store
+      run: bundle exec fastlane android deploy
+      env:
+        ORG_GRADLE_PROJECT_KEYSTORE_FILE: ${{ github.workspace }}/keystore.jks
+        ORG_GRADLE_PROJECT_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        ORG_GRADLE_PROJECT_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        ORG_GRADLE_PROJECT_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
