@@ -18,22 +18,17 @@ A simple Android app for tracking hypoglycemic episodes.
 - View statistics and treatment history
 - Backup and restore data
 - Dark mode support
-- Multi-language support
+
+## Screenshots
+
+| Submit a hypo | View stats | Settings |
+|:---:|:---:|:---:|
+| <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="200"> | <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="200"> | <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="200"> |
 
 ## Requirements
 
 - Android 8.0 (API 26) or higher
 
-## Tech Stack
+## Development
 
-- Kotlin
-- Jetpack Compose + Material 3
-- MVVM
-- Hilt, Room, DataStore
-
-## Building
-
-```bash
-./gradlew assembleDebug
-./gradlew installDebug
-```
+Check the [Development Guide](DEVELOPMENT.md) for build instructions, tech stack details, and CI/CD documentation.
