@@ -14,4 +14,14 @@ platform :android do
       skip_upload_apk: true
     )
   end
+
+  desc "Update metadata (screenshots, description) only"
+  lane :update_metadata do
+    upload_to_play_store(
+      track: "production",
+      skip_upload_aab: true,
+      skip_upload_apk: true,
+      skip_upload_changelogs: true
+    )
+  end
 end
