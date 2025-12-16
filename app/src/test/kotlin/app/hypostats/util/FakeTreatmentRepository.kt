@@ -1,13 +1,13 @@
 package app.hypostats.util
 
-import app.hypostats.domain.Repository
+import app.hypostats.domain.TreatmentRepository
 import app.hypostats.domain.model.Treatment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.time.Instant
 
-class FakeRepository : Repository {
+class FakeTreatmentRepository : TreatmentRepository {
     private val treatmentsFlow = MutableStateFlow<List<Treatment>>(emptyList())
     private val trackingStartDateFlow = MutableStateFlow(Instant.EPOCH)
 

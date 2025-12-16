@@ -1,6 +1,6 @@
 package app.hypostats.ui.hypo
 
-import app.hypostats.util.FakeRepository
+import app.hypostats.util.FakeTreatmentRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -11,12 +11,12 @@ import java.time.ZoneOffset
 
 class HypoViewModelTest {
     private lateinit var viewModel: HypoViewModel
-    private lateinit var fakeRepository: FakeRepository
+    private lateinit var fakeRepository: FakeTreatmentRepository
     private lateinit var fixedClock: Clock
 
     @Before
     fun setup() {
-        fakeRepository = FakeRepository()
+        fakeRepository = FakeTreatmentRepository()
         fixedClock = Clock.fixed(Instant.ofEpochMilli(1234567890000), ZoneOffset.UTC)
         viewModel = HypoViewModel(fakeRepository, fixedClock)
     }

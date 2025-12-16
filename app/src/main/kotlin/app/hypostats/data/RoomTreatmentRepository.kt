@@ -3,7 +3,7 @@ package app.hypostats.data
 import app.hypostats.data.local.AppDataStore
 import app.hypostats.data.local.TreatmentDao
 import app.hypostats.data.local.TreatmentEntity
-import app.hypostats.domain.Repository
+import app.hypostats.domain.TreatmentRepository
 import app.hypostats.domain.model.Treatment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -12,12 +12,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RoomRepository
+class RoomTreatmentRepository
     @Inject
     constructor(
         private val treatmentDao: TreatmentDao,
         private val appDataStore: AppDataStore,
-    ) : Repository {
+    ) : TreatmentRepository {
         override fun getAllTreatments(): Flow<List<Treatment>> =
             treatmentDao
                 .getAll()

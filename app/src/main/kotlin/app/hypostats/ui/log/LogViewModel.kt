@@ -2,7 +2,7 @@ package app.hypostats.ui.log
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.hypostats.domain.Repository
+import app.hypostats.domain.TreatmentRepository
 import app.hypostats.domain.model.Treatment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class LogViewModel
     @Inject
     constructor(
-        repository: Repository,
+        repository: TreatmentRepository,
     ) : ViewModel() {
         val treatments: StateFlow<List<Treatment>> =
             repository

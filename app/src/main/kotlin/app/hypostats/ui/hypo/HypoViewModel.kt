@@ -2,7 +2,7 @@ package app.hypostats.ui.hypo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.hypostats.domain.Repository
+import app.hypostats.domain.TreatmentRepository
 import app.hypostats.domain.model.Treatment
 import app.hypostats.ui.model.HypoUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +23,7 @@ private const val OFFSET_INCREMENT_MINUTES = 15
 class HypoViewModel
     @Inject
     constructor(
-        private val repository: Repository,
+        private val repository: TreatmentRepository,
         private val clock: Clock,
     ) : ViewModel() {
         private val _state = MutableStateFlow(HypoUiState())

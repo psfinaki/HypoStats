@@ -4,7 +4,7 @@ import android.content.ContentResolver
 import android.content.Context
 import androidx.room.Room
 import app.hypostats.data.DataStoreSettingsRepository
-import app.hypostats.data.RoomRepository
+import app.hypostats.data.RoomTreatmentRepository
 import app.hypostats.data.local.AppDataStore
 import app.hypostats.data.local.HypoStatsDatabase
 import app.hypostats.data.local.PreferencesAppDataStore
@@ -15,8 +15,8 @@ import app.hypostats.domain.FileSystem
 import app.hypostats.domain.JsonBackupService
 import app.hypostats.domain.LanguageManager
 import app.hypostats.domain.LocalFileSystem
-import app.hypostats.domain.Repository
 import app.hypostats.domain.SettingsRepository
+import app.hypostats.domain.TreatmentRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -30,7 +30,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 abstract class DataModule {
     @Binds
-    abstract fun bindRepository(roomRepository: RoomRepository): Repository
+    abstract fun bindTreatmentRepository(roomTreatmentRepository: RoomTreatmentRepository): TreatmentRepository
 
     @Binds
     abstract fun bindSettingsRepository(dataStoreSettingsRepository: DataStoreSettingsRepository): SettingsRepository

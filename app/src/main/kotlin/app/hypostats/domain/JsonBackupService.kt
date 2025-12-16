@@ -13,7 +13,7 @@ import javax.inject.Inject
 class JsonBackupService
     @Inject
     constructor(
-        private val repository: Repository,
+        private val repository: TreatmentRepository,
         private val json: Json,
         private val fileSystem: FileSystem,
     ) : BackupService {

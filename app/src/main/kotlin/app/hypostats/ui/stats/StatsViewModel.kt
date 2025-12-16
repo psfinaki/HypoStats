@@ -2,8 +2,8 @@ package app.hypostats.ui.stats
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.hypostats.domain.Repository
 import app.hypostats.domain.StatsCalculator
+import app.hypostats.domain.TreatmentRepository
 import app.hypostats.domain.model.GeneralStats
 import app.hypostats.domain.model.Stats
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class StatsViewModel
     @Inject
     constructor(
-        private val repository: Repository,
+        private val repository: TreatmentRepository,
         private val clock: Clock,
     ) : ViewModel() {
         val stats: StateFlow<Stats> =
