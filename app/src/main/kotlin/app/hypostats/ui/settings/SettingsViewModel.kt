@@ -3,9 +3,9 @@ package app.hypostats.ui.settings
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.hypostats.data.local.AppDataStore
 import app.hypostats.domain.BackupService
 import app.hypostats.domain.LanguageManager
+import app.hypostats.domain.SettingsRepository
 import app.hypostats.ui.model.AppLanguage
 import app.hypostats.ui.model.AppTheme
 import app.hypostats.ui.model.SettingsUiState
@@ -23,19 +23,19 @@ class SettingsViewModel
     @Inject
     constructor(
         private val backupService: BackupService,
-        private val appDataStore: AppDataStore,
+        private val settingsRepository: SettingsRepository,
         private val languageManager: LanguageManager,
     ) : ViewModel() {
         private val selectedLanguage = MutableStateFlow(languageManager.getCurrentLanguage())
 
         val state: StateFlow<SettingsUiState> =
             combine(
-                appDataStore.appTheme,
+                settingsRepository.getAppTheme(),
                 selectedLanguage,
             ) { theme, language ->
                 SettingsUiState(
                     selectedLanguage = language,
-                    selectedTheme = theme ?: AppTheme.SYSTEM,
+                    selectedTheme = theme,
                 )
             }.stateIn(
                 scope = viewModelScope,
@@ -50,7 +50,7 @@ class SettingsViewModel
 
         fun selectTheme(theme: AppTheme) {
             viewModelScope.launch {
-                appDataStore.setAppTheme(theme)
+                settingsRepository.setAppTheme(theme)
             }
         }
 

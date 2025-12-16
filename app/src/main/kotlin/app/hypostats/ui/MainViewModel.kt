@@ -2,7 +2,7 @@ package app.hypostats.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.hypostats.data.local.AppDataStore
+import app.hypostats.domain.SettingsRepository
 import app.hypostats.ui.model.AppTab
 import app.hypostats.ui.model.AppTheme
 import app.hypostats.ui.model.DrawerDestination
@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
@@ -22,11 +21,11 @@ import javax.inject.Inject
 class MainViewModel
     @Inject
     constructor(
-        private val appDataStore: AppDataStore,
+        private val settingsRepository: SettingsRepository,
     ) : ViewModel() {
         private val selectedTab = MutableStateFlow(AppTab.HYPO)
         private val selectedDrawerDestination = MutableStateFlow(DrawerDestination.HOME)
-        private val theme: Flow<AppTheme> = appDataStore.appTheme.map { it ?: AppTheme.SYSTEM }
+        private val theme: Flow<AppTheme> = settingsRepository.getAppTheme()
 
         val state: StateFlow<MainUiState> =
             combine(
