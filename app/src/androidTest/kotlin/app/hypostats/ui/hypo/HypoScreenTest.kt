@@ -29,7 +29,7 @@ class HypoScreenTest {
 
     @Test
     fun submitButton_enabledOnlyWhenSugarAdded() {
-        val sugarButtonDesc = composeTestRule.activity.getString(R.string.eat_5g_sugar)
+        val sugarButtonDesc = composeTestRule.activity.getString(R.string.add_carbs)
         val submitButtonText = composeTestRule.activity.getString(R.string.submit_treatment)
 
         composeTestRule.onNodeWithText(submitButtonText).assertIsNotEnabled()

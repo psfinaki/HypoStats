@@ -17,7 +17,7 @@
     <string name="see_stats">See statistics</string> 
 
     <!-- Submit hypos -->
-    <string name="eat_5g_sugar">Eat sugar</string>
+    <string name="add_carbs">Add carbs</string>
     <string name="no_treatments_recorded_yet">No treatments recorded yet.</string>
     <string name="reset">Reset</string>
     <string name="submit_treatment">Submit treatment</string>

@@ -84,7 +84,7 @@ private fun AddSugarButton(onAddSugar: () -> Unit) {
     ) {
         Icon(
             painter = painterResource(R.drawable.sugar),
-            contentDescription = stringResource(R.string.eat_5g_sugar),
+            contentDescription = stringResource(R.string.add_carbs),
             modifier = Modifier.size(140.dp),
         )
     }

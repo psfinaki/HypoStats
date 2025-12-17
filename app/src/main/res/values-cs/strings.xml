@@ -17,7 +17,7 @@
     <string name="see_stats">Zobrazit statistiky</string>
 
     <!-- Submit hypos -->
-    <string name="eat_5g_sugar">Sníst cukr</string>
+    <string name="add_carbs">Přidat sacharidy</string>
     <string name="no_treatments_recorded_yet">Zatím nejsou zaznamenána žádná hypa.</string>
     <string name="reset">Obnovit</string>
     <string name="submit_treatment">Zapsat hypo</string>
