@@ -24,8 +24,8 @@ private const val OFFSET_INCREMENT_MINUTES = 15
 class HypoViewModel
     @Inject
     constructor(
-        private val repository: TreatmentRepository,
-        private val settingsRepository: SettingsRepository,
+        private val treatments: TreatmentRepository,
+        private val settings: SettingsRepository,
         private val clock: Clock,
     ) : ViewModel() {
         private val _state = MutableStateFlow(HypoUiState())
@@ -33,7 +33,7 @@ class HypoViewModel
 
         fun addSugar() {
             viewModelScope.launch {
-                val increment = settingsRepository.getCarbIncrement().first()
+                val increment = settings.getCarbIncrement().first()
                 _state.update { it.copy(sugarAmount = it.sugarAmount + increment) }
             }
         }
@@ -61,7 +61,7 @@ class HypoViewModel
         fun saveTreatment() {
             val treatment = createTreatment()
             viewModelScope.launch {
-                repository.addTreatment(treatment)
+                treatments.addTreatment(treatment)
                 resetTreatment()
             }
         }
