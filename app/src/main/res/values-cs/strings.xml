@@ -18,12 +18,10 @@
 
     <!-- Submit hypos -->
     <string name="add_carbs">Přidat sacharidy</string>
-    <string name="no_treatments_recorded_yet">Zatím nejsou zaznamenána žádná hypa.</string>
     <string name="reset">Obnovit</string>
     <string name="submit_treatment">Zapsat hypo</string>
     <string name="treatment_saved">Hypo uloženo</string>
     <string name="g_sugar">%1$dg cukru</string>
-    <string name="treatment_entry">%1$s - %2$dg cukru</string>
     <string name="offset">"Posun: "</string>
     <string name="offset_minutes">%1$d minut</string>
     <string name="help_title">Co je to hypo?</string>
@@ -40,6 +38,10 @@
     <string name="hypo_day">%1$s: %2$d hypo</string>
     <string name="hypo_hour">%1$d:00—%2$d:00: %3$d hypo</string>
     
+    <!-- Log -->
+    <string name="no_treatments_recorded_yet">Zatím nejsou zaznamenána žádná hypa.</string>
+    <string name="treatment_entry">%1$s - %2$dg cukru</string>
+
     <!-- Settings -->
     <string name="language">Jazyk</string>
     <string name="language_system">Systémový</string>

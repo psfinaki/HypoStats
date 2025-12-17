@@ -18,12 +18,10 @@
 
     <!-- Submit hypos -->
     <string name="add_carbs">Add carbs</string>
-    <string name="no_treatments_recorded_yet">No treatments recorded yet.</string>
     <string name="reset">Reset</string>
     <string name="submit_treatment">Submit treatment</string>
     <string name="treatment_saved">Treatment saved</string>
     <string name="g_sugar">%1$dg sugar</string>
-    <string name="treatment_entry">%1$s - %2$dg sugar</string>
     <string name="offset">"Offset: "</string>
     <string name="offset_minutes">%1$d minutes</string>
     <string name="help_title">What is a hypo?</string>
@@ -39,7 +37,11 @@
     <string name="top_hypo_hours_title">Top Hypo Hours</string>
     <string name="hypo_day">%1$s: %2$d hypos</string>
     <string name="hypo_hour">%1$d:00—%2$d:00: %3$d hypos</string>
-    
+
+    <!-- Log -->
+    <string name="no_treatments_recorded_yet">No treatments recorded yet.</string>
+    <string name="treatment_entry">%1$s - %2$dg sugar</string>
+
     <!-- Settings -->
     <string name="language">Language</string>
     <string name="language_system">System default</string>
