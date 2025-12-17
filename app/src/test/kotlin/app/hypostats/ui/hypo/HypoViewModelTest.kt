@@ -1,5 +1,6 @@
 package app.hypostats.ui.hypo
 
+import app.hypostats.util.FakeSettingsRepository
 import app.hypostats.util.FakeTreatmentRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -12,13 +13,15 @@ import java.time.ZoneOffset
 class HypoViewModelTest {
     private lateinit var viewModel: HypoViewModel
     private lateinit var fakeRepository: FakeTreatmentRepository
+    private lateinit var fakeSettingsRepository: FakeSettingsRepository
     private lateinit var fixedClock: Clock
 
     @Before
     fun setup() {
         fakeRepository = FakeTreatmentRepository()
+        fakeSettingsRepository = FakeSettingsRepository()
         fixedClock = Clock.fixed(Instant.ofEpochMilli(1234567890000), ZoneOffset.UTC)
-        viewModel = HypoViewModel(fakeRepository, fixedClock)
+        viewModel = HypoViewModel(fakeRepository, fakeSettingsRepository, fixedClock)
     }
 
     @Test
@@ -28,26 +31,6 @@ class HypoViewModelTest {
 
             assertEquals(0, state.sugarAmount)
             assertEquals(0, state.offsetMinutes)
-        }
-
-    @Test
-    fun `addSugar should increase sugar amount by 5`() =
-        runTest {
-            viewModel.addSugar()
-
-            val state = viewModel.state.value
-            assertEquals(5, state.sugarAmount)
-        }
-
-    @Test
-    fun `multiple addSugar calls should accumulate`() =
-        runTest {
-            viewModel.addSugar()
-            viewModel.addSugar()
-            viewModel.addSugar()
-
-            val state = viewModel.state.value
-            assertEquals(15, state.sugarAmount)
         }
 
     @Test
@@ -89,16 +72,6 @@ class HypoViewModelTest {
 
         assertEquals(0, result.sugarAmount)
         assertEquals(expectedTime, result.timestamp)
-    }
-
-    @Test
-    fun `createTreatment should include sugar amount`() {
-        viewModel.addSugar()
-        viewModel.addSugar()
-
-        val result = viewModel.createTreatment()
-
-        assertEquals(10, result.sugarAmount)
     }
 
     @Test

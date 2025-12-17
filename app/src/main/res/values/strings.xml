@@ -17,7 +17,7 @@
     <string name="see_stats">See statistics</string> 
 
     <!-- Submit hypos -->
-    <string name="eat_5g_sugar">Eat 5g sugar</string>
+    <string name="eat_5g_sugar">Eat sugar</string>
     <string name="no_treatments_recorded_yet">No treatments recorded yet.</string>
     <string name="reset">Reset</string>
     <string name="submit_treatment">Submit treatment</string>
@@ -49,7 +49,11 @@
     <string name="theme_system">System default</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
-    
+
+    <!-- Carb Increment Settings -->
+    <string name="carb_increment">Carb Increment</string>
+    <string name="current_carb_increment">%1$dg</string>
+
     <!-- Backup -->
     <string name="backup">Backup</string>
     <string name="export_backup">Export Backup</string>

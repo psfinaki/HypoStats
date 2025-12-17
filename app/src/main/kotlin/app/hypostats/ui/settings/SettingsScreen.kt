@@ -25,6 +25,7 @@ import app.hypostats.ui.model.AppLanguage
 import app.hypostats.ui.model.AppTheme
 import app.hypostats.ui.model.SettingsUiState
 import app.hypostats.ui.settings.sections.BackupSection
+import app.hypostats.ui.settings.sections.CarbIncrementSection
 import app.hypostats.ui.settings.sections.LanguageSection
 import app.hypostats.ui.settings.sections.ThemeSection
 import kotlinx.coroutines.launch
@@ -88,6 +89,7 @@ fun SettingsScreen(
             state = state,
             onLanguageSelected = viewModel::selectLanguage,
             onThemeSelected = viewModel::selectTheme,
+            onCarbIncrementSelected = viewModel::setCarbIncrement,
             onExportClick = { exportLauncher.launch("backup.json") },
             onImportClick = { importLauncher.launch("application/json") },
         )
@@ -108,10 +110,12 @@ private fun SettingsLayout(content: @Composable ColumnScope.() -> Unit) {
 }
 
 @Composable
+@Suppress("LongParameterList")
 private fun SettingsScreenContent(
     state: SettingsUiState,
     onLanguageSelected: (AppLanguage) -> Unit,
     onThemeSelected: (AppTheme) -> Unit,
+    onCarbIncrementSelected: (Int) -> Unit,
     onExportClick: () -> Unit,
     onImportClick: () -> Unit,
 ) {
@@ -123,6 +127,11 @@ private fun SettingsScreenContent(
     ThemeSection(
         selectedTheme = state.selectedTheme,
         onThemeSelected = onThemeSelected,
+    )
+
+    CarbIncrementSection(
+        carbIncrement = state.carbIncrement,
+        onCarbIncrementSelected = onCarbIncrementSelected,
     )
 
     BackupSection(
@@ -141,6 +150,7 @@ private fun SettingsScreenContentPreview() {
                 state = SettingsUiState(),
                 onLanguageSelected = { },
                 onThemeSelected = { },
+                onCarbIncrementSelected = { },
                 onExportClick = { },
                 onImportClick = { },
             )

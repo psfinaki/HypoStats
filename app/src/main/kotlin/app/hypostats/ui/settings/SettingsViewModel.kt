@@ -32,10 +32,12 @@ class SettingsViewModel
             combine(
                 settingsRepository.getAppTheme(),
                 selectedLanguage,
-            ) { theme, language ->
+                settingsRepository.getCarbIncrement(),
+            ) { theme, language, carbIncrement ->
                 SettingsUiState(
                     selectedLanguage = language,
                     selectedTheme = theme,
+                    carbIncrement = carbIncrement,
                 )
             }.stateIn(
                 scope = viewModelScope,
@@ -51,6 +53,12 @@ class SettingsViewModel
         fun selectTheme(theme: AppTheme) {
             viewModelScope.launch {
                 settingsRepository.setAppTheme(theme)
+            }
+        }
+
+        fun setCarbIncrement(increment: Int) {
+            viewModelScope.launch {
+                settingsRepository.setCarbIncrement(increment)
             }
         }
 

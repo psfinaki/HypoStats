@@ -2,6 +2,7 @@ package app.hypostats.data.local
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -17,6 +18,7 @@ class PreferencesAppDataStore(
 ) : AppDataStore {
     private val trackingStartDateKey = longPreferencesKey("tracking_start_date")
     private val appThemeKey = stringPreferencesKey("app_theme")
+    private val carbIncrementKey = intPreferencesKey("carb_increment")
 
     override val trackingStartDate: Flow<Instant?> =
         context.dataStore.data
@@ -41,6 +43,18 @@ class PreferencesAppDataStore(
     override suspend fun setAppTheme(theme: AppTheme) {
         context.dataStore.edit { preferences ->
             preferences[appThemeKey] = theme.name
+        }
+    }
+
+    override val carbIncrement: Flow<Int?> =
+        context.dataStore.data
+            .map { preferences ->
+                preferences[carbIncrementKey]
+            }
+
+    override suspend fun setCarbIncrement(increment: Int) {
+        context.dataStore.edit { preferences ->
+            preferences[carbIncrementKey] = increment
         }
     }
 }
