@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
+private const val DEFAULT_CARB_INCREMENT = 5
+
 @Singleton
 class DataStoreSettingsRepository
     @Inject
@@ -18,5 +20,11 @@ class DataStoreSettingsRepository
 
         override suspend fun setAppTheme(theme: AppTheme) {
             appDataStore.setAppTheme(theme)
+        }
+
+        override fun getCarbIncrement(): Flow<Int> = appDataStore.carbIncrement.map { it ?: DEFAULT_CARB_INCREMENT }
+
+        override suspend fun setCarbIncrement(increment: Int) {
+            appDataStore.setCarbIncrement(increment)
         }
     }

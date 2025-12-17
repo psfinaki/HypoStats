@@ -12,4 +12,8 @@ interface AppDataStore {
     val appTheme: Flow<AppTheme?>
 
     suspend fun setAppTheme(theme: AppTheme)
+
+    val carbIncrement: Flow<Int?>
+
+    suspend fun setCarbIncrement(increment: Int)
 }

@@ -2,6 +2,7 @@ package app.hypostats.ui.hypo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.hypostats.domain.SettingsRepository
 import app.hypostats.domain.TreatmentRepository
 import app.hypostats.domain.model.Treatment
 import app.hypostats.ui.model.HypoUiState
@@ -9,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.Clock
@@ -16,7 +18,6 @@ import java.time.Instant
 import javax.inject.Inject
 
 private const val SECONDS_IN_MINUTE = 60L
-private const val SUGAR_INCREMENT_GRAMS = 5
 private const val OFFSET_INCREMENT_MINUTES = 15
 
 @HiltViewModel
@@ -24,13 +25,17 @@ class HypoViewModel
     @Inject
     constructor(
         private val repository: TreatmentRepository,
+        private val settingsRepository: SettingsRepository,
         private val clock: Clock,
     ) : ViewModel() {
         private val _state = MutableStateFlow(HypoUiState())
         val state: StateFlow<HypoUiState> = _state.asStateFlow()
 
         fun addSugar() {
-            _state.update { it.copy(sugarAmount = it.sugarAmount + SUGAR_INCREMENT_GRAMS) }
+            viewModelScope.launch {
+                val increment = settingsRepository.getCarbIncrement().first()
+                _state.update { it.copy(sugarAmount = it.sugarAmount + increment) }
+            }
         }
 
         fun addOffset() {

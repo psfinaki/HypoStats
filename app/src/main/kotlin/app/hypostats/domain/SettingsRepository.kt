@@ -7,4 +7,8 @@ interface SettingsRepository {
     fun getAppTheme(): Flow<AppTheme>
 
     suspend fun setAppTheme(theme: AppTheme)
+
+    fun getCarbIncrement(): Flow<Int>
+
+    suspend fun setCarbIncrement(increment: Int)
 }

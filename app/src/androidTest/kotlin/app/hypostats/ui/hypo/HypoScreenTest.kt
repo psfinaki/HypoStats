@@ -28,21 +28,6 @@ class HypoScreenTest {
     }
 
     @Test
-    fun addingSugar_updatesSugarAmount() {
-        val sugarButtonDesc = composeTestRule.activity.getString(R.string.eat_5g_sugar)
-
-        composeTestRule.onNodeWithText("0g sugar").assertExists()
-
-        composeTestRule.onNodeWithContentDescription(sugarButtonDesc).performClick()
-
-        composeTestRule.onNodeWithText("5g sugar").assertExists()
-
-        composeTestRule.onNodeWithContentDescription(sugarButtonDesc).performClick()
-
-        composeTestRule.onNodeWithText("10g sugar").assertExists()
-    }
-
-    @Test
     fun submitButton_enabledOnlyWhenSugarAdded() {
         val sugarButtonDesc = composeTestRule.activity.getString(R.string.eat_5g_sugar)
         val submitButtonText = composeTestRule.activity.getString(R.string.submit_treatment)

@@ -17,7 +17,7 @@
     <string name="see_stats">Zobrazit statistiky</string>
 
     <!-- Submit hypos -->
-    <string name="eat_5g_sugar">Sníst 5g cukru</string>
+    <string name="eat_5g_sugar">Sníst cukr</string>
     <string name="no_treatments_recorded_yet">Zatím nejsou zaznamenána žádná hypa.</string>
     <string name="reset">Obnovit</string>
     <string name="submit_treatment">Zapsat hypo</string>
@@ -49,7 +49,11 @@
     <string name="theme_system">Systémové</string>
     <string name="theme_light">Světlé</string>
     <string name="theme_dark">Tmavé</string>
-    
+
+    <!-- Carb Increment Settings -->
+    <string name="carb_increment">Přírůstek sacharidů</string>
+    <string name="current_carb_increment">%1$dg</string>
+
     <!-- Backup -->
     <string name="backup">Záloha</string>
     <string name="export_backup">Exportovat zálohu</string>
