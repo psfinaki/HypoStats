@@ -4,5 +4,5 @@ import java.time.Instant
 
 data class Treatment(
     val timestamp: Instant,
-    val sugarAmount: Int,
+    val carbs: Int,
 )

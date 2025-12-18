@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class BackupTreatment(
     val timestamp: String,
-    val sugarAmount: Int,
+    val carbs: Int,
 )

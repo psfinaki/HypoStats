@@ -28,7 +28,7 @@ class JsonBackupService
                         treatments.map { treatment ->
                             BackupTreatment(
                                 timestamp = treatment.timestamp.toString(),
-                                sugarAmount = treatment.sugarAmount,
+                                carbs = treatment.carbs,
                             )
                         },
                 )
@@ -55,7 +55,7 @@ class JsonBackupService
                 backup.treatments.map { backupTreatment ->
                     Treatment(
                         timestamp = Instant.parse(backupTreatment.timestamp),
-                        sugarAmount = backupTreatment.sugarAmount,
+                        carbs = backupTreatment.carbs,
                     )
                 }
 

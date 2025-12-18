@@ -80,7 +80,7 @@ private fun TreatmentItem(treatment: Treatment) {
         }
 
     Text(
-        text = stringResource(R.string.treatment_entry, dateTime, treatment.sugarAmount),
+        text = stringResource(R.string.treatment_entry, dateTime, treatment.carbs),
     )
 }
 
@@ -104,15 +104,15 @@ private fun TreatmentLogCardPreview() {
                 listOf(
                     Treatment(
                         timestamp = Instant.ofEpochMilli(1727280615000), // 25/09/25 14:30:15
-                        sugarAmount = 15,
+                        carbs = 15,
                     ),
                     Treatment(
                         timestamp = Instant.ofEpochMilli(1727194522000), // 24/09/25 09:45:22
-                        sugarAmount = 10,
+                        carbs = 10,
                     ),
                     Treatment(
                         timestamp = Instant.ofEpochMilli(1727110810000), // 23/09/25 16:20:10
-                        sugarAmount = 20,
+                        carbs = 20,
                     ),
                 ),
         )
@@ -135,7 +135,7 @@ private fun TreatmentItemPreview() {
             treatment =
                 Treatment(
                     timestamp = Instant.ofEpochMilli(1727280615000), // 25/09/25 14:30:15
-                    sugarAmount = 15,
+                    carbs = 15,
                 ),
         )
     }

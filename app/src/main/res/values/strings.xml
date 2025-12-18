@@ -21,7 +21,7 @@
     <string name="reset">Reset</string>
     <string name="submit_treatment">Submit treatment</string>
     <string name="treatment_saved">Treatment saved</string>
-    <string name="g_sugar">%1$dg sugar</string>
+    <string name="carbs">%1$d carbs</string>
     <string name="offset">"Offset: "</string>
     <string name="offset_minutes">%1$d minutes</string>
     <string name="help_title">What is a hypo?</string>
@@ -40,7 +40,7 @@
 
     <!-- Log -->
     <string name="no_treatments_recorded_yet">No treatments recorded yet.</string>
-    <string name="treatment_entry">%1$s - %2$dg sugar</string>
+    <string name="treatment_entry">%1$s - %2$d carbs</string>
 
     <!-- Settings -->
     <string name="language">Language</string>
