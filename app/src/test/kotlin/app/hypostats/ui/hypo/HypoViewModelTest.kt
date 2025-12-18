@@ -25,11 +25,11 @@ class HypoViewModelTest {
     }
 
     @Test
-    fun `initial state should have zero sugar and offset`() =
+    fun `initial state should have zero carbs and offset`() =
         runTest {
             val state = viewModel.state.value
 
-            assertEquals(0, state.sugarAmount)
+            assertEquals(0, state.carbs)
             assertEquals(0, state.offsetMinutes)
         }
 
@@ -53,24 +53,24 @@ class HypoViewModelTest {
         }
 
     @Test
-    fun `resetTreatment should clear sugar and offset`() =
+    fun `resetTreatment should clear carbs and offset`() =
         runTest {
-            viewModel.addSugar()
-            viewModel.addSugar()
+            viewModel.addGrams()
+            viewModel.addGrams()
             viewModel.addOffset()
             viewModel.resetTreatment()
 
             val state = viewModel.state.value
-            assertEquals(0, state.sugarAmount)
+            assertEquals(0, state.carbs)
             assertEquals(0, state.offsetMinutes)
         }
 
     @Test
-    fun `createTreatment should work with zero sugar and offset`() {
+    fun `createTreatment should work with zero carbs and offset`() {
         val result = viewModel.createTreatment()
         val expectedTime = Instant.ofEpochMilli(1234567890000)
 
-        assertEquals(0, result.sugarAmount)
+        assertEquals(0, result.carbs)
         assertEquals(expectedTime, result.timestamp)
     }
 

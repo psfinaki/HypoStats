@@ -52,7 +52,7 @@ fun HypoScreen(
 
     HypoScreenContent(
         uiState = state,
-        onAddSugar = viewModel::addSugar,
+        onAddGrams = viewModel::addGrams,
         onAddOffset = viewModel::addOffset,
         onReset = viewModel::resetTreatment,
         onSubmit = {
@@ -68,18 +68,18 @@ fun HypoScreen(
 }
 
 @Composable
-private fun SugarAmountDisplay(amount: Int) {
+private fun CarbsDisplay(carbs: Int) {
     Text(
-        text = stringResource(R.string.g_sugar, amount),
+        text = stringResource(R.string.carbs, carbs),
         fontSize = 24.sp,
         modifier = Modifier.padding(bottom = 32.dp),
     )
 }
 
 @Composable
-private fun AddSugarButton(onAddSugar: () -> Unit) {
+private fun AddCarbsButton(onAddCarbs: () -> Unit) {
     FloatingActionButton(
-        onClick = onAddSugar,
+        onClick = onAddCarbs,
         modifier = Modifier.size(210.dp).padding(bottom = 32.dp),
     ) {
         Icon(
@@ -124,7 +124,7 @@ private fun OffsetControls(
 
 @Composable
 private fun ActionButtons(
-    currentAmount: Int,
+    currentCarbs: Int,
     onReset: () -> Unit,
     onSubmit: () -> Unit,
 ) {
@@ -137,7 +137,7 @@ private fun ActionButtons(
 
         Button(
             onClick = onSubmit,
-            enabled = currentAmount > 0,
+            enabled = currentCarbs > 0,
         ) {
             Text(stringResource(R.string.submit_treatment))
         }
@@ -147,7 +147,7 @@ private fun ActionButtons(
 @Composable
 private fun HypoScreenContent(
     uiState: HypoUiState,
-    onAddSugar: () -> Unit,
+    onAddGrams: () -> Unit,
     onAddOffset: () -> Unit,
     onReset: () -> Unit,
     onSubmit: () -> Unit,
@@ -168,14 +168,14 @@ private fun HypoScreenContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            SugarAmountDisplay(uiState.sugarAmount)
-            AddSugarButton(onAddSugar = onAddSugar)
+            CarbsDisplay(uiState.carbs)
+            AddCarbsButton(onAddCarbs = onAddGrams)
             OffsetControls(
                 currentOffset = uiState.offsetMinutes,
                 onAddOffset = onAddOffset,
             )
             ActionButtons(
-                currentAmount = uiState.sugarAmount,
+                currentCarbs = uiState.carbs,
                 onReset = onReset,
                 onSubmit = onSubmit,
             )
@@ -214,7 +214,7 @@ private fun HypoScreenPreview() {
     MaterialTheme {
         HypoScreenContent(
             HypoUiState(),
-            onAddSugar = { },
+            onAddGrams = { },
             onAddOffset = { },
             onReset = { },
             onSubmit = { },
@@ -224,9 +224,9 @@ private fun HypoScreenPreview() {
 
 @Preview
 @Composable
-private fun SugarAmountDisplayPreview() {
+private fun CarbsDisplayPreview() {
     MaterialTheme {
-        SugarAmountDisplay(amount = 15)
+        CarbsDisplay(carbs = 15)
     }
 }
 
@@ -246,7 +246,7 @@ private fun OffsetControlsPreview() {
 private fun ActionButtonsEnabledPreview() {
     MaterialTheme {
         ActionButtons(
-            currentAmount = 15,
+            currentCarbs = 15,
             onReset = { },
             onSubmit = { },
         )
@@ -258,7 +258,7 @@ private fun ActionButtonsEnabledPreview() {
 private fun ActionButtonsDisabledPreview() {
     MaterialTheme {
         ActionButtons(
-            currentAmount = 0,
+            currentCarbs = 0,
             onReset = { },
             onSubmit = { },
         )
