@@ -21,8 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.hypostats.R
-import app.hypostats.ui.model.AppLanguage
-import app.hypostats.ui.model.AppTheme
 import app.hypostats.ui.model.SettingsUiState
 import app.hypostats.ui.settings.sections.BackupSection
 import app.hypostats.ui.settings.sections.CarbIncrementSection
@@ -32,6 +30,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 @Composable
+@Suppress("LongMethod")
 fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel(),
     snackbarHostState: SnackbarHostState,
@@ -87,11 +86,15 @@ fun SettingsScreen(
     SettingsLayout {
         SettingsScreenContent(
             state = state,
-            onLanguageSelected = viewModel::selectLanguage,
-            onThemeSelected = viewModel::selectTheme,
-            onCarbIncrementSelected = viewModel::setCarbIncrement,
-            onExportClick = { exportLauncher.launch("backup.json") },
-            onImportClick = { importLauncher.launch("application/json") },
+            onEvent = { event ->
+                when (event) {
+                    is SettingsEvent.SelectLanguage -> viewModel.selectLanguage(event.language)
+                    is SettingsEvent.SelectTheme -> viewModel.selectTheme(event.theme)
+                    is SettingsEvent.SetCarbIncrement -> viewModel.setCarbIncrement(event.increment)
+                    SettingsEvent.ExportBackup -> exportLauncher.launch("backup.json")
+                    SettingsEvent.ImportBackup -> importLauncher.launch("application/json")
+                }
+            },
         )
     }
 }
@@ -110,33 +113,28 @@ private fun SettingsLayout(content: @Composable ColumnScope.() -> Unit) {
 }
 
 @Composable
-@Suppress("LongParameterList")
 private fun SettingsScreenContent(
     state: SettingsUiState,
-    onLanguageSelected: (AppLanguage) -> Unit,
-    onThemeSelected: (AppTheme) -> Unit,
-    onCarbIncrementSelected: (Int) -> Unit,
-    onExportClick: () -> Unit,
-    onImportClick: () -> Unit,
+    onEvent: (SettingsEvent) -> Unit,
 ) {
     LanguageSection(
         selectedLanguage = state.selectedLanguage,
-        onLanguageSelected = onLanguageSelected,
+        onLanguageSelected = { onEvent(SettingsEvent.SelectLanguage(it)) },
     )
 
     ThemeSection(
         selectedTheme = state.selectedTheme,
-        onThemeSelected = onThemeSelected,
+        onThemeSelected = { onEvent(SettingsEvent.SelectTheme(it)) },
     )
 
     CarbIncrementSection(
         carbIncrement = state.carbIncrement,
-        onCarbIncrementSelected = onCarbIncrementSelected,
+        onCarbIncrementSelected = { onEvent(SettingsEvent.SetCarbIncrement(it)) },
     )
 
     BackupSection(
-        onExportClick = onExportClick,
-        onImportClick = onImportClick,
+        onExportClick = { onEvent(SettingsEvent.ExportBackup) },
+        onImportClick = { onEvent(SettingsEvent.ImportBackup) },
     )
 }
 
@@ -148,11 +146,7 @@ private fun SettingsScreenContentPreview() {
         SettingsLayout {
             SettingsScreenContent(
                 state = SettingsUiState(),
-                onLanguageSelected = { },
-                onThemeSelected = { },
-                onCarbIncrementSelected = { },
-                onExportClick = { },
-                onImportClick = { },
+                onEvent = {},
             )
         }
     }

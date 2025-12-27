@@ -52,16 +52,20 @@ fun HypoScreen(
 
     HypoScreenContent(
         uiState = state,
-        onAddGrams = viewModel::addGrams,
-        onAddOffset = viewModel::addOffset,
-        onReset = viewModel::resetTreatment,
-        onSubmit = {
-            viewModel.saveTreatment()
-            scope.launch {
-                snackbarHostState.showSnackbar(
-                    message = context.getString(R.string.treatment_saved),
-                    duration = SnackbarDuration.Short,
-                )
+        onEvent = { event ->
+            when (event) {
+                HypoEvent.AddGrams -> viewModel.addGrams()
+                HypoEvent.AddOffset -> viewModel.addOffset()
+                HypoEvent.Reset -> viewModel.resetTreatment()
+                HypoEvent.Submit -> {
+                    viewModel.saveTreatment()
+                    scope.launch {
+                        snackbarHostState.showSnackbar(
+                            message = context.getString(R.string.treatment_saved),
+                            duration = SnackbarDuration.Short,
+                        )
+                    }
+                }
             }
         },
     )
@@ -147,10 +151,7 @@ private fun ActionButtons(
 @Composable
 private fun HypoScreenContent(
     uiState: HypoUiState,
-    onAddGrams: () -> Unit,
-    onAddOffset: () -> Unit,
-    onReset: () -> Unit,
-    onSubmit: () -> Unit,
+    onEvent: (HypoEvent) -> Unit,
 ) {
     val scrollState = rememberScrollState()
 
@@ -169,15 +170,15 @@ private fun HypoScreenContent(
             verticalArrangement = Arrangement.Center,
         ) {
             CarbsDisplay(uiState.carbs)
-            AddCarbsButton(onAddCarbs = onAddGrams)
+            AddCarbsButton(onAddCarbs = { onEvent(HypoEvent.AddGrams) })
             OffsetControls(
                 currentOffset = uiState.offsetMinutes,
-                onAddOffset = onAddOffset,
+                onAddOffset = { onEvent(HypoEvent.AddOffset) },
             )
             ActionButtons(
                 currentCarbs = uiState.carbs,
-                onReset = onReset,
-                onSubmit = onSubmit,
+                onReset = { onEvent(HypoEvent.Reset) },
+                onSubmit = { onEvent(HypoEvent.Submit) },
             )
         }
 
@@ -214,10 +215,7 @@ private fun HypoScreenPreview() {
     MaterialTheme {
         HypoScreenContent(
             HypoUiState(),
-            onAddGrams = { },
-            onAddOffset = { },
-            onReset = { },
-            onSubmit = { },
+            onEvent = {},
         )
     }
 }
