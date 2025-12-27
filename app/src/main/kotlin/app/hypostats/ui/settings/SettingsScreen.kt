@@ -30,7 +30,6 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 @Composable
-@Suppress("LongMethod")
 fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel(),
     snackbarHostState: SnackbarHostState,
@@ -46,9 +45,7 @@ fun SettingsScreen(
                     viewModel
                         .exportBackup(uri)
                         .onSuccess {
-                            snackbarHostState.showSnackbar(
-                                message = context.getString(R.string.export_success),
-                            )
+                            snackbarHostState.showSnackbar(message = context.getString(R.string.export_success))
                         }.onFailure { error ->
                             if (error is IOException) {
                                 snackbarHostState.showSnackbar(
