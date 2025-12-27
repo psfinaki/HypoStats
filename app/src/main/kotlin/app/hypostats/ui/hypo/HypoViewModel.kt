@@ -31,7 +31,7 @@ class HypoViewModel
         private val _state = MutableStateFlow(HypoUiState())
         val state: StateFlow<HypoUiState> = _state.asStateFlow()
 
-        fun addGrams() {
+        fun addCarbs() {
             viewModelScope.launch {
                 val increment = settings.getCarbIncrement().first()
                 _state.update { it.copy(carbs = it.carbs + increment) }

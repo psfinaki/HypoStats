@@ -51,10 +51,10 @@ fun HypoScreen(
     val scope = rememberCoroutineScope()
 
     HypoScreenContent(
-        uiState = state,
+        state = state,
         onEvent = { event ->
             when (event) {
-                HypoEvent.AddGrams -> viewModel.addGrams()
+                HypoEvent.AddCarbs -> viewModel.addCarbs()
                 HypoEvent.AddOffset -> viewModel.addOffset()
                 HypoEvent.Reset -> viewModel.resetTreatment()
                 HypoEvent.Submit -> {
@@ -150,7 +150,7 @@ private fun ActionButtons(
 
 @Composable
 private fun HypoScreenContent(
-    uiState: HypoUiState,
+    state: HypoUiState,
     onEvent: (HypoEvent) -> Unit,
 ) {
     val scrollState = rememberScrollState()
@@ -169,14 +169,14 @@ private fun HypoScreenContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            CarbsDisplay(uiState.carbs)
-            AddCarbsButton(onAddCarbs = { onEvent(HypoEvent.AddGrams) })
+            CarbsDisplay(state.carbs)
+            AddCarbsButton(onAddCarbs = { onEvent(HypoEvent.AddCarbs) })
             OffsetControls(
-                currentOffset = uiState.offsetMinutes,
+                currentOffset = state.offsetMinutes,
                 onAddOffset = { onEvent(HypoEvent.AddOffset) },
             )
             ActionButtons(
-                currentCarbs = uiState.carbs,
+                currentCarbs = state.carbs,
                 onReset = { onEvent(HypoEvent.Reset) },
                 onSubmit = { onEvent(HypoEvent.Submit) },
             )

@@ -55,8 +55,8 @@ class HypoViewModelTest {
     @Test
     fun `resetTreatment should clear carbs and offset`() =
         runTest {
-            viewModel.addGrams()
-            viewModel.addGrams()
+            viewModel.addCarbs()
+            viewModel.addCarbs()
             viewModel.addOffset()
             viewModel.resetTreatment()
 

@@ -1,7 +1,7 @@
 package app.hypostats.ui.hypo
 
 sealed interface HypoEvent {
-    data object AddGrams : HypoEvent
+    data object AddCarbs : HypoEvent
 
     data object AddOffset : HypoEvent
 
