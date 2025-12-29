@@ -71,6 +71,15 @@ fun AboutScreen() {
 
         HorizontalDivider()
 
+        AboutLinkItem(
+            text = stringResource(R.string.about_support_app),
+            onClick = {
+                uriHandler.openUri("https://buymeacoffee.com/psfinaki")
+            },
+        )
+
+        HorizontalDivider()
+
         AboutFooter()
     }
 }
