@@ -72,6 +72,7 @@
     <string name="about_source_code">Source Code</string>
     <string name="about_report_issue">Report an Issue</string>
     <string name="about_contact_dev">Contact the Developer</string>
+    <string name="about_support_app">Support the App</string>
     <string name="about_open_link">Open link</string>
     <string name="about_version">v%1$s</string>
 </resources>

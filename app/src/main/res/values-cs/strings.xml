@@ -72,6 +72,7 @@
     <string name="about_source_code">Zdrojový kód</string>
     <string name="about_report_issue">Nahlásit chybu</string>
     <string name="about_contact_dev">Kontaktovat vývojáře</string>
+    <string name="about_support_app">Podpořit aplikaci</string>
     <string name="about_open_link">Otevřít odkaz</string>
     <string name="about_version">v%1$s</string>
 </resources>
