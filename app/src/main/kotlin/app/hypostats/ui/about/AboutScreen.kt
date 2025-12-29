@@ -54,6 +54,15 @@ fun AboutScreen() {
         HorizontalDivider()
 
         AboutLinkItem(
+            text = stringResource(R.string.about_contact_dev),
+            onClick = {
+                uriHandler.openUri("mailto:info@psfinaki.dev")
+            },
+        )
+
+        HorizontalDivider()
+
+        AboutLinkItem(
             text = stringResource(R.string.about_privacy_policy),
             onClick = {
                 uriHandler.openUri("https://github.com/psfinaki/HypoStats/blob/main/PRIVACY.md")
