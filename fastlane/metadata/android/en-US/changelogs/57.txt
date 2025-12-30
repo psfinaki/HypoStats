@@ -1,0 +1,3 @@
+- Sugar grams are rebranded as carbs
+- Carb increment is now configurable
+- Reworked About screen
