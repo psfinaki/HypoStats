@@ -68,7 +68,6 @@
     <!-- About -->
     <string name="about_privacy_policy">Ochrana osobních údajů</string>
     <string name="about_desc">Jednoduché sledování a statistiky pro hypo</string>
-    <string name="about_dev">Vyvinul psfinaki</string>
     <string name="about_source_code">Zdrojový kód</string>
     <string name="about_report_issue">Nahlásit chybu</string>
     <string name="about_contact_dev">Kontaktovat vývojáře</string>
