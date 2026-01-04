@@ -1,3 +1,13 @@
-HypoStats is a straightforward app for people who need to track their hypoglycemic episodes. The app provides some basic statistics around them.
+HypoStats is a simple Android app for noting hypoglycemic episodes.
 
-No ads, no tracking, no data collected.
+Quickly record treatments, review your history and see statistics that help you spot patterns over time. The app is designed for diabetics and other people struggling with hypoglycemia for any reason.
+
+Privacy Notice
+
+Hypoglycemia is a personal matter. Many people are afraid or embarrassed to talk about their hypos even with healthcare providers. Therefore, this app doesn't share your data and doesn't track you in any way.
+
+There are no ads and no analytics - the app does not collect any data whatsoever and works entirely offline on your device. There are no accounts and no data integrations. The app is only yours. If you need to migrate your data to a new phone, use the Backup & Restore functionality in the Settings.
+
+Health Notice
+
+The app is for personal reference only and does not give any medical advice, diagnosis or treatment.
