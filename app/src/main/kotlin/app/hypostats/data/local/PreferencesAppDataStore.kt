@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import app.hypostats.ui.model.AppTheme
+import app.hypostats.ui.model.CarbIcon
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.Instant
@@ -19,6 +20,7 @@ class PreferencesAppDataStore(
     private val trackingStartDateKey = longPreferencesKey("tracking_start_date")
     private val appThemeKey = stringPreferencesKey("app_theme")
     private val carbIncrementKey = intPreferencesKey("carb_increment")
+    private val carbIconKey = stringPreferencesKey("carb_icon")
 
     override val trackingStartDate: Flow<Instant?> =
         context.dataStore.data
@@ -55,6 +57,20 @@ class PreferencesAppDataStore(
     override suspend fun setCarbIncrement(increment: Int) {
         context.dataStore.edit { preferences ->
             preferences[carbIncrementKey] = increment
+        }
+    }
+
+    override val carbIcon: Flow<CarbIcon?> =
+        context.dataStore.data
+            .map { preferences ->
+                preferences[carbIconKey]?.let { iconName ->
+                    CarbIcon.valueOf(iconName)
+                }
+            }
+
+    override suspend fun setCarbIcon(icon: CarbIcon) {
+        context.dataStore.edit { preferences ->
+            preferences[carbIconKey] = icon.name
         }
     }
 }

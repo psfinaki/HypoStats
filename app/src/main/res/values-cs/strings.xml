@@ -56,6 +56,12 @@
     <string name="carb_increment">Přírůstek sacharidů</string>
     <string name="current_carb_increment">%1$dg</string>
 
+    <!-- Carb Icon Settings -->
+    <string name="carb_icon">Ikonka sacharidů</string>
+    <string name="carb_icon_sugar">Cukr</string>
+    <string name="carb_icon_cola">Cola</string>
+    <string name="carb_icon_candies">Bonbony</string>
+
     <!-- Backup -->
     <string name="backup">Záloha</string>
     <string name="export_backup">Exportovat zálohu</string>

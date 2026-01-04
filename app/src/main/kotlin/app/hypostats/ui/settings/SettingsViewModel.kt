@@ -8,6 +8,7 @@ import app.hypostats.domain.LanguageManager
 import app.hypostats.domain.SettingsRepository
 import app.hypostats.ui.model.AppLanguage
 import app.hypostats.ui.model.AppTheme
+import app.hypostats.ui.model.CarbIcon
 import app.hypostats.ui.model.SettingsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,11 +34,13 @@ class SettingsViewModel
                 settingsRepository.getAppTheme(),
                 selectedLanguage,
                 settingsRepository.getCarbIncrement(),
-            ) { theme, language, carbIncrement ->
+                settingsRepository.getCarbIcon(),
+            ) { theme, language, carbIncrement, carbIcon ->
                 SettingsUiState(
                     selectedLanguage = language,
                     selectedTheme = theme,
                     carbIncrement = carbIncrement,
+                    carbIcon = carbIcon,
                 )
             }.stateIn(
                 scope = viewModelScope,
@@ -59,6 +62,12 @@ class SettingsViewModel
         fun setCarbIncrement(increment: Int) {
             viewModelScope.launch {
                 settingsRepository.setCarbIncrement(increment)
+            }
+        }
+
+        fun selectCarbIcon(icon: CarbIcon) {
+            viewModelScope.launch {
+                settingsRepository.setCarbIcon(icon)
             }
         }
 

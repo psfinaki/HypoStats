@@ -4,4 +4,5 @@ data class SettingsUiState(
     val selectedLanguage: AppLanguage = AppLanguage.SYSTEM,
     val selectedTheme: AppTheme = AppTheme.SYSTEM,
     val carbIncrement: Int = 5,
+    val carbIcon: CarbIcon = CarbIcon.SUGAR,
 )

@@ -23,6 +23,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.hypostats.R
 import app.hypostats.ui.model.SettingsUiState
 import app.hypostats.ui.settings.sections.BackupSection
+import app.hypostats.ui.settings.sections.CarbIconSection
 import app.hypostats.ui.settings.sections.CarbIncrementSection
 import app.hypostats.ui.settings.sections.LanguageSection
 import app.hypostats.ui.settings.sections.ThemeSection
@@ -30,6 +31,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 @Composable
+@Suppress("LongMethod")
 fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel(),
     snackbarHostState: SnackbarHostState,
@@ -88,6 +90,7 @@ fun SettingsScreen(
                     is SettingsEvent.SelectLanguage -> viewModel.selectLanguage(event.language)
                     is SettingsEvent.SelectTheme -> viewModel.selectTheme(event.theme)
                     is SettingsEvent.SetCarbIncrement -> viewModel.setCarbIncrement(event.increment)
+                    is SettingsEvent.SelectCarbIcon -> viewModel.selectCarbIcon(event.icon)
                     SettingsEvent.ExportBackup -> exportLauncher.launch("backup.json")
                     SettingsEvent.ImportBackup -> importLauncher.launch("application/json")
                 }
@@ -127,6 +130,11 @@ private fun SettingsScreenContent(
     CarbIncrementSection(
         carbIncrement = state.carbIncrement,
         onCarbIncrementSelected = { onEvent(SettingsEvent.SetCarbIncrement(it)) },
+    )
+
+    CarbIconSection(
+        selectedIcon = state.carbIcon,
+        onIconSelected = { onEvent(SettingsEvent.SelectCarbIcon(it)) },
     )
 
     BackupSection(
