@@ -1,0 +1,2 @@
+- Carb icon is now configurable
+- Guidance for the offset functionality
