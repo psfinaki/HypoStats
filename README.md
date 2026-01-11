@@ -3,7 +3,7 @@
 
 # HypoStats
 
-A simple Android app for tracking hypoglycemic episodes.
+A simple Android app for noting hypoglycemic episodes.
 
 [<img src="https://f-droid.org/badge/get-it-on.png"
     alt="Get it on F-Droid"
