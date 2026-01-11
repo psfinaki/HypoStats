@@ -3,6 +3,7 @@ package app.hypostats.data
 import app.hypostats.data.local.AppDataStore
 import app.hypostats.domain.SettingsRepository
 import app.hypostats.ui.model.AppTheme
+import app.hypostats.ui.model.CarbIcon
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -26,5 +27,11 @@ class DataStoreSettingsRepository
 
         override suspend fun setCarbIncrement(increment: Int) {
             appDataStore.setCarbIncrement(increment)
+        }
+
+        override fun getCarbIcon(): Flow<CarbIcon> = appDataStore.carbIcon.map { it ?: CarbIcon.SUGAR }
+
+        override suspend fun setCarbIcon(icon: CarbIcon) {
+            appDataStore.setCarbIcon(icon)
         }
     }

@@ -1,6 +1,7 @@
 package app.hypostats.domain
 
 import app.hypostats.ui.model.AppTheme
+import app.hypostats.ui.model.CarbIcon
 import kotlinx.coroutines.flow.Flow
 
 interface SettingsRepository {
@@ -11,4 +12,8 @@ interface SettingsRepository {
     fun getCarbIncrement(): Flow<Int>
 
     suspend fun setCarbIncrement(increment: Int)
+
+    fun getCarbIcon(): Flow<CarbIcon>
+
+    suspend fun setCarbIcon(icon: CarbIcon)
 }

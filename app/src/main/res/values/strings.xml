@@ -56,6 +56,12 @@
     <string name="carb_increment">Carb Increment</string>
     <string name="current_carb_increment">%1$dg</string>
 
+    <!-- Carb Icon Settings -->
+    <string name="carb_icon">Carb Icon</string>
+    <string name="carb_icon_sugar">Sugar</string>
+    <string name="carb_icon_cola">Cola</string>
+    <string name="carb_icon_candies">Candies</string>
+
     <!-- Backup -->
     <string name="backup">Backup</string>
     <string name="export_backup">Export Backup</string>

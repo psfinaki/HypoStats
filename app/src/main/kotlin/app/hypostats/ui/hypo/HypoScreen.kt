@@ -29,6 +29,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -38,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.hypostats.R
+import app.hypostats.ui.model.CarbIcon
 import app.hypostats.ui.model.HypoUiState
 import kotlinx.coroutines.launch
 
@@ -81,13 +83,16 @@ private fun CarbsDisplay(carbs: Int) {
 }
 
 @Composable
-private fun AddCarbsButton(onAddCarbs: () -> Unit) {
+private fun AddCarbsButton(
+    carbIcon: CarbIcon,
+    onAddCarbs: () -> Unit,
+) {
     FloatingActionButton(
         onClick = onAddCarbs,
         modifier = Modifier.size(210.dp).padding(bottom = 32.dp),
     ) {
         Icon(
-            painter = painterResource(R.drawable.sugar),
+            painter = getIconResource(carbIcon),
             contentDescription = stringResource(R.string.add_carbs),
             modifier = Modifier.size(140.dp),
         )
@@ -170,7 +175,10 @@ private fun HypoScreenContent(
             verticalArrangement = Arrangement.Center,
         ) {
             CarbsDisplay(state.carbs)
-            AddCarbsButton(onAddCarbs = { onEvent(HypoEvent.AddCarbs) })
+            AddCarbsButton(
+                carbIcon = state.carbIcon,
+                onAddCarbs = { onEvent(HypoEvent.AddCarbs) },
+            )
             OffsetControls(
                 currentOffset = state.offsetMinutes,
                 onAddOffset = { onEvent(HypoEvent.AddOffset) },
@@ -207,6 +215,14 @@ private fun HelpDialog(onDismiss: () -> Unit) {
         },
     )
 }
+
+@Composable
+private fun getIconResource(carbIcon: CarbIcon): Painter =
+    when (carbIcon) {
+        CarbIcon.SUGAR -> painterResource(R.drawable.sugar)
+        CarbIcon.COLA -> painterResource(R.drawable.cola)
+        CarbIcon.CANDIES -> painterResource(R.drawable.candies)
+    }
 
 @Preview(name = "Portrait")
 @Preview(name = "Landscape", widthDp = 800, heightDp = 300)
