@@ -103,6 +103,7 @@ private fun AddCarbsButton(
 private fun OffsetControls(
     currentOffset: Int,
     onAddOffset: () -> Unit,
+    onHelpClick: () -> Unit,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -128,6 +129,16 @@ private fun OffsetControls(
             text = stringResource(R.string.offset_minutes, currentOffset),
             fontSize = 18.sp,
         )
+
+        IconButton(
+            onClick = onHelpClick,
+            modifier = Modifier.size(24.dp),
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.help_24),
+                contentDescription = stringResource(R.string.offset_help_title),
+            )
+        }
     }
 }
 
@@ -164,8 +175,16 @@ private fun HypoScreenContent(
     val showHelp = { showHelpDialog = true }
     val dismissHelp = { showHelpDialog = false }
 
+    var showOffsetHelpDialog by rememberSaveable { mutableStateOf(false) }
+    val showOffsetHelp = { showOffsetHelpDialog = true }
+    val dismissOffsetHelp = { showOffsetHelpDialog = false }
+
     if (showHelpDialog) {
         HelpDialog(onDismiss = dismissHelp)
+    }
+
+    if (showOffsetHelpDialog) {
+        OffsetHelpDialog(onDismiss = dismissOffsetHelp)
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -182,6 +201,7 @@ private fun HypoScreenContent(
             OffsetControls(
                 currentOffset = state.offsetMinutes,
                 onAddOffset = { onEvent(HypoEvent.AddOffset) },
+                onHelpClick = showOffsetHelp,
             )
             ActionButtons(
                 currentCarbs = state.carbs,
@@ -208,6 +228,20 @@ private fun HelpDialog(onDismiss: () -> Unit) {
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.help_title)) },
         text = { Text(stringResource(R.string.help_message)) },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(R.string.help_ok))
+            }
+        },
+    )
+}
+
+@Composable
+private fun OffsetHelpDialog(onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.offset_help_title)) },
+        text = { Text(stringResource(R.string.offset_help_message)) },
         confirmButton = {
             TextButton(onClick = onDismiss) {
                 Text(stringResource(R.string.help_ok))
@@ -251,6 +285,7 @@ private fun OffsetControlsPreview() {
         OffsetControls(
             currentOffset = 30,
             onAddOffset = { },
+            onHelpClick = { },
         )
     }
 }

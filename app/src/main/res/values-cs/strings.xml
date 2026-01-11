@@ -24,6 +24,8 @@
     <string name="carbs">%1$d sacharidů</string>
     <string name="offset">"Posun: "</string>
     <string name="offset_minutes">%1$d minut</string>
+    <string name="offset_help_title">Jak se používá posun?</string>
+    <string name="offset_help_message">Posun použijte v případě, že zaznamenáváte hypo zpětně.</string>
     <string name="help_title">Co je to hypo?</string>
     <string name="help_message">V této aplikaci, hypo je jakákoliv situace, kdy se musíte něčím dojídat. Neexistuje žádná konkrétní hodnota, protože záleží na rychlosti poklesu glukózy.</string>
     <string name="help_ok">OK</string>
