@@ -7,8 +7,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.time.Instant
 
-class FakeTreatmentRepository : TreatmentRepository {
-    private val treatmentsFlow = MutableStateFlow<List<Treatment>>(emptyList())
+class FakeTreatmentRepository(
+    initialTreatments: List<Treatment> = emptyList(),
+) : TreatmentRepository {
+    private val treatmentsFlow = MutableStateFlow<List<Treatment>>(initialTreatments)
     private val trackingStartDateFlow = MutableStateFlow(Instant.EPOCH)
 
     override fun getAllTreatments(): Flow<List<Treatment>> = treatmentsFlow.asStateFlow()
